@@ -77,7 +77,7 @@ namespace uofi_itp_directory_data.DataAccess {
         public async Task<int> RemoveTag(JobProfileTag? tag) => await _directoryRepository.DeleteAsync(tag);
 
         public async Task<int> SaveEmployee(Employee employee, string changedByNetId, string message) {
-            employee.ProfileUrl = await _employeeAreaHelper.ProfileViewUrl(employee.NetId);
+            employee.ProfileUrl = await _employeeAreaHelper.ProfileViewUrl(employee.NetId, employee.Name);
             var returnValue = await _directoryRepository.UpdateAsync(employee);
             if (_directoryHookHelper != null) {
                 _ = await _directoryHookHelper.SendHook(employee.Id, true);
@@ -88,6 +88,7 @@ namespace uofi_itp_directory_data.DataAccess {
             return returnValue;
         }
 
+        // Used only if the user changed the URL for the area -- very slow.
         public async Task<int> UpdateAllEmployeeUrlProfiles(int areaId, string url) {
             var returnValue = 0;
             foreach (var employee in await _directoryRepository.ReadAsync(d => d.Employees.Include(e => e.JobProfiles).ThenInclude(jp => jp.Office).Where(e => e.JobProfiles.Any(jp => jp.Office.AreaId == areaId)))) {

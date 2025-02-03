@@ -22,7 +22,12 @@ namespace uofi_itp_directory_data.Helpers {
 
         public async Task<string> OfficeInstructions(int? officeId) => (await GetSettings(officeId)).InstructionsOffice;
 
-        public async Task<string> ProfileViewUrl(string netid) {
+        public async Task<string> ProfileViewUrl(string netid, string newFullName) {
+            var (areaSettings, _) = await GetSettings(netid);
+            return ConvertProfileUrl(areaSettings.UrlProfile, netid, newFullName);
+        }
+
+        public async Task<string> ProfileViewUrlReadOnly(string netid) {
             var (areaSettings, fullName) = await GetSettings(netid);
             return ConvertProfileUrl(areaSettings.UrlProfile, netid, fullName);
         }

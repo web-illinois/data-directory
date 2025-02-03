@@ -22,7 +22,7 @@ namespace uofi_itp_directory.Controls {
 
         protected override async Task OnInitializedAsync() {
             var currentUser = await AuthenticationStateProvider.GetUser();
-            Url = await EmployeeAreaHelper.ProfileViewUrl(string.IsNullOrWhiteSpace(NetId) ? currentUser : NetId);
+            Url = await EmployeeAreaHelper.ProfileViewUrlReadOnly(string.IsNullOrWhiteSpace(NetId) ? currentUser : NetId);
             ButtonName = string.IsNullOrWhiteSpace(NetId) || NetId == currentUser ? "View My Profile" : $"View Profile {NetId.Replace("@illinois.edu", "")}";
         }
     }

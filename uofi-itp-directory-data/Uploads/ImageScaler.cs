@@ -14,9 +14,9 @@ namespace uofi_itp_directory_data.Uploads {
                 return (null, "Image is not recognized");
             }
             var img = await Image.LoadAsync(stream);
-            if ((img.Width * rescalePercentage) < width || (img.Height * rescalePercentage) < height) {
+            if ((img.Width * rescalePercentage) < width && (img.Height * rescalePercentage) < height) {
                 return (null, $"Error: Picture does not match minimum dimensions {width} width and {height} height (actual file is {img.Width}x{img.Height})");
-            } else if (img.Width == width || img.Height == height) {
+            } else if (img.Width == width && img.Height == height) {
                 var memoryStreamWebPOriginal = new MemoryStream();
                 await img.SaveAsWebpAsync(memoryStreamWebPOriginal);
                 return (memoryStreamWebPOriginal, "Picture uploaded - make sure to save");
@@ -34,7 +34,7 @@ namespace uofi_itp_directory_data.Uploads {
             }
             var memoryStreamWebP = new MemoryStream();
             await img.SaveAsWebpAsync(memoryStreamWebP);
-            return (memoryStreamWebP, $"Picture rescaled to {width} width and {height} height (actual file is {originalWidth}x{originalHeight}) - make sure to save");
+            return (memoryStreamWebP, $"Picture rescaled to {width} width and {height} height (actual file is {originalWidth}x{originalHeight}) - if this cropped correctly, make sure to save");
         }
     }
 }

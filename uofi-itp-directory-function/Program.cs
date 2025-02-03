@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OpenSearch.Net;
 using uofi_itp_directory_data.Data;
 using uofi_itp_directory_data.DataAccess;
 using uofi_itp_directory_data.DirectoryHook;
@@ -14,6 +15,7 @@ using uofi_itp_directory_external.Email;
 using uofi_itp_directory_external.Experts;
 using uofi_itp_directory_external.ProgramCourse;
 using uofi_itp_directory_function;
+using uofi_itp_directory_search;
 using uofi_itp_directory_search.LoadHelper;
 using uofi_itp_directory_search.SearchHelper;
 
@@ -34,7 +36,8 @@ var host = new HostBuilder()
         _ = services.ConfigureFunctionsApplicationInsights();
         _ = services.AddDbContextFactory<DirectoryContext>(options => options.UseSqlServer(hostContext.Configuration["Values:AppConnection"]).EnableSensitiveDataLogging(true));
         _ = services.AddScoped<DirectoryRepository>();
-        _ = services.AddScoped(c => new PersonMapper(hostContext.Configuration["Values:SearchUrl"], Console.WriteLine));
+        _ = services.AddSingleton(c => LowLevelClientFactory.GenerateClient(hostContext.Configuration["Values:SearchUrl"], hostContext.Configuration["Values:AccessKey"], hostContext.Configuration["Values:SecretKey"]));
+        _ = services.AddScoped(c => new PersonMapper(hostContext.Configuration["Values:SearchUrl"], c.GetService<OpenSearchLowLevelClient>(), Console.WriteLine));
         _ = services.AddScoped<LogHelper>();
         _ = services.AddScoped<EmployeeAreaHelper>();
         _ = services.AddScoped<AreaHelper>();
@@ -44,8 +47,8 @@ var host = new HostBuilder()
         _ = services.AddScoped(c => new DataWarehouseManager(hostContext.Configuration["Values:DataWarehouseUrl"], hostContext.Configuration["Values:DataWarehouseKey"]));
         _ = services.AddScoped(c => new IllinoisExpertsManager(hostContext.Configuration["Values:ExpertsUrl"], hostContext.Configuration["Values:ExpertsSecretKey"]));
         _ = services.AddScoped(c => new ProgramCourseInformation(hostContext.Configuration["Values:ProgramCourseUrl"]));
-        _ = services.AddScoped(c => new PersonGetter(hostContext.Configuration["Values:SearchUrl"]));
-        _ = services.AddScoped(c => new LoadManager(c.GetService<DataWarehouseManager>(), c.GetService<EmployeeHelper>(), c.GetService<ProgramCourseInformation>(), c.GetService<IllinoisExpertsManager>(), c.GetService<AreaHelper>(), hostContext.Configuration["Values:SearchUrl"]));
+        _ = services.AddScoped(c => new PersonGetter(c.GetService<OpenSearchLowLevelClient>()));
+        _ = services.AddScoped(c => new LoadManager(c.GetService<DataWarehouseManager>(), c.GetService<EmployeeHelper>(), c.GetService<ProgramCourseInformation>(), c.GetService<IllinoisExpertsManager>(), c.GetService<AreaHelper>(), hostContext.Configuration["Values:SearchUrl"], c.GetService<OpenSearchLowLevelClient>()));
         _ = services.AddScoped<DirectoryManager>();
         _ = services.AddScoped(c => new EmailHandler(hostContext.Configuration["Values:SocketApiKey"]));
     })
@@ -54,6 +57,6 @@ var host = new HostBuilder()
 using var scope = host.Services.CreateScope();
 var services = scope.ServiceProvider;
 var personMapper = services.GetService<PersonMapper>() ?? throw new NullReferenceException("personMapper");
-Console.WriteLine(await personMapper.Map());
+Console.WriteLine(personMapper.Map());
 
 host.Run();
