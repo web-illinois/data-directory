@@ -37,7 +37,7 @@ jobs:
         uses: Azure/functions-action@v1
         id: fa
         with:
-          app-name: 'itp-function-directory'
+          app-name: 'wigg-directory-infra-funapp01'
           slot-name: 'staging'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
           publish-profile: ${{ secrets.AZURE_FUNCTION_PUBLISH_PROFILE }} 
