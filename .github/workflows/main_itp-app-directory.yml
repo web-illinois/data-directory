@@ -51,7 +51,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'itp-app-directory'
+          app-name: 'wigg-directory-infra-winapp01'
           slot-name: 'staging'
           publish-profile: ${{ secrets.AZURE_WEB_PUBLISH_PROFILE }}
           package: .
