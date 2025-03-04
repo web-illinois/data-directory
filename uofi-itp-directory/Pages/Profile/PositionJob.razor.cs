@@ -61,7 +61,7 @@
             }
         }
 
-        protected async Task AddTag(AreaTag tag, JobProfile profile) {
+        protected void AddTag(AreaTag tag, JobProfile profile) {
             Employee?.JobProfiles.FirstOrDefault(jp => jp.Id == profile.Id)?.AddTag(tag.Title, tag.AllowEmployeeToEdit);
             _isDirty = true;
         }
@@ -92,7 +92,9 @@
                 if (profileTag?.Id != 0) {
                     _ = await EmployeeSecurityHelper.RemoveTag(profileTag);
                 }
-                Employee?.JobProfiles.FirstOrDefault(jp => jp.Id == profile.Id)?.Tags.Remove(profileTag);
+                if (profileTag != null) {
+                    _ = (Employee?.JobProfiles.FirstOrDefault(jp => jp.Id == profile.Id)?.Tags.Remove(profileTag));
+                }
             }
             _isDirty = true;
         }
