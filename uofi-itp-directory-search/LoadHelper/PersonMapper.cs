@@ -11,8 +11,8 @@ namespace uofi_itp_directory_search.LoadHelper {
                 "\"source\" : {\"type\": \"keyword\" }, " +
                 "\"fullname\" : { \"type\" : \"keyword\" }, " +
                 "\"fullnamereversed\" : { \"type\" : \"keyword\" }, " +
-                "\"firstname\" : { \"type\" : \"keyword\" }, " +
-                "\"lastname\" : { \"type\" : \"keyword\" }, " +
+                "\"firstname\" : { \"type\" : \"text\", \"fields\": { \"keyword\": { \"type\": \"keyword\", \"ignore_above\": 256 } } }, " +
+                "\"lastname\" : { \"type\" : \"text\", \"fields\": { \"keyword\": { \"type\": \"keyword\", \"ignore_above\": 256 } } }, " +
                 "\"linkname\" : { \"type\" : \"keyword\" }, " +
                 "\"preferredpronouns\" : { \"type\" : \"keyword\" }, " +
                 "\"email\" : { \"type\" : \"keyword\" }, " +
