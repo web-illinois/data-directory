@@ -23,7 +23,7 @@ namespace uofi_itp_directory_data.Helpers {
     $"{Set("campus", employee.PrimaryJobProfile.Office.Area.Title)}{(string.IsNullOrWhiteSpace(areaInformation) ? "" : "&" + areaInformation.Trim('&'))}";
 
         private string Set(string name, string value, bool isFirst = false) {
-            return (isFirst ? "" : "&") + (string.IsNullOrWhiteSpace(value) ? name + "=" : name + "=" + value.Replace("&", "&amp;"));
+            return (isFirst ? "" : "&") + (string.IsNullOrWhiteSpace(value) ? name + "=" : name + "=" + value.Replace("&", "%26"));
         }
     }
 }
