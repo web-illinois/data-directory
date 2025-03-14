@@ -32,7 +32,7 @@ namespace uofi_itp_directory_data.DataAccess {
             if (employee == null) {
                 return null;
             }
-            if (employee.NetId == name) {
+            if (employee.NetId.Equals(name, StringComparison.OrdinalIgnoreCase)) {
                 employee.IsEntryDisabled = false;
                 employee.IsCurrentUser = true;
             }
