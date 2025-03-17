@@ -7,8 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using uofi_itp_directory_data.Data;
+using uofi_itp_directory_data.DataModels;
+using uofi_itp_directory_data.Helpers;
 using uofi_itp_directory_function.Helpers;
 using uofi_itp_directory_function.ViewModels;
+using uofi_itp_directory_search.ViewModel;
 
 namespace uofi_itp_directory_function {
 
@@ -83,6 +86,13 @@ namespace uofi_itp_directory_function {
                 .Include(a => a.Offices).ThenInclude(o => o.OfficeSettings)
                 .Where(a => a.IsActive && a.AreaSettings.InternalCode == code)
                 .Select(a => new AreaInformation(a, false, officeTypes)).ToList().Where(a => a.Offices.Any()).FirstOrDefault()));
+        }
+
+        [Function("JobTypes")]
+        [OpenApiOperation(operationId: "JobTypes", tags: "Areas", Description = "Get all job types. ")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(IEnumerable<AreaInformation>), Description = "The list of job types")]
+        public async Task<IActionResult> JobTypes([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Area/JobTypes")] HttpRequest req) {
+            return new OkObjectResult(Enum.GetValues<ProfileCategoryTypeEnum>().Select(o => new JobTypeInformation { Name = o.ToString().ToLowerInvariant(), PrettyName = o.ToPrettyString() }).OrderBy(o => o.PrettyName));
         }
     }
 }
