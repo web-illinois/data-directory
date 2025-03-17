@@ -44,6 +44,9 @@
                 return "{ \"from\": " + skip + ", \"size\": " + size + ", \"sort\": [\"fullnamereversed\"], \"query\": { \"bool\": { \"must\": { \"match_all\": {} }, \"filter\": { " + filter + " } } } }";
             }
             s = MakeSafeForJson(s);
+            if (s.Contains('-')) {
+                s = s.Replace("-", " - ");
+            }
             return useFullText
                 ? "{ \"from\": " + skip + ", \"size\": " + size + ", \"sort\": [\"_score\", \"fullnamereversed\"], \"query\": { \"bool\": { \"must\": { \"multi_match\": { \"query\": \"" + s + "\", \"fields\": [ \"lastname^10\", \"firstname^10\", \"username^10\", \"awards.title\", \"jobprofiles.title^5\", \"jobprofiles.office^5\", \"biography^5\", \"courses.title\", \"keywords^10\",\"presentations.title\", \"publications.title^2\", \"researchstatement^5\", \"teachingstatement^5\" ] } }, \"filter\": { " + filter + " } } }, \"highlight\": { \"fields\": { \"biography\": {}, \"researchstatement\": { }, \"teachingstatement\": { }, \"publications.title\": { }, \"awards.title\": { }, \"courses.title\": { }, \"presentations.title\": { }, \"jobprofiles.title\": { }, \"jobprofiles.office\": { } } }, \"suggest\" : { \"text\" : \"" + s + "\", \"suggestion\" : { \"term\" : [ { \"field\" : \"fullname\" },  { \"field\" : \"biography\" } ] } } }"
                 : "{ \"from\": " + skip + ", \"size\": " + size + ", \"sort\": [\"_score\", \"fullnamereversed\"], \"query\": { \"bool\": { \"must\": { \"query_string\": { \"query\": \"*" + s + "*\", \"fields\": [\"firstname\", \"lastname\", \"username\"] } }, \"filter\": { " + filter + " } } }, \"suggest\" : { \"suggestion\" : { \"text\" : \"" + s + "\", \"term\" : { \"field\" : \"fullname\" } } } }";
