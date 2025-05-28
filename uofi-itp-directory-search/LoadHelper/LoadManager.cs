@@ -15,9 +15,9 @@ namespace uofi_itp_directory_search.LoadHelper {
         private readonly EmployeeHelper _employeeHelper = employeeHelper ?? default!;
         private readonly IllinoisExpertsManager _illinoisExpertsManager = illinoisExpertsManager ?? default!;
         private readonly StringBuilder _logger = new();
+        private readonly OpenSearchLowLevelClient _openSearchLowLevelClient = openSearchLowLevelClient ?? default!;
         private readonly ProgramCourseInformation _programCourseInformation = programCourseInformation ?? default!;
         private readonly string _searchUrl = searchUrl ?? "";
-        private readonly OpenSearchLowLevelClient _openSearchLowLevelClient = openSearchLowLevelClient ?? default!;
 
         public async Task<string> LoadPerson(string netId, string source) {
             AddLog($"Starting process with Net ID {netId} and source {source}");
@@ -32,7 +32,7 @@ namespace uofi_itp_directory_search.LoadHelper {
                     return _logger.ToString();
                 }
                 //TODO add more area parameters here, potentially split out from the LoadPerson
-                var useCampusPictures = false;
+                var useCampusPictures = settings?.UrlPeopleRefresh.Contains("use-directory-profile") ?? false;
                 var personSetter = new PersonSetter(_searchUrl, _openSearchLowLevelClient, AddLog);
                 AddLog("Getting initial person information from EDW. ");
                 var edwItem = await _dataWarehouseManager.GetDataWarehouseItem(netId);
@@ -55,7 +55,7 @@ namespace uofi_itp_directory_search.LoadHelper {
                 AddLog(useCampusPictures ? "Getting image from campus" : "Validating image");
                 var imageUrl = useCampusPictures ? DirectoryImage.GetCampusImagePathFromNetId(netId) : DirectoryImage.CheckImage(employee.PhotoUrl);
                 AddLog("Getting courses from programcourses.itpartners.illinois.edu");
-                var courses = _programCourseInformation.GetCourses(source, netId, edwItem.Uin).ToList();
+                var courses = _programCourseInformation.GetCourses(source, netId).ToList();
                 AddLog($"Combining information: EDW, IT Partners Directory, Image{(expertsProfile.UseExperts ? ", Experts" : "")}{(courses.Count > 0 ? ", Courses" : "")}");
                 var profile = EmployeeTranslator.Translate(edwItem, employee, imageUrl, courses, expertsProfile, source);
                 AddLog("Adding to directory using " + source);

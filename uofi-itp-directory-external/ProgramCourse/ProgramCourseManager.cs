@@ -10,10 +10,10 @@ namespace uofi_itp_directory_external.ProgramCourse {
             { "education", "coe" }
         };
 
-        public virtual IEnumerable<Course> GetCourses(string source, string netid, string uin) {
+        public virtual IEnumerable<Course> GetCourses(string source, string netid) {
             var json = "";
             try {
-                var url = $"{_baseUrl}?source={GetCollegeType(source)}&netid={netid}&uin={uin}";
+                var url = $"{_baseUrl}?source={GetCollegeType(source)}&netid={netid}";
                 using var client = new HttpClient();
                 using var res = client.GetAsync(url).Result;
                 using var content = res.Content;
