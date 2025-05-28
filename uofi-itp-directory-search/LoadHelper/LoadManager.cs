@@ -55,7 +55,7 @@ namespace uofi_itp_directory_search.LoadHelper {
                 AddLog(useCampusPictures ? "Getting image from campus" : "Validating image");
                 var imageUrl = useCampusPictures ? DirectoryImage.GetCampusImagePathFromNetId(netId) : DirectoryImage.CheckImage(employee.PhotoUrl);
                 AddLog("Getting courses from programcourses.itpartners.illinois.edu");
-                var courses = _programCourseInformation.GetCourses(source, netId, edwItem.Uin).ToList();
+                var courses = _programCourseInformation.GetCourses(source, netId).ToList();
                 AddLog($"Combining information: EDW, IT Partners Directory, Image{(expertsProfile.UseExperts ? ", Experts" : "")}{(courses.Count > 0 ? ", Courses" : "")}");
                 var profile = EmployeeTranslator.Translate(edwItem, employee, imageUrl, courses, expertsProfile, source);
                 AddLog("Adding to directory using " + source);
