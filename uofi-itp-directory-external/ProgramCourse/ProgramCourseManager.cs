@@ -19,15 +19,15 @@ namespace uofi_itp_directory_external.ProgramCourse {
                 using var content = res.Content;
                 json = content.ReadAsStringAsync().Result;
                 dynamic? data = JsonConvert.DeserializeObject<dynamic>(json);
-                JArray? items = data == null ? null : data.items;
+                JArray? items = data == null ? null : data;
                 return items == null || items.Count == 0
                     ? new List<Course>()
                     : (IEnumerable<Course>) items.Select(x => (dynamic) x).Select(item => new Course {
-                        CourseNumber = item.coursenumber,
-                        Rubric = item.rubric,
-                        Description = item.description,
-                        Url = item.url,
-                        Name = item.title
+                        CourseNumber = item.CourseNumber,
+                        Rubric = item.Rubric,
+                        Description = item.Description,
+                        Url = item.Url,
+                        Name = item.Title
                     }).ToList();
             } catch {
                 return new List<Course>();
