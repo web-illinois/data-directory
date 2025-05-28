@@ -26,7 +26,7 @@ namespace uofi_itp_directory_function {
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(OfficeInformation), Description = "An office")]
         public async Task<IActionResult> GetOffice([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Office/{id}")] HttpRequest req, int id)
             => new OkObjectResult(await _directoryRepository.ReadAsync(c => c.Offices
-                .Include(o => o.OfficeHours).Include(o => o.OfficeSettings)
+                .Include(o => o.OfficeHours).Include(o => o.OfficeSettings).Include(o => o.Area)
                 .Where(o => o.IsActive && o.Id == id)
                 .Select(o => new OfficeInformation(o)).FirstOrDefault()));
 
@@ -36,7 +36,7 @@ namespace uofi_itp_directory_function {
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(OfficeInformation), Description = "An office")]
         public async Task<IActionResult> GetOfficeCode([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Office/Code/{code}")] HttpRequest req, string code)
             => new OkObjectResult(await _directoryRepository.ReadAsync(c => c.Offices
-                .Include(o => o.OfficeHours).Include(o => o.OfficeSettings)
+                .Include(o => o.OfficeHours).Include(o => o.OfficeSettings).Include(o => o.Area)
                 .Where(o => o.IsActive && o.OfficeSettings.InternalCode == code)
                 .Select(o => new OfficeInformation(o)).ToList()));
     }
