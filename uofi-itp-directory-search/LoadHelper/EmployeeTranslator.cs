@@ -19,6 +19,7 @@ namespace uofi_itp_directory_search.LoadHelper {
             ExpertsUrl = expertsProfile.ExpertsUrl,
             FirstName = ChooseFirstNonBlank(directoryEmployee.PreferredNameFirst, dataWarehouseItem.FirstName),
             Hours = directoryEmployee.EmployeeHourText,
+            ImageAltText = directoryEmployee.PhotoAltText,
             ImageUrl = imageUrl,
             LastName = ChooseFirstNonBlank(directoryEmployee.PreferredNameLast, dataWarehouseItem.LastName),
             LinkName = directoryEmployee.NameLinked,

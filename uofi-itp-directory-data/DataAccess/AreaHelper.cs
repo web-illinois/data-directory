@@ -1,13 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using uofi_itp_directory_data.Data;
 using uofi_itp_directory_data.DataModels;
+using uofi_itp_directory_data.DirectoryHook;
 using uofi_itp_directory_data.Security;
 using uofi_itp_directory_external.DataWarehouse;
 
 namespace uofi_itp_directory_data.DataAccess {
 
-    public class AreaHelper(DirectoryRepository directoryRepository, DataWarehouseManager dataWarehouseManager, LogHelper logHelper) {
+    public class AreaHelper(DirectoryRepository directoryRepository, DataWarehouseManager dataWarehouseManager, DirectoryHookHelper directoryHookHelper, LogHelper logHelper) {
         private readonly DataWarehouseManager _dataWarehouseManager = dataWarehouseManager;
+        private readonly DirectoryHookHelper _directoryHookHelper = directoryHookHelper;
         private readonly DirectoryRepository _directoryRepository = directoryRepository;
         private readonly LogHelper _logHelper = logHelper;
 
@@ -67,7 +69,14 @@ namespace uofi_itp_directory_data.DataAccess {
 
         public async Task<int> RemoveTag(AreaTag areaTag, string changedByNetId, string areaTitle) {
             _ = await _logHelper.CreateAreaLog(changedByNetId, "Removed area tag", areaTag.ToString(), areaTag.AreaId, areaTitle);
-            return await _directoryRepository.DeleteAsync(areaTag);
+            var items = await _directoryRepository.ReadAsync(d => d.JobProfileTags.Include(d => d.JobProfile).Where(a => a.Title == areaTag.Title));
+            var employeeIds = items.Select(i => i.JobProfile.EmployeeProfileId).ToArray();
+
+            foreach (var item in items) {
+                _ = _directoryRepository.Delete(item);
+            }
+            _ = await _directoryRepository.DeleteAsync(areaTag);
+            return await _directoryHookHelper.PushDirectoryEntry(employeeIds);
         }
 
         public async Task<int> UpdateArea(Area area, string changedByNetId) {

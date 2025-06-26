@@ -1,0 +1,44 @@
+﻿@page "/search/logs"
+
+<PageTitle>Automated Directory Log | Illinois</PageTitle>
+
+<il-section>
+    <h1>Automated Directory Log</h1>
+
+    <p>This page shows the log of automated directory updates. The log file itself gets deleted and refreshed every 12 hours after the last item is added.</p>
+
+    <h2>Pending Items</h2>
+    <p>Number of items: @this.NumberUnprocessedItems</p>
+
+    <h2>Add a name to the top of the queue</h2>
+    <p>If you need to see a name to debug information, you may add a name to the top of the queue. From there, you may refresh the page to get the latest information. </p>
+
+    <div class="iled-input-box-parent">
+        <div class="iled-input-box">
+            <label for="ed-netid">Net ID to load</label>
+            <input id="ed-netid" type="text" @bind="NewNetId">
+        </div>
+    </div>
+    <div class="iled-buttons-left">
+        <button class="il-button" @onclick="Send" @onblur="RemoveMessage">Send Net ID to queue</button>
+        <button class="il-button" @onclick="RefreshInformation" @onblur="RemoveMessage">Refresh Information</button>
+    </div>
+    <ToastPopup></ToastPopup>
+
+
+
+    <h2>Processed names</h2>
+    @if (this.Completed != null && this.Completed.Any())
+    {
+        <ul>
+            @foreach (var name in this.Completed)
+            {
+                <li style="list-style: none; margin: 0;"><details><summary style="padding: 5px;">@name.Summary</summary>@name.DateDetails<br />@name.Message</details></li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No processed names.</p>
+    }
+</il-section>

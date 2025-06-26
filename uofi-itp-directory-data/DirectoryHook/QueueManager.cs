@@ -9,7 +9,7 @@ namespace uofi_itp_directory_data.DirectoryHook {
         private readonly DirectoryRepository _directoryRepository = directoryRepository;
 
         public async Task<string> Process(int count) {
-            var queue = await _directoryRepository.ReadAsync(d => d.DirectoryEntries.Where(de => de.DateRun == null).Take(count));
+            var queue = await _directoryRepository.ReadAsync(d => d.DirectoryEntries.Where(de => de.DateRun == null).OrderByDescending(de => de.IsPriority).Take(count));
             if (queue.Any()) {
                 var responseQueue = new List<DirectoryEntry>();
                 foreach (var directoryEntry in queue) {
@@ -17,7 +17,7 @@ namespace uofi_itp_directory_data.DirectoryHook {
                 }
                 return "Processed queue: " + string.Join("; ", responseQueue.Select(q => q.Summary)) + ".";
             } else {
-                var lastRun = await _directoryRepository.ReadAsync(d => d.DirectoryEntries.OrderByDescending(de => de.DateRun).FirstOrDefault(de => de.DateRun != null));
+                var lastRun = await _directoryRepository.ReadAsync(d => d.DirectoryEntries.OrderByDescending(de => de.DateRun).FirstOrDefault(de => de.DateRun != null && !de.IsPriority));
                 if (lastRun != null && lastRun.DateRun.HasValue && lastRun.DateRun.Value.AddHours(_hoursToWait) > DateTime.Now) {
                     return $"Queue is empty. Last item run at {lastRun.DateRun.Value:g}. Waiting.";
                 } else {

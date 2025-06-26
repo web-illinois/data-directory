@@ -18,6 +18,12 @@ namespace uofi_itp_directory_data.DirectoryHook {
             _url = url ?? "";
         }
 
+        public async Task<List<DirectoryEntry>> GetProcessed() => [.. await _directoryRepository.ReadAsync(d => d.DirectoryEntries
+                .Where(de => de.DateRun != null).OrderByDescending(de => de.DateRun))];
+
+        public async Task<int> GetUnprocessedCount() => await _directoryRepository.ReadAsync(d => d.DirectoryEntries
+            .Where(de => de.DateRun == null).Count());
+
         public async Task<int> LoadAreas() {
             var returnValue = 0;
             _ = _directoryRepository.DeleteAllDirectoryEntries();
@@ -42,6 +48,14 @@ namespace uofi_itp_directory_data.DirectoryHook {
             entry.Message = results;
             _ = await _directoryRepository.UpdateAsync(entry);
             return entry;
+        }
+
+        public async Task<int> PushDirectoryEntry(int[] employeeIds) {
+            var returnValue = 0;
+            foreach (var employeeId in employeeIds.Distinct()) {
+                returnValue += await _directoryRepository.CreateAsync(new DirectoryEntry(employeeId, true));
+            }
+            return returnValue;
         }
 
         public async Task<(bool isSuccessful, string netid, string results)> SendHook(int employeeId, bool ignoreResults) {
