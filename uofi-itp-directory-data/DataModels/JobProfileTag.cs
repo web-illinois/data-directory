@@ -10,6 +10,7 @@ namespace uofi_itp_directory_data.DataModels {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
 
+        public virtual JobProfile JobProfile { get; set; } = default!;
         public int JobProfileId { get; set; }
 
         public string Title { get; set; } = "";

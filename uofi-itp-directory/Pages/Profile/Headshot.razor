@@ -11,6 +11,17 @@
         <Instructions ChildContent="@Instructions"></Instructions>
         <ImageUploader IsDisabled=@Employee.IsEntryDisabled @ref="@ImageUploader" Size="@Size" Height="@Height" Width="@Width" FileUrl="@Employee.PhotoUrl" ItemId="@Employee.NetIdTruncated" Delete="DeleteImage" Save="SaveImage"></ImageUploader>
 
+        <div class="iled-input-box-parent">
+            <div class="iled-input-box">
+                <label for="ed-alttext">Alternative Text for Headshot</label>
+                <input id="ed-alttext" type="text" disabled="@Employee.IsEntryDisabled" @bind="Employee.PhotoAltText">
+            </div>
+            <div class="iled-instructions">
+                Describe your headshot as if you were describing it to someone on the phone. This is used for accessibility purposes. Do not use the phrase "photo of" or "picture of" in the description.
+            </div>
+        </div>
+
+
         <div class="iled-buttons-left">
             <button class="il-button" disabled="@Employee.IsEntryDisabled" @onclick="Send" @onblur="RemoveMessage">Save</button>
             <ViewProfile NetId="@Employee.NetId"></ViewProfile>

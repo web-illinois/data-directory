@@ -7,6 +7,7 @@ using uofi_itp_directory.ControlHelper;
 using uofi_itp_directory_data.Cache;
 using uofi_itp_directory_data.DataAccess;
 using uofi_itp_directory_data.DataModels;
+using uofi_itp_directory_data.DirectoryHook;
 using uofi_itp_directory_data.Helpers;
 using uofi_itp_directory_external.Experts;
 
@@ -33,6 +34,9 @@ namespace uofi_itp_directory.Pages.Profile {
         protected CacheHolder CacheHolder { get; set; } = default!;
 
         [Inject]
+        protected DirectoryHookHelper DirectoryHookHelper { get; set; } = default!;
+
+        [Inject]
         protected EmployeeAreaHelper EmployeeAreaHelper { get; set; } = default!;
 
         [Inject]
@@ -43,6 +47,16 @@ namespace uofi_itp_directory.Pages.Profile {
 
         [Inject]
         protected IJSRuntime JsRuntime { get; set; } = default!;
+
+        public async Task RefreshDirectory() {
+            if (Employee == null) {
+                _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "No employee to refresh");
+                return;
+            }
+            _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", $"Directory Entry Starting Refresh");
+            var results = await DirectoryHookHelper.SendHook(Employee.Id, false);
+            _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", results.isSuccessful ? "Directory Entry refresh complete" : results.results);
+        }
 
         public async Task RemoveMessage() => _ = await JsRuntime.InvokeAsync<bool>("removeAlertOnScreen");
 

@@ -64,12 +64,12 @@ namespace uofi_itp_directory.Pages.Profile {
         public async Task Send() {
             if (Employee != null && ImageUploader != null) {
                 if (await ImageUploader.SaveFile()) {
-                    _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "Information starting to update");
                     Employee.PhotoUrl = ImageUploader.FileUrl;
-                    _ = await EmployeeSecurityHelper.SaveEmployee(Employee, await AuthenticationStateProvider.GetUser(), "Headshot");
-                    _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "Information updated");
-                    _isDirty = false;
                 }
+                _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "Information starting to update");
+                _ = await EmployeeSecurityHelper.SaveEmployee(Employee, await AuthenticationStateProvider.GetUser(), "Headshot");
+                _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "Information updated");
+                _isDirty = false;
             }
         }
 

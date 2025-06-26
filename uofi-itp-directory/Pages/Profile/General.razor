@@ -7,6 +7,7 @@
 <il-section>
     <h1>@Employee.ProfileName</h1>
     <p>Welcome to @(Employee.IsCurrentUser ? "your profile" : "the profile of " + Employee.ProfileName)! Edit the profile information below.</p>
+        <p>You can <a href="https://go.uillinois.edu/myprofile">edit some information in the My UI Info</a> and it will update your directory information as well. If you update the My UI Info, it will take a few days to process. You can force a refresh by clicking the Save button at the end of this screen.</p>
         <Instructions ChildContent="@Instructions"></Instructions>
 
         @if (!string.IsNullOrWhiteSpace(ShowBackButton) && ShowBackButton == "search")
@@ -126,7 +127,7 @@
         </div>
     </div>
     <div class="iled-buttons-left">
-        <button class="il-button" @onclick="Send" disabled="@Employee.IsEntryDisabled" @onblur="RemoveMessage">Save</button>
+        <button class="il-button il-orange" @onclick="Send" disabled="@Employee.IsEntryDisabled" @onblur="RemoveMessage">Save</button>
         <ViewProfile NetId="@Employee.NetId"></ViewProfile>
     </div>
     <ToastPopup></ToastPopup>

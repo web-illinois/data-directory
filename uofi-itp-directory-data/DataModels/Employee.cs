@@ -58,6 +58,7 @@ namespace uofi_itp_directory_data.DataModels {
         public string NetIdTruncated => NetId?.ToLowerInvariant().Replace("@illinois.edu", "").ToLowerInvariant() ?? "";
 
         public string Phone { get; set; } = "";
+        public string PhotoAltText { get; set; } = "";
         public string PhotoUrl { get; set; } = "";
         public string PreferredNameFirst { get; set; } = "";
         public string PreferredNameLast { get; set; } = "";
