@@ -50,10 +50,10 @@ namespace uofi_itp_directory.Pages.Unit {
         public async Task RemoveMessage() => _ = await JsRuntime.InvokeAsync<bool>("removeAlertOnScreen");
 
         public async Task RemoveTag(AreaTag tag) {
-            if (await JsRuntime.InvokeAsync<bool>("confirm", $"You are removing the tag {tag.Title} from the system. Job profiles will still have the tag and need to be removed independently. Are you really sure you want to do this?")) {
-                _ = await AreaHelper.RemoveTag(tag, await AuthenticationStateProvider.GetUser(), UnitTitle);
-                AreaTags?.Remove(tag);
-                _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "Tag removed");
+            if (await JsRuntime.InvokeAsync<bool>("confirm", $"You are removing the tag {tag.Title} from the system, including all profiles. Are you really sure you want to do this?")) {
+                var numberEntries = await AreaHelper.RemoveTag(tag, await AuthenticationStateProvider.GetUser(), UnitTitle);
+                _ = AreaTags?.Remove(tag);
+                _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", $"Tag removed -- {numberEntries} in queue to update.");
                 StateHasChanged();
             }
         }

@@ -28,6 +28,9 @@ namespace uofi_itp_directory_search.ViewModel {
         [JsonProperty("hours")]
         public string Hours { get; set; } = "";
 
+        [JsonProperty("imagealttext")]
+        public string ImageAltText { get; set; } = "";
+
         [JsonProperty("imageurl")]
         public string ImageUrl { get; set; } = "";
 

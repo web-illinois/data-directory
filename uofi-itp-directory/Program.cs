@@ -77,7 +77,7 @@ app.Lifetime.ApplicationStarted.Register(() => {
     var factory = app.Services.GetService<IServiceScopeFactory>() ?? throw new NullReferenceException("service scope factory is null");
     using var serviceScope = factory.CreateScope();
     var context = serviceScope.ServiceProvider.GetRequiredService<DirectoryContext>();
-    _ = context.Database.EnsureCreated();
+    context.Database.Migrate();
 });
 
 app.Run();

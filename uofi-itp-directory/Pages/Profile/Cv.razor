@@ -12,7 +12,7 @@
         <DocumentUploader IsDisabled=@Employee.IsEntryDisabled @ref="@DocumentUploader" FileUrl="@Employee.CVUrl" ItemId="@Employee.NetIdTruncated" Delete="DeleteDocument" Save="SaveDocument"></DocumentUploader>
 
         <div class="iled-buttons-left">
-            <button class="il-button" disabled="@Employee.IsEntryDisabled" @onclick="Send" @onblur="RemoveMessage">Save Document</button>
+            <button class="il-button il-orange" disabled="@Employee.IsEntryDisabled" @onclick="Send" @onblur="RemoveMessage">Save Document</button>
             <ViewProfile NetId="@Employee.NetId"></ViewProfile>
         </div>
     </il-section>

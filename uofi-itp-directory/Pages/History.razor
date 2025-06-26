@@ -10,13 +10,13 @@
 
 <p>Based on these two needs, we created a Contact Support Application with Tech Services to store unit and office information. We then added code to store profile information. Finally, we turned our faculty load process to call APIs from this application, and then built a complex Microsoft Power Automate script to run this. This was a lot of work and really not sustainable across multiple colleges.</p>
 
-<p>In 2024, we rebuilt this to update the code, make the interface a lot better, and simplify the directory load.</p>
+<p>In 2024, we rebuilt this to update the code, make the interface a lot better, and simplify the directory load. We also moved this to Tech Services so it can be used by campus.</p>
 
 <h2>Can you get information from this?</h2>
 <p>
-    Yes! This works in conjunction with the <a href="https://directoryapi.itpartners.illinois.edu/api/swagger/ui">Directory API</a>. This is an API that can get unit, office, and basic profile information. It also has a hook that trigger a faculty load. The faculty load integrates with Illinois Experts, EDW, and course information from various repositories. There are plans to add additional functionality to allow colleges to load their own information about their faculty. Because this load is potentially destructive, we will need to create a custom key. This key will be distributed to outside applications for their custom loads.
+    Yes! This works in conjunction with the <a href="https://directoryapi.wigg.illinois.edu/api/swagger/ui">Directory API</a>. This is an API that can get unit, office, and basic profile information. It also has a hook that trigger a faculty load. The faculty load integrates with Illinois Experts, EDW, and course information from various repositories. There are plans to add additional functionality to allow colleges to load their own information about their faculty. Because this load is potentially destructive, we will need to create a custom key. This key will be distributed to outside applications for their custom loads.
 </p>
 
 <h2>How do I see the code?</h2>
 
-<p>Go to our <a href="https://github.com/itpartnersillinois/uofi-itp-directory">GitHub repository</a>.</p>
+<p>Go to our <a href="https://github.com/web-illinois/data-directory">GitHub repository</a>.</p>

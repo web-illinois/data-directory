@@ -22,7 +22,7 @@ namespace uofi_itp_directory_data.DataAccess {
                 return (0, $"Profile already exists for {netid}");
             var name = await _dataWarehouseManager.GetDataWarehouseItem(netid);
             if (!name.IsValid)
-                return (0, $"Net ID '{netid}' not found");
+                return (0, $"Net ID '{netid}' not found - this may be because they have their information suppressed by campus.");
             var existingEmployee = await _directoryRepository.ReadAsync(d => d.Employees.FirstOrDefault(e => e.NetId == netid));
 
             if (existingEmployee == null) {

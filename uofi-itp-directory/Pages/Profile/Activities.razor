@@ -9,6 +9,12 @@
         @if (ShouldUseExperts)
         {
             <p>This person should update their publications, presentations, history, etc. at <a href="https://go.illinois.edu/experts-login" target="_blank">Illinois Experts</a>. For more information, see our <a href="/illinoisexperts">Illinois Experts Integration</a> section.</p>
+            <p>Note that if you change Illinois Experts, your directory entry will not be updated immediately -- it will get updated in the normal directory process, but it may take a few days to process. You can force a refresh by clicking the button below.</p>
+            <div class="iled-buttons-left">
+                <button class="il-button" @onclick="RefreshDirectory" disabled="@Employee.IsEntryDisabled" @onblur="RemoveMessage">Refresh Directory Entry</button>
+                <ViewProfile NetId="@Employee.NetId"></ViewProfile>
+            </div>
+            <ToastPopup></ToastPopup>
         }
         else
         {
@@ -70,7 +76,7 @@
                     </div>
                 </div>
                 <div class="iled-buttons-left">
-                    <button class="il-button" disabled="@Employee.IsEntryDisabled" @onclick="() => Save(activity)" @onblur="RemoveMessage">@(activity.InEditState ? "Save" : "Edit")</button>
+                            <button class="il-button il-orange" disabled="@Employee.IsEntryDisabled" @onclick="() => Save(activity)" @onblur="RemoveMessage">@(activity.InEditState ? "Save" : "Edit")</button>
                     <button class="il-button" disabled="@(Employee.IsEntryDisabled || activity.InEditState)" @onclick="() => Delete(activity)" @onblur="RemoveMessage">Delete</button>
                 </div>
               </div>

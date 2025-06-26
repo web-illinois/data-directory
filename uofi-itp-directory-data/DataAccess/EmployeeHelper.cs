@@ -59,10 +59,15 @@ namespace uofi_itp_directory_data.DataAccess {
             return employee;
         }
 
+        public async Task<int> GetEmployeeByNetId(string netId) {
+            netId = AddIllinoisEdu(netId);
+            return await _directoryRepository.ReadAsync(d => d.Employees.FirstOrDefault(e => e.NetId.Equals(netId))?.Id ?? 0);
+        }
+
         public async Task<Employee?> GetEmployeeForSignature(int? id, string name) => await _directoryRepository.ReadAsync(d => d.Employees.Include(e => e.JobProfiles).ThenInclude(jp => jp.Office).ThenInclude(o => o.Area).FirstOrDefault(e => e.NetId == name && id == null || e.Id == id));
 
         public async Task<Employee?> GetEmployeeReadOnly(string netId, string source) {
-            netId = netId.Replace("@illinois.edu", "") + "@illinois.edu";
+            netId = AddIllinoisEdu(netId);
             var employee = await _directoryRepository.ReadAsync(d => d.Employees.Include(e => e.JobProfiles).ThenInclude(jp => jp.Office).ThenInclude(o => o.Area).ThenInclude(a => a.AreaSettings).Include(e => e.JobProfiles).ThenInclude(jp => jp.Tags).Include(e => e.EmployeeActivities).Include(e => e.EmployeeHours).FirstOrDefault(e => e.NetId == netId));
             if (employee != null && employee.JobProfiles != null) {
                 employee.JobProfiles = employee.JobProfiles.Where(j => j.Office.Area.AreaSettings.InternalCode == source && j.Office.CanAddPeople).ToList();
@@ -99,5 +104,7 @@ namespace uofi_itp_directory_data.DataAccess {
             }
             return returnValue;
         }
+
+        private static string AddIllinoisEdu(string netId) => netId.Replace("@illinois.edu", "") + "@illinois.edu";
     }
 }
