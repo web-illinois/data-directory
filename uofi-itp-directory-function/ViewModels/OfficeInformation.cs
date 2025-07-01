@@ -18,6 +18,8 @@ namespace uofi_itp_directory_function.ViewModels {
 
         public string City { get; set; } = office.City;
 
+        public string Description { get; set; } = office.Description;
+
         public string Email { get; set; } = office.Email;
 
         public string ExternalUrl { get; set; } = office.ExternalUrl;
