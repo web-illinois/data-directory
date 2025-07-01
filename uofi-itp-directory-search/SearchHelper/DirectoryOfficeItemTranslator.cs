@@ -14,6 +14,7 @@ namespace uofi_itp_directory_search.SearchHelper {
                     Address = office.Address,
                     Building = office.Building,
                     City = office.City,
+                    Description = office.Description,
                     State = office.State,
                     Zip = office.ZipCode,
                     Email = office.Email,

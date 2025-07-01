@@ -13,6 +13,9 @@ namespace uofi_itp_directory_search.ViewModel {
         [JsonProperty("city")]
         public string City { get; set; } = "";
 
+        [JsonProperty("description")]
+        public string Description { get; set; } = "";
+
         [JsonProperty("email")]
         public string Email { get; set; } = "";
 
