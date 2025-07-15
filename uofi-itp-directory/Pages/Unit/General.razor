@@ -2,14 +2,14 @@
 
 <PageTitle>Unit General | Illinois</PageTitle>
 <NavigationLock OnBeforeInternalNavigation=this.LocationChangingHandler ConfirmExternalNavigation=_isDirty />
-<il-section>
+<div class="iled-section">
     <h1>@UnitTitle</h1>
     <p>Edit your unit’s general information below.</p>
     @if (!string.IsNullOrWhiteSpace(ShowBackButton) && ShowBackButton == "search")
     {
-        <p><a href="/search/units" class="il-button">Back to Searching for Units</a></p>
+        <p><a href="/search/units" class="ilw-button">Back to Searching for Units</a></p>
     }
-</il-section>
+</div>
 @if (!UnitId.HasValue)
 {
     <MultiChoice @ref="_multiChoice" Type="MultiChoiceTypeEnum.Area" AreaOfficeThinObjects="_areaThinObjects" OnClickCallback="AssignId"></MultiChoice>
@@ -68,7 +68,7 @@ else if (Area != null)
         </div>
      </div>
     <div class="iled-buttons-left">
-        <button class="il-button il-orange" @onclick="Send" @onblur="RemoveMessage">Save</button>
+        <button class="ilw-button ilw-theme-orange-1" @onclick="Send" @onblur="RemoveMessage">Save</button>
     <ClearCacheButton></ClearCacheButton>
     </div>
     <ToastPopup></ToastPopup>

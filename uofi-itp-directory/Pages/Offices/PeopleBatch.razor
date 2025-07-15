@@ -2,10 +2,10 @@
 
 <PageTitle>Office People Batch Load | Illinois</PageTitle>
 
-<il-section>
+<div class="iled-section">
     <h1>@OfficeTitle People Batch Load</h1>
     <p>This allows you to add a batch of people with the same category and job title. Note that these people will be added to your profile on the next run unless you specifically mark them as "None". </p>
-</il-section>
+</div>
 @if (!OfficeId.HasValue)
 {
     <MultiChoice @ref="_multiChoice" Type="MultiChoiceTypeEnum.Office" AreaOfficeThinObjects="_officeThinObjects" OnClickCallback="AssignId"></MultiChoice>
@@ -45,7 +45,7 @@ else
         </div>
     </div>
     <div class="iled-buttons-left">
-        <button class="il-button" @onclick="Send" @onblur="RemoveMessage">Add Employees</button>
+        <button class="ilw-button" @onclick="Send" @onblur="RemoveMessage">Add Employees</button>
         <ClearCacheButton></ClearCacheButton>
     </div>
     <div>

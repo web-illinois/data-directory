@@ -1,38 +1,23 @@
 ﻿@inherits LayoutComponentBase
 @layout SidebarLayout
-
-<il-section-with-sidebar>
+<CascadingValue Value="this">
+<ilw-columns mode="sidebar-left" gap="44px" width="page">
     <div slot="sidebar">
-        <il-section-nav>
-            <h3><a href="/profile/general">Profile Administration</a></h3>
-            <ul>
-                <li>
-                    <a title="General Information" href="/profile/general">General Information</a>
-                </li>
-                <li>
-                    <a title="Job Information" href="/profile/job">Job / Position Information</a>
-                </li>
-                <li>
-                    <a title="Headshot" href="/profile/headshot">Headshot</a>
-                </li>
-                <li>
-                    <a title="Resume / CV" href="/profile/cv">Resume / CV</a>
-                </li>
-                <li>
-                    <a title="Biography" href="/profile/biography">Biography</a>
-                </li>
-                <li>
-                    <a title="Office Hours" href="/profile/hours">Office Hours</a>
-                </li>
-                <li>
-                    <a title="Activities" href="/profile/activities">Activities</a>
-                </li>
-                <li>
-                    <a title="Generate Email Signature" href="/profile/signature">Generate Email Signature</a>
-                </li>
-            </ul>
-        </il-section-nav>
+        <ilw-section-nav>
+            <span class="ilw-section-nav--root">Profile Administration</span>
+            <a title="General Information" aria-current="@(BaseUrl.StartsWith("/profile/general") ? "page" : null)" href="/profile/general">General Information</a>
+                <a title="Job Information" aria-current="@(BaseUrl.StartsWith("/profile/job") ? "page" : null)" href="/profile/job">Job / Position Information</a>
+            <a title="Headshot" aria-current="@(BaseUrl.StartsWith("/profile/headshot") ? "page" : null)" href="/profile/headshot">Headshot</a>
+            <a title="Resume / CV" aria-current="@(BaseUrl.StartsWith("/profile/cv") ? "page" : null)" href="/profile/cv">Resume / CV</a>
+            <a title="Biography" aria-current="@(BaseUrl.StartsWith("/profile/biography") ? "page" : null)" href="/profile/biography">Biography</a>
+            <a title="Office Hours" aria-current="@(BaseUrl.StartsWith("/profile/hours") ? "page" : null)" href="/profile/hours">Office Hours</a>
+            <a title="Activities" aria-current="@(BaseUrl.StartsWith("/profile/activities") ? "page" : null)" href="/profile/activities">Activities</a>
+            <a title="Generate Email Signature" aria-current="@(BaseUrl.StartsWith("/profile/signature") ? "page" : null)" href="/profile/signature">Generate Email Signature</a>
+        </ilw-section-nav>
         <LoginInformation></LoginInformation>
     </div>
-    @Body
-</il-section-with-sidebar>
+    <ilw-content>
+        @Body
+    </ilw-content>
+</ilw-columns>
+</CascadingValue>

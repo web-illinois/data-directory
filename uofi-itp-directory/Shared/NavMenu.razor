@@ -1,19 +1,23 @@
-﻿<il-nav slot="navigation">
+﻿<ilw-header-menu slot="navigation">
+    <ul>
     @if (FullSecurityItem?.IsFullAdmin ?? false)
     {
-        <il-nav-section>
-            <a href="/admin/units" slot="label">Administrators</a>
-            <ul class="il-subnav">
+        <li>
+            <ilw-header-menu-section>
+            <span slot="label">Administrators</span>
+            <ul>
                 <li><a href="/admin/units">Add and Remove Units</a></li>
                 <li><a href="/admin/users">Global Administrators</a></li>
             </ul>
-        </il-nav-section>
+            </ilw-header-menu-section>
+        </li>
     }
     @if (FullSecurityItem?.IsUnitAdmin ?? false)
     {
-        <il-nav-section>
-            <a href="/unit/general" slot="label">Unit Information</a>
-        <ul class="il-subnav">
+        <li>
+            <ilw-header-menu-section>
+                    <span slot="label">Unit Information</span>
+        <ul>
                 <li><a href="/unit/general">General Information</a></li>
                 <li><a href="/unit/offices">Add and Remove Offices</a></li>
                 <li><a href="/unit/users">Unit Administrators</a></li>
@@ -21,13 +25,16 @@
                 <li><a href="/unit/tags">Tag Information</a></li>
                 <li><a href="/unit/directory">Links to Pull Information</a></li>
         </ul>
-    </il-nav-section>
+    </ilw-header-menu-section>
+            </li>
+
     }
     @if (FullSecurityItem?.IsOfficeAdmin ?? false)
-    {
-        <il-nav-section>
-            <a href="/office/general" slot="label">Office Information</a>
-            <ul class="il-subnav">
+    {        <li>
+
+            <ilw-header-menu-section>
+                    <span slot="label">Office Information</span>
+            <ul>
                 <li><a href="/office/general">General Information</a></li>
                 <li><a href="/office/hours">Office Hours</a></li>
                 <li><a href="/office/people">People</a></li>
@@ -39,13 +46,17 @@
                     <li><a href="/office/directory">Links to Pull Information</a></li>
                 }
         </ul>
-    </il-nav-section>
+    </ilw-header-menu-section>
+            </li>
+
     }
     @if (FullSecurityItem?.HasProfile ?? false)
     {
-        <il-nav-section>
-            <a href="/profile/general/personal" slot="label">My Profile</a>
-            <ul class="il-subnav">
+                <li>
+
+            <ilw-header-menu-section>
+                    <span slot="label">My Profile</span>
+            <ul>
                 <li><a href="/profile/general/personal">General Information</a></li>
                 <li><a href="/profile/job/personal">Job / Position Information</a></li>
                 <li><a href="/profile/headshot/personal">Headshot</a></li>
@@ -55,25 +66,33 @@
                 <li><a href="/profile/activities/personal">Activites</a></li>
                 <li><a href="/profile/signature/personal">Generate Email Signature</a></li>
         </ul>
-    </il-nav-section>
+    </ilw-header-menu-section>
+            </li>
+
     }
-    <il-nav-section>
-        <a href="/search/people" slot="label">Search Information</a>
-        <ul class="il-subnav">
+            <li>
+
+        <ilw-header-menu-section>
+        <span slot="label">Search Information</span>
+        <ul>
             <li><a href="/search/people">Search for People</a></li>
             <li><a href="/search/offices">Search for Offices</a></li>
             <li><a href="/search/units">Search for Units</a></li>
             <li><a href="/search/logs">Logs</a></li>
         </ul>
-    </il-nav-section>
-    <il-nav-section>
-        <a href="/viewadmin" slot="label">Contact Us</a>
-        <ul class="il-subnav">
+    </ilw-header-menu-section>
+        </li>
+        <li>
+            <ilw-header-menu-section>
+                <span slot="label">Contact Us</span>
+        <ul>
             <li><a href="/viewadmin">Helpful Resources</a></li>
             <li><a href="https://go.illinois.edu/itpartners-directory-help">Report a Problem</a></li>
             <li><a href="/history">About This Project</a></li>
             <li><a href="/directory">Creating a Directory</a></li>
             <li><a href="/illinoisexperts">Illinois Experts Integration</a></li>
         </ul>
-    </il-nav-section>
-</il-nav>
+    </ilw-header-menu-section>
+                </li>
+    </ul>
+</ilw-header-menu>

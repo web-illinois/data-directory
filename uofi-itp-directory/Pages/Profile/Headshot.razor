@@ -4,7 +4,7 @@
 <NavigationLock OnBeforeInternalNavigation=this.LocationChangingHandler ConfirmExternalNavigation=_isDirty />
 @if (Employee != null)
 {
-    <il-section>
+    <div class="iled-section">
         <h1>@Employee.ProfileName Headshot</h1>
         <p>Add a professional headshot to this profile by uploading a photo below. Please be sure the image is already cropped, or the image will auto-resize to a similar size. If you have a photo already loaded, delete the photo before uploading a new photo. Make sure you save any changes.</p>
 
@@ -23,10 +23,10 @@
 
 
         <div class="iled-buttons-left">
-            <button class="il-button" disabled="@Employee.IsEntryDisabled" @onclick="Send" @onblur="RemoveMessage">Save</button>
+            <button class="ilw-button ilw-theme-orange-1" disabled="@Employee.IsEntryDisabled" @onclick="Send" @onblur="RemoveMessage">Save</button>
             <ViewProfile NetId="@Employee.NetId"></ViewProfile>
         </div>
         <ToastPopup></ToastPopup>
 
-    </il-section>
+    </div>
 }

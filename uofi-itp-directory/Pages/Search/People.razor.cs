@@ -11,6 +11,8 @@ namespace uofi_itp_directory.Pages.Search {
 
         [Inject]
         public LookupHelper LookupHelper { get; set; } = default!;
+        [CascadingParameter]
+        public LayoutSearch Layout { get; set; } = default!;
 
         public int? LookupId { get; set; }
         public List<LookupThinObject> LookupThinObjects { get; set; } = [];
@@ -38,6 +40,7 @@ namespace uofi_itp_directory.Pages.Search {
         }
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             LookupThinObjects = await LookupHelper.GetJobProfiles("");
         }
     }

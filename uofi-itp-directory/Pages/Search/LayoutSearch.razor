@@ -1,26 +1,19 @@
 ﻿@inherits LayoutComponentBase
 @layout SidebarLayout
-
-<il-section-with-sidebar>
+<CascadingValue Value="this">
+<ilw-columns mode="sidebar-left" gap="44px" width="page">
     <div slot="sidebar">
-        <il-section-nav>
-            <h3><a href="/search/people">Search</a></h3>
-            <ul>
-                <li>
-                    <a title="Search for People" href="/search/people">Search for People</a>
-                </li>
-                <li>
-                    <a title="Search for Offices" href="/search/offices">Search for Offices</a>
-                </li>
-                <li>
-                    <a title="Search for Units" href="/search/units">Search for Units</a>
-                </li>
-                <li>
-                    <a title="Search for Units" href="/search/logs">Logs</a>
-                </li>
-            </ul>
-        </il-section-nav>
+        <ilw-section-nav>
+            <span class="ilw-section-nav--root">Search</span>
+            <a title="Search for People" aria-current="@(BaseUrl == "/search/people" ? "page" : null)" href="/search/people">Search for People</a>
+            <a title="Search for Offices" aria-current="@(BaseUrl == "/search/offices" ? "page" : null)" href="/search/offices">Search for Offices</a>
+            <a title="Search for Units" aria-current="@(BaseUrl == "/search/units" ? "page" : null)" href="/search/units">Search for Units</a>
+            <a title="Search for Units" aria-current="@(BaseUrl == "/search/logs" ? "page" : null)" href="/search/logs">Logs</a>
+        </ilw-section-nav>
         <LoginInformation></LoginInformation>
     </div>
-    @Body
-</il-section-with-sidebar>
+    <ilw-content>
+        @Body
+    </ilw-content>
+</ilw-columns>
+</CascadingValue>

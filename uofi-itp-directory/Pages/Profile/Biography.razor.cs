@@ -19,6 +19,8 @@ namespace uofi_itp_directory.Pages.Profile {
         public string BiographyText { get; set; } = "";
 
         public Employee? Employee { get; set; } = default!;
+        [CascadingParameter]
+        public LayoutProfile Layout { get; set; } = default!;
 
         public bool HideQuillInformationForUpdates { get; set; } = false;
 
@@ -70,6 +72,7 @@ namespace uofi_itp_directory.Pages.Profile {
         }
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             var employeeId = CacheHelper.GetCachedEmployee(await AuthenticationStateProvider.GetAuthenticationStateAsync(), CacheHolder, Refresh);
             Employee = await AccessHelper.GetEmployee(await AuthenticationStateProvider.GetAuthenticationStateAsync(), EmployeeSecurityHelper, employeeId);
             if (Employee == null) {

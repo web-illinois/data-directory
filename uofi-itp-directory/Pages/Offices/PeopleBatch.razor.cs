@@ -14,6 +14,9 @@ namespace uofi_itp_directory.Pages.Offices {
         public MultiChoice? _multiChoice = default!;
         private List<AreaOfficeThinObject> _officeThinObjects = default!;
 
+        [CascadingParameter]
+        public LayoutOffice Layout { get; set; } = default!;
+
         public string NewNetIds { get; set; } = string.Empty;
         public ProfileCategoryTypeEnum NewProfileCategory { get; set; }
         public string NewTitle { get; set; } = string.Empty;
@@ -71,6 +74,7 @@ namespace uofi_itp_directory.Pages.Offices {
         }
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             var cachedAreaThinObject = CacheHelper.GetCachedOffice(await AuthenticationStateProvider.GetAuthenticationStateAsync(), CacheHolder);
             if (cachedAreaThinObject != null) {
                 OfficeId = cachedAreaThinObject.Id;

@@ -12,12 +12,16 @@ using uofi_itp_directory_data.Security;
 namespace uofi_itp_directory.Pages.Unit {
 
     public partial class General {
-        private bool _isDirty = false;
-        protected void SetDirty() => _isDirty = true;
-
         private List<AreaOfficeThinObject> _areaThinObjects = default!;
+
+        private bool _isDirty = false;
+
         private MultiChoice? _multiChoice = default!;
+
         public Area Area { get; set; } = default!;
+
+        [CascadingParameter]
+        public LayoutUnit Layout { get; set; } = default!;
 
         [SupplyParameterFromQuery(Name = "back")]
         public string? ShowBackButton { get; set; }
@@ -56,15 +60,9 @@ namespace uofi_itp_directory.Pages.Unit {
             _isDirty = false;
             StateHasChanged();
         }
-        private async Task LocationChangingHandler(LocationChangingContext arg) {
-            if (_isDirty) {
-                if (!(await JsRuntime.InvokeAsync<bool>("confirm", $"You have unsaved changes. Are you sure?"))) {
-                    arg.PreventNavigation();
-                }
-            }
-        }
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             var cachedAreaThinObject = CacheHelper.GetCachedArea(await AuthenticationStateProvider.GetAuthenticationStateAsync(), CacheHolder);
             if (cachedAreaThinObject != null) {
                 UnitId = cachedAreaThinObject.Id;
@@ -79,6 +77,16 @@ namespace uofi_itp_directory.Pages.Unit {
             }
         }
 
+        protected void SetDirty() => _isDirty = true;
+
         private async Task AssignTextFields() => Area = await AreaHelper.GetAreaById(UnitId, await AuthenticationStateProvider.GetUser());
+
+        private async Task LocationChangingHandler(LocationChangingContext arg) {
+            if (_isDirty) {
+                if (!(await JsRuntime.InvokeAsync<bool>("confirm", $"You have unsaved changes. Are you sure?"))) {
+                    arg.PreventNavigation();
+                }
+            }
+        }
     }
 }

@@ -9,6 +9,9 @@ namespace uofi_itp_directory.Pages.Search {
     public partial class Log {
         public List<DirectoryEntry> Completed { get; set; } = default!;
 
+        [CascadingParameter]
+        public LayoutSearch Layout { get; set; } = default!;
+
         public string NewNetId { get; set; } = "";
         public int NumberUnprocessedItems { get; set; }
 
@@ -42,6 +45,9 @@ namespace uofi_itp_directory.Pages.Search {
             }
         }
 
-        protected override async Task OnInitializedAsync() => await RefreshInformation();
+        protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
+            await RefreshInformation();
+        }
     }
 }

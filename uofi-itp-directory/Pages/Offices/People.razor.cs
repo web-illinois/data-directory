@@ -17,6 +17,9 @@ namespace uofi_itp_directory.Pages.Offices {
         public bool IsPersonDisabled => SelectedProfile == 0;
         public List<JobProfileThinObject> JobProfiles { get; set; } = default!;
 
+        [CascadingParameter]
+        public LayoutOffice Layout { get; set; } = default!;
+
         public string NewNetId { get; set; } = string.Empty;
         public Office Office { get; set; } = default!;
 
@@ -93,6 +96,7 @@ namespace uofi_itp_directory.Pages.Offices {
         }
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             var cachedAreaThinObject = CacheHelper.GetCachedOffice(await AuthenticationStateProvider.GetAuthenticationStateAsync(), CacheHolder);
             if (cachedAreaThinObject != null) {
                 OfficeId = cachedAreaThinObject.Id;

@@ -2,10 +2,10 @@
 
 <PageTitle>Office Hours | Illinois</PageTitle>
 <NavigationLock OnBeforeInternalNavigation=this.LocationChangingHandler ConfirmExternalNavigation=_isDirty />
-<il-section>
+<div class="iled-section">
     <h1>@OfficeTitle Hours</h1>
     <p>Edit your office hours below. If you leave either the opening or closing time blank, it will not display the day of the week. Use the format "8:00 AM". If your office is open 24 hours, place "12:00 AM" for both the starting and ending hours.</p>
-</il-section>
+</div>
 @if (!OfficeId.HasValue)
 {
     <MultiChoice @ref="_multiChoice" Type="MultiChoiceTypeEnum.Office" AreaOfficeThinObjects="_officeThinObjects" OnClickCallback="AssignId"></MultiChoice>
@@ -64,7 +64,7 @@ else if (OfficeHours != null)
 
 
     <div class="iled-buttons-left">
-        <button class="il-button il-orange" @onclick="Generate" @onblur="RemoveMessage">Save</button>
+        <button class="ilw-button ilw-theme-orange-1" @onclick="Generate" @onblur="RemoveMessage">Save</button>
     <ClearCacheButton></ClearCacheButton>
     </div>
     <ToastPopup></ToastPopup>

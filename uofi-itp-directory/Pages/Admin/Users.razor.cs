@@ -11,6 +11,10 @@ using uofi_itp_directory_external.DataWarehouse;
 namespace uofi_itp_directory.Pages.Admin {
 
     public partial class Users {
+
+        [CascadingParameter]
+        public LayoutAdmin Layout { get; set; } = default!;
+
         public string Name { get; set; } = "";
         public string NetId { get; set; } = "";
         public List<SecurityEntry> SecurityEntries { get; set; } = default!;
@@ -57,6 +61,7 @@ namespace uofi_itp_directory.Pages.Admin {
         }
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             var authstate = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var name = authstate.User?.Identity?.Name;
             if (!await PersonOptionHelper.IsFullAdmin(name)) {

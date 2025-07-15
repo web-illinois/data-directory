@@ -14,6 +14,9 @@ namespace uofi_itp_directory.Pages.Profile {
         private bool _isDirty = false;
         public Employee? Employee { get; set; } = default!;
 
+        [CascadingParameter]
+        public LayoutProfile Layout { get; set; } = default!;
+
         [Parameter]
         public string Refresh { get; set; } = "";
 
@@ -46,6 +49,7 @@ namespace uofi_itp_directory.Pages.Profile {
         public async Task RemoveMessage() => _ = await JsRuntime.InvokeAsync<bool>("removeAlertOnScreen");
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             var employeeId = CacheHelper.GetCachedEmployee(await AuthenticationStateProvider.GetAuthenticationStateAsync(), CacheHolder, Refresh);
             Employee = await AccessHelper.GetEmployee(await AuthenticationStateProvider.GetAuthenticationStateAsync(), EmployeeSecurityHelper, employeeId);
             if (Employee == null) {

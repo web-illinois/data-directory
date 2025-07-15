@@ -16,6 +16,9 @@ namespace uofi_itp_directory.Pages.Unit {
 
         public List<AreaTag>? AreaTags { get; set; } = null;
 
+        [CascadingParameter]
+        public LayoutUnit Layout { get; set; } = default!;
+
         public bool NewTagEditable { get; set; }
 
         public ProfileCategoryTypeEnum NewTagFilter { get; set; }
@@ -76,6 +79,7 @@ namespace uofi_itp_directory.Pages.Unit {
         }
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             var cachedAreaThinObject = CacheHelper.GetCachedArea(await AuthenticationStateProvider.GetAuthenticationStateAsync(), CacheHolder);
             if (cachedAreaThinObject != null) {
                 UnitId = cachedAreaThinObject.Id;

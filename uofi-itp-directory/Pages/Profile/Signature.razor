@@ -3,12 +3,12 @@
 <PageTitle>Profile Signature | Illinois</PageTitle>
 @if (Employee != null)
 {
-    <il-section>
+    <div class="iled-section">
         <h1>@Employee.ProfileName Signature</h1>
         <p>Using the link below, generate an email signature with this profile information to copy and paste into an Outlook signature.</p>
         <Instructions ChildContent="@Instructions"></Instructions>
         <div class="iled-buttons-left">
-        <a class="il-button" href="@GenerateSignature" disabled="@Employee.IsEntryDisabled" target="_blank">Generate Signature</a>
+        <a class="ilw-button" href="@GenerateSignature" disabled="@Employee.IsEntryDisabled" target="_blank">Generate Signature</a>
         </div>
-    </il-section>
+    </div>
 }

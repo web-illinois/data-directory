@@ -21,6 +21,8 @@ namespace uofi_itp_directory.Pages.Search {
 
         [Inject]
         public NavigationManager NavigationManager { get; set; } = default!;
+        [CascadingParameter]
+        public LayoutSearch Layout { get; set; } = default!;
 
         public Office? Office { get; set; } = null!;
         public List<OfficeManager> OfficeManagers { get; set; } = default!;
@@ -71,6 +73,7 @@ namespace uofi_itp_directory.Pages.Search {
         }
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             LookupThinObjects = await LookupHelper.GetOffices("");
         }
     }

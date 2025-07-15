@@ -2,10 +2,10 @@
 
 <PageTitle>Unit Internal | Illinois</PageTitle>
 <NavigationLock OnBeforeInternalNavigation=this.LocationChangingHandler ConfirmExternalNavigation=_isDirty />
-<il-section>
+<div class="iled-section">
     <h1>@UnitTitle Internal Information</h1>
     <p>Edit your unit’s internal information below.</p>
-</il-section>
+</div>
 @if (!UnitId.HasValue)
 {
     <MultiChoice @ref="_multiChoice" Type="MultiChoiceTypeEnum.Area" AreaOfficeThinObjects="_areaThinObjects" OnClickCallback="AssignId"></MultiChoice>
@@ -240,7 +240,7 @@ else if (Area != null && AreaSettings != null)
         </div>
     }
     <div class="iled-buttons-left">
-        <button class="il-button il-orange" @onclick="Send" @onblur="RemoveMessage">Save</button>
+        <button class="ilw-button ilw-theme-orange-1" @onclick="Send" @onblur="RemoveMessage">Save</button>
         <ClearCacheButton></ClearCacheButton>
     </div>
     <ToastPopup></ToastPopup>

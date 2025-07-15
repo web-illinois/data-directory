@@ -2,7 +2,7 @@
 
 <PageTitle>Automated Directory Log | Illinois</PageTitle>
 
-<il-section>
+<div class="iled-section">
     <h1>Automated Directory Log</h1>
 
     <p>This page shows the log of automated directory updates. The log file itself gets deleted and refreshed every 12 hours after the last item is added.</p>
@@ -20,8 +20,8 @@
         </div>
     </div>
     <div class="iled-buttons-left">
-        <button class="il-button" @onclick="Send" @onblur="RemoveMessage">Send Net ID to queue</button>
-        <button class="il-button" @onclick="RefreshInformation" @onblur="RemoveMessage">Refresh Information</button>
+        <button class="ilw-button" @onclick="Send" @onblur="RemoveMessage">Send Net ID to queue</button>
+        <button class="ilw-button" @onclick="RefreshInformation" @onblur="RemoveMessage">Refresh Information</button>
     </div>
     <ToastPopup></ToastPopup>
 
@@ -41,4 +41,4 @@
     {
         <p>No processed names.</p>
     }
-</il-section>
+</div>

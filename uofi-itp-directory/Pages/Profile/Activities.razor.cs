@@ -16,6 +16,8 @@ namespace uofi_itp_directory.Pages.Profile {
         private bool _isDirty = false;
         public Employee? Employee { get; set; } = default!;
 
+        [CascadingParameter]
+        public LayoutProfile Layout { get; set; } = default!;
         public string Instructions { get; set; } = "";
 
         [Parameter]
@@ -86,6 +88,7 @@ namespace uofi_itp_directory.Pages.Profile {
         }
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             var employeeId = CacheHelper.GetCachedEmployee(await AuthenticationStateProvider.GetAuthenticationStateAsync(), CacheHolder, Refresh);
             Employee = await AccessHelper.GetEmployee(await AuthenticationStateProvider.GetAuthenticationStateAsync(), EmployeeSecurityHelper, employeeId);
             if (Employee == null) {
@@ -97,6 +100,7 @@ namespace uofi_itp_directory.Pages.Profile {
                     activity.InEditState = false;
                 }
             }
+            StateHasChanged();
         }
 
         protected override async Task OnParametersSetAsync() => await OnInitializedAsync();

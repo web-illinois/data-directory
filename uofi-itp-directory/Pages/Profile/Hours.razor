@@ -4,10 +4,10 @@
 <NavigationLock OnBeforeInternalNavigation=this.LocationChangingHandler ConfirmExternalNavigation=_isDirty />
 @if (Employee != null)
 {
-    <il-section>
+    <div class="iled-section">
         <h1>@Employee.ProfileName Hours</h1>
         <p>Edit office hours below. If you leave either the opening or closing time blank, it will not display the day of the week. Use the format "8:00 AM". If working in more than one office, please select ‘other’ and clarify which office for the day.</p>
-    </il-section>
+    </div>
 
     foreach (var officeHour in Employee.EmployeeHours)
     {
@@ -44,7 +44,7 @@
     </div>
 
     <div class="iled-buttons-left">
-        <button class="il-button il-orange" @onclick="Generate" disabled="@Employee.IsEntryDisabled" @onblur="RemoveMessage">Save</button>
+        <button class="ilw-button ilw-theme-orange-1" @onclick="Generate" disabled="@Employee.IsEntryDisabled" @onblur="RemoveMessage">Save</button>
         <ViewProfile NetId="@Employee.NetId"></ViewProfile>
     </div>
     <ToastPopup></ToastPopup>

@@ -4,7 +4,7 @@
 <NavigationLock OnBeforeInternalNavigation=this.LocationChangingHandler ConfirmExternalNavigation=_isDirty />
 @if (Employee != null)
 {
-<il-section>
+<div class="iled-section">
     <h1>@Employee.ProfileName</h1>
     <p>Welcome to @(Employee.IsCurrentUser ? "your profile" : "the profile of " + Employee.ProfileName)! Edit the profile information below.</p>
         <p>You can <a href="https://go.uillinois.edu/myprofile">edit some information in the My UI Info</a> and it will update your directory information as well. If you update the My UI Info, it will take a few days to process. You can force a refresh by clicking the Save button at the end of this screen.</p>
@@ -12,7 +12,7 @@
 
         @if (!string.IsNullOrWhiteSpace(ShowBackButton) && ShowBackButton == "search")
         {
-            <p><a href="/search/people" class="il-button">Back to Searching for People</a></p>
+            <p><a href="/search/people" class="ilw-button">Back to Searching for People</a></p>
         }
 
     <h2>General Information</h2>
@@ -61,8 +61,7 @@
             </div>
         </div>
     </div>
-    <h3>Office Address and Phone Number</h3>
-    <p>This information <a href="https://go.uillinois.edu/myprofile">can also be edited in the My UI Info</a>. If this information is left blank, it will use the My UI Info.</p>
+    <h3>Office Information</h3>
     <div class="iled-section-split">
         <div class="iled-input-box-parent">
             <div class="iled-input-box">
@@ -77,6 +76,8 @@
             </div>
         </div>
     </div>
+    <h3>Office Address</h3>
+    <p>This information <a href="https://go.uillinois.edu/myprofile">can also be edited in the My UI Info</a>. If this information is left blank, it will use the My UI Info.</p>
     <div class="iled-input-box-parent">
         <div class="iled-input-box">
             <label for="ed-address1">Address Line 1</label>
@@ -89,7 +90,7 @@
             <input id="ed-address2" type="text" disabled="@Employee.IsEntryDisabled" @bind="Employee.AddressLine2" @bind:after="SetDirty">
         </div>
     </div>
-    <div class="iled-section-split-3">
+    <div class="iled-section-split">
         <div class="iled-input-box-parent">
             <div class="iled-input-box">
                 <label for="ed-city">City</label>
@@ -102,13 +103,25 @@
                 <input id="ed-state" type="text" disabled="@Employee.IsEntryDisabled" @bind="Employee.State" @bind:after="SetDirty">
             </div>
         </div>
+    </div>
+    <div class="iled-section-split">
         <div class="iled-input-box-parent">
             <div class="iled-input-box">
                 <label for="ed-zipcode">Zip Code</label>
                 <input id="ed-zipcode" type="text" disabled="@Employee.IsEntryDisabled" @bind="Employee.ZipCode" @bind:after="SetDirty">
             </div>
         </div>
+        <div class="iled-input-box-parent">
+            <div class="iled-input-box">
+                <label for="ed-hidephone">Hide Address</label>
+                <input id="ed-hidephone" type="checkbox" disabled="@Employee.IsEntryDisabled" @bind="Employee.IsAddressHidden" @bind:after="SetDirty">
+            </div>
+            <div class="iled-instructions">
+                This will allow you to not display your address even if it is <a href="https://go.uillinois.edu/myprofile">listed in My UI Info</a>.
+            </div>
+        </div>
     </div>
+    <h3>Phone Number</h3>
     <div class="iled-section-split">
         <div class="iled-input-box-parent">
             <div class="iled-input-box">
@@ -127,10 +140,10 @@
         </div>
     </div>
     <div class="iled-buttons-left">
-        <button class="il-button il-orange" @onclick="Send" disabled="@Employee.IsEntryDisabled" @onblur="RemoveMessage">Save</button>
+        <button class="ilw-button ilw-theme-orange-1" @onclick="Send" disabled="@Employee.IsEntryDisabled" @onblur="RemoveMessage">Save</button>
         <ViewProfile NetId="@Employee.NetId"></ViewProfile>
     </div>
     <ToastPopup></ToastPopup>
 
-</il-section>
+</div>
 }

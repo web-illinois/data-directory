@@ -2,10 +2,10 @@
 
 <PageTitle>Office Internal | Illinois</PageTitle>
 <NavigationLock OnBeforeInternalNavigation=this.LocationChangingHandler ConfirmExternalNavigation=_isDirty />
-<il-section>
+<div class="iled-section">
     <h1>@OfficeTitle Internal</h1>
     <p>Edit your office’s general information below.</p>
-</il-section>
+</div>
 @if (!OfficeId.HasValue)
 {
     <MultiChoice @ref="_multiChoice" Type="MultiChoiceTypeEnum.Office" AreaOfficeThinObjects="_officeThinObjects" OnClickCallback="AssignId"></MultiChoice>
@@ -65,7 +65,7 @@ else if (Office != null)
         </div>
     }
     <div class="iled-buttons-left">
-        <button class="il-button il-orange" @onclick="Send" @onblur="RemoveMessage">Save</button>
+        <button class="ilw-button ilw-theme-orange-1" @onclick="Send" @onblur="RemoveMessage">Save</button>
     <ClearCacheButton></ClearCacheButton>
     </div>
     <ToastPopup></ToastPopup>

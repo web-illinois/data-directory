@@ -12,8 +12,10 @@ namespace uofi_itp_directory.Pages.Profile {
     public partial class Signature {
         public Employee? Employee { get; set; } = default!;
         public string GenerateSignature { get; set; } = "";
-
         public string Instructions { get; set; } = "";
+
+        [CascadingParameter]
+        public LayoutProfile Layout { get; set; } = default!;
 
         [Parameter]
         public string Refresh { get; set; } = "";
@@ -40,6 +42,7 @@ namespace uofi_itp_directory.Pages.Profile {
         protected SignatureGenerator SignatureGenerator { get; set; } = default!;
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             var employeeId = CacheHelper.GetCachedEmployee(await AuthenticationStateProvider.GetAuthenticationStateAsync(), CacheHolder, Refresh);
             Employee = await EmployeeSecurityHelper.GetEmployeeForSignature(employeeId, await AuthenticationStateProvider.GetUser());
             var settings = await EmployeeSecurityHelper.GetEmployeeSettings(Employee);
