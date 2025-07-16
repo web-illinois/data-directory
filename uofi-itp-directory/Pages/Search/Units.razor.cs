@@ -14,6 +14,10 @@ namespace uofi_itp_directory.Pages.Search {
 
         public List<OfficeManager> AreaManagers { get; set; } = default!;
         public bool IsEditDisabled => LookupId == null;
+
+        [CascadingParameter]
+        public LayoutSearch Layout { get; set; } = default!;
+
         public int? LookupId { get; set; }
         public List<LookupThinObject> LookupThinObjects { get; set; } = [];
         public List<string> Offices { get; set; } = default!;
@@ -67,6 +71,7 @@ namespace uofi_itp_directory.Pages.Search {
         }
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             LookupThinObjects = await LookupHelper.GetAreas("");
         }
     }

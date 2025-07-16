@@ -14,10 +14,12 @@ namespace uofi_itp_directory.Pages.Profile {
     public partial class Cv {
         private bool _isDirty = false;
         public DocumentUploader? DocumentUploader { get; set; } = default!;
-
         public Employee? Employee { get; set; } = default!;
 
         public string Instructions { get; set; } = "";
+
+        [CascadingParameter]
+        public LayoutProfile Layout { get; set; } = default!;
 
         [Parameter]
         public string Refresh { get; set; } = "";
@@ -68,6 +70,7 @@ namespace uofi_itp_directory.Pages.Profile {
         }
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             var employeeId = CacheHelper.GetCachedEmployee(await AuthenticationStateProvider.GetAuthenticationStateAsync(), CacheHolder, Refresh);
             Employee = await AccessHelper.GetEmployee(await AuthenticationStateProvider.GetAuthenticationStateAsync(), EmployeeSecurityHelper, employeeId);
             if (Employee == null) {

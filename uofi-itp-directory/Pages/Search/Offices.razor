@@ -2,7 +2,7 @@
 
 <PageTitle>Search Office | Illinois</PageTitle>
 
-<il-section>
+<div class="iled-section">
     <h1>Search Offices</h1>
 
     @if (Office == null)
@@ -24,7 +24,7 @@
                 </select>
             </div>
         </div>
-        <button class="il-button" disabled="@IsEditDisabled" @onclick="EditOffice">View / Edit Office</button>
+        <button class="ilw-button" disabled="@IsEditDisabled" @onclick="EditOffice">View / Edit Office</button>
     } else
     {
         <h2>@Office.Title</h2>
@@ -83,8 +83,8 @@
 
 
         <div class="iled-buttons-left">
-            <button class="il-button" @onclick="ClearOffice">Back to Search</button>
+            <button class="ilw-button" @onclick="ClearOffice">Back to Search</button>
         </div>
     }
 
-</il-section>
+</div>

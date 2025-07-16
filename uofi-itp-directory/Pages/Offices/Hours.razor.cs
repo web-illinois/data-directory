@@ -17,8 +17,10 @@ namespace uofi_itp_directory.Pages.Offices {
         private MultiChoice? _multiChoice = default!;
 
         private List<AreaOfficeThinObject> _officeThinObjects = default!;
-
         public List<DateTime?> EndTime { get; set; } = default!;
+
+        [CascadingParameter]
+        public LayoutOffice Layout { get; set; } = default!;
 
         public Office Office { get; set; } = default!;
 
@@ -74,6 +76,7 @@ namespace uofi_itp_directory.Pages.Offices {
         public async Task RemoveMessage() => _ = await JsRuntime.InvokeAsync<bool>("removeAlertOnScreen");
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             var cachedAreaThinObject = CacheHelper.GetCachedOffice(await AuthenticationStateProvider.GetAuthenticationStateAsync(), CacheHolder);
             if (cachedAreaThinObject != null) {
                 OfficeId = cachedAreaThinObject.Id;

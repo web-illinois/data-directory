@@ -27,30 +27,29 @@ main {
         padding: 30px 0;
     }
 
-.il-formatted .iled-float {
+.iled-float {
     float: right;
-    width: 275px;
+    width: 325px;
     margin: 0 0 40px 20px;
     border: 1px solid var(--il-blue);
 }
 
-    .il-formatted .iled-float h2 {
+    .iled-float h2 {
         color: white;
         background: var(--il-blue);
-        width: 100%;
         text-align: center;
         font-size: 1.4rem;
         padding: 10px;
     }
 
-.iled-float div {
-    padding: 10px;
-}
+    .iled-float p {
+        padding: 10px;
+    }
 
-.iled-float span.iled-float-office {
-    padding-bottom: 10px;
-    display: inline-block;
-}
+    .iled-float span.iled-float-office {
+        padding-bottom: 10px;
+        display: inline-block;
+    }
 
 .iled-card-list {
     display: grid;
@@ -83,15 +82,14 @@ div[slot="sidebar"] {
 .iled-login {
     font-size: 1rem;
     padding: 0 0 0 20px;
+    font-family: var(--il-font-sans);
 }
 
 .iled-margin-top {
     margin-top: 40px;
 }
 
-/* Toolbox tweaks */
-
-il-section {
+div.iled-section {
     padding-bottom: 25px;
     display: block;
 }
@@ -118,7 +116,7 @@ il-card .iled-buttons {
     margin-top: 25px;
 }
 
-button[disabled].il-button, button[disabled].il-button:focus, button[disabled].il-button:hover {
+button[disabled].ilw-button, button[disabled].ilw-button:focus, button[disabled].ilw-button:hover {
     color: var(--il-gray-2) !important;
     border-color: var(--il-cloud-3) !important;
     background: white !important;
@@ -129,6 +127,7 @@ button[disabled].il-button, button[disabled].il-button:focus, button[disabled].i
 
 #update-alert {
     font-size: 1.8rem;
+    font-family: var(--il-font-sans);
     color: white;
     font-weight: 700;
     padding: 0 10px;
@@ -283,6 +282,7 @@ div.iled-section-split-25 {
         margin: 0;
         text-align: left;
         line-height: 1.3em;
+        font-family: var(--il-font-sans);
     }
 
     .iled-input-box .iled-label-required::before {
@@ -295,7 +295,7 @@ div.iled-section-split-25 {
         margin: 0;
         border-radius: 5px;
         padding: 10px;
-        font: 16px/18px var(--il-source-sans);
+        font: 16px/18px var(--il-font-sans);
         background-color: #fff;
         border: thin var(--il-blue) solid;
     }
@@ -358,6 +358,7 @@ div.iled-section-split-25 {
     font-weight: 400;
     line-height: 1.2rem;
     padding-top: 3px;
+    font-family: var(--il-font-sans);
 }
 
 .iled-error {
@@ -378,6 +379,7 @@ div.iled-section-split-25 {
         font-weight: 700;
         display: inline-block;
         flex-grow: 1;
+        font: 1.2rem var(--il-font-sans);
     }
 
     .iled-username button {
@@ -400,13 +402,14 @@ div.iled-section-split-25 {
         margin: 0;
         text-align: left;
         line-height: 1.3em;
+        font: 1rem var(--il-font-sans);
     }
 
     .iled-hours-parent .iled-hours-time input {
         margin: 0;
         border-radius: 5px;
         padding: 5px 10px;
-        font: 16px/18px var(--il-source-sans);
+        font: 16px/18px var(--il-font-sans);
         border: thin var(--il-blue) solid;
         width: 250px;
         accent-color: var(--il-orange);
@@ -425,6 +428,7 @@ div.iled-section-split-25 {
         display: inline-block;
         width: 40px;
         text-align: center;
+        font: 1rem var(--il-font-sans);
     }
 
     .iled-hours-parent .iled-hours-location {
@@ -439,7 +443,7 @@ div.iled-section-split-25 {
             margin: 0 0 0 50px;
             border-radius: 5px;
             padding: 5px 10px;
-            font: 16px/18px var(--il-source-sans);
+            font: 16px/18px var(--il-font-sans);
             border: thin var(--il-blue) solid;
             width: 360px;
         }
@@ -452,6 +456,7 @@ div.iled-section-vertical {
 .iled-input-box input[type="file"] {
     height: initial;
     padding: 20px 30px;
+    font-family: var(--il-font-sans);
 }
 
 .iled-photocv {
@@ -493,6 +498,10 @@ div.iled-section-vertical {
 /* Search screens */
 .iled-input-box select.iled-select-lookup {
     background: none;
+}
+
+select#ed-choose {
+    min-height: 250px;
 }
 
 /* Quill tweaks */

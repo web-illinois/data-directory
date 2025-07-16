@@ -2,10 +2,10 @@
 
 <PageTitle>Office People | Illinois</PageTitle>
 
-<il-section>
+<div class="iled-section">
     <h1>@OfficeTitle People</h1>
     <p>This is a list of profiles you can update. You may also remove and add profiles to your office below. Note that if you remove a profile, you are only removing the connection the employee has to your office. The employee's information will not be deleted. </p>
-</il-section>
+</div>
 @if (!OfficeId.HasValue)
 {
     <MultiChoice @ref="_multiChoice" Type="MultiChoiceTypeEnum.Office" AreaOfficeThinObjects="_officeThinObjects" OnClickCallback="AssignId"></MultiChoice>
@@ -30,8 +30,8 @@ else if (JobProfiles != null)
         </div>
     </div>
     <div class="iled-buttons-left">
-        <button class="il-button" disabled="@IsPersonDisabled" @onclick="Edit">Edit Employee</button>
-        <button class="il-button il-orange" disabled="@IsPersonDisabled" @onclick="Remove">Remove Profile</button>
+        <button class="ilw-button" disabled="@IsPersonDisabled" @onclick="Edit">Edit Employee</button>
+        <button class="ilw-button ilw-theme-orange-1" disabled="@IsPersonDisabled" @onclick="Remove">Remove Profile</button>
     </div>
 
     <div class="iled-section-split iled-margin-top">
@@ -46,7 +46,7 @@ else if (JobProfiles != null)
         </div>
     </div>
     <div class="iled-buttons-left">
-        <button class="il-button" @onclick="Send" @onblur="RemoveMessage">Add Employee</button>
+        <button class="ilw-button" @onclick="Send" @onblur="RemoveMessage">Add Employee</button>
         <ClearCacheButton></ClearCacheButton>
     </div>
     <ToastPopup></ToastPopup>

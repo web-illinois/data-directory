@@ -2,10 +2,10 @@
 
 <PageTitle>Office Administrators | Illinois</PageTitle>
 
-<il-section>
+<div class="iled-section">
     <h1>@OfficeTitle Administrators</h1>
     <p>These people will be able to edit office information, create other office administrators for their unit, and edit people that are in their office.</p>
-</il-section>
+</div>
 @if (!OfficeId.HasValue)
 {
     <MultiChoice @ref="_multiChoice" Type="MultiChoiceTypeEnum.Office" AreaOfficeThinObjects="_officeThinObjects" OnClickCallback="AssignId"></MultiChoice>
@@ -15,22 +15,22 @@ else
     <div>
     <h2>Primary Administrators</h2>
     <p style="padding-bottom: 10px;">Primary administrators are visible to the outside world.</p>
-    <il-section class="iled-username-parent">
+    <div class="iled-section iled-username-parent">
         @foreach (var entity in SecurityEntries?.Where(se => se.IsPublic) ?? new List<SecurityEntry>())
         {
             <UsernameItem SecurityEntry="@entity" OnClickCallback="e => RemoveEntry(entity.Id)" OnChangeCallback="ChangeEntry"></UsernameItem>
         }
-    </il-section>
+    </div>
     </div>
     <div>
     <h2>Backup Administrators</h2>
         <p style="padding-bottom: 10px;">Backup administrators are not visible to the outside world, but have the same permissions as a primary administrator.</p>
-    <il-section class="iled-username-parent">
+    <div class="iled-section iled-username-parent">
         @foreach (var entity in SecurityEntries?.Where(se => !se.IsPublic) ?? new List<SecurityEntry>())
         {
             <UsernameItem SecurityEntry="@entity" OnClickCallback="e => RemoveEntry(entity.Id)" OnChangeCallback="ChangeEntry"></UsernameItem>
         }
-    </il-section>
+    </div>
     </div>
     <div>
         <h2>Add a New Administrator</h2>
@@ -45,7 +45,7 @@ else
         </div>
     </div>
     <div class="iled-buttons-left">
-        <button class="il-button il-orange" @onclick="Send" @onblur="RemoveMessage">Save</button>
+        <button class="ilw-button ilw-theme-orange-1" @onclick="Send" @onblur="RemoveMessage">Save</button>
     <ClearCacheButton></ClearCacheButton>
     </div>
     <ToastPopup></ToastPopup>

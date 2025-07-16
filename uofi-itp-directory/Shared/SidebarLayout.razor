@@ -1,36 +1,19 @@
 ﻿@inherits LayoutComponentBase
-
-<il-page>
-<header>
-    <il-header>
-        <div slot="wordmark">
-            <il-unit-wordmark>
-                <p class="il-primary-unit"><a href="https://itpartners.illinois.edu">IT Partners</a></p>
-                <h1><a href="/">IT Partners Directory Application</a></h1>
-            </il-unit-wordmark>
-        </div>
-        <div slot="search">
+<ilw-page>
+    <ilw-header slot="header">
+        <a slot="primary-unit" href="https://itpartners.illinois.edu">IT Partners</a>
+        <a slot="site-name" href="/">IT Partners Directory Application</a>
+        <div slot="links">
             <LoginDisplay />
         </div>
         <NavMenu />
-    </il-header>
-</header>
+    </ilw-header>
     <main>
-    <div class="il-formatted">
         @Body
-    </div>
-</main>
-<il-footer>
-    <div slot="contact" class="il-footer-contact uofi_address">
-        <p><a href="https://itpartners.illinois.edu">Information Technology Partners</a></p>
-    </div>
-    <nav slot="links" class="il-footer-links" aria-label="Legal notices">
-        <ul>
-            <li><button data-il="cookies" id="ot-sdk-btn" class="ot-sdk-show-settings">About Cookies</button></li>
-            <li><a data-il="privacy" href="https://www.vpaa.uillinois.edu/resources/web_privacy">Privacy Policy</a></li>
-            <li><a data-il="copyright" href="https://illinois.edu/resources/website/copyright.html">Copyright © 2024</a></li>
-            <li><a data-il="accessibility" href="https://illinois.edu/resources/website/accessibility.html">Accessibility</a></li>
-        </ul>
-    </nav>
-</il-footer>
-</il-page>
+    </main>
+    <ilw-footer slot="footer">
+        <a slot="primary-unit" href="https://itpartners.illinois.edu/">IT Partners</a>
+        <a slot="site-name" href="/">IT Partners Directory Application</a>
+        <div slot="actions"><a href="#">Report a Problem</a></div>
+    </ilw-footer>
+</ilw-page>

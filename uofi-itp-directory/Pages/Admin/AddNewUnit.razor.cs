@@ -31,6 +31,8 @@ namespace uofi_itp_directory.Pages.Admin {
 
         [Inject]
         protected PersonOptionHelper PersonOptionHelper { get; set; } = default!;
+        [CascadingParameter]
+        public LayoutAdmin Layout { get; set; } = default!;
 
         public async Task LookupId() {
             var name = await DataWarehouseManager.GetDataWarehouseItem(NetId);
@@ -65,6 +67,7 @@ namespace uofi_itp_directory.Pages.Admin {
         }
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             var authstate = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var name = authstate.User?.Identity?.Name;
             if (!await PersonOptionHelper.IsFullAdmin(name)) {

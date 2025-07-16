@@ -2,7 +2,7 @@
 
 <PageTitle>Add New Unit | Illinois</PageTitle>
 
-<il-section>
+<div class="iled-section">
     <h1>Add a New Unit</h1>
     <p>Global Administrators may add new units. Please assign a name to the unit and a primary contact. This primary contact will be able to go into this application and:</p>
     <ul>
@@ -12,13 +12,13 @@
         <li>Have administrative control over all offices and profiles inside the office</li>
     </ul>
     <p>As a Global Administrator, you will have full access to this area, including the ability to add and remove individual administrators to the area.</p>
-</il-section>
-<il-section class="iled-username-parent">
+</div>
+<div class="iled-section iled-username-parent">
     @foreach (var area in Areas ?? new List<Area>())
     {
         <GenericItem GenericEntry="@area" Text="@area.Title" OnClickCallback="e => RemoveEntry(area.Id)"></GenericItem>
     }
-</il-section>
+</div>
 
 <div class="iled-section-split">
     <div class="iled-input-box-parent">
@@ -41,7 +41,7 @@
     </div>
 </div>
 <div class="iled-buttons-left">
-    <button class="il-button il-orange" @onclick="Send" @onblur="RemoveMessage">Save</button>
+    <button class="ilw-button ilw-theme-orange-1" @onclick="Send" @onblur="RemoveMessage">Save</button>
     <ClearCacheButton></ClearCacheButton>
 </div>
 <ToastPopup></ToastPopup>

@@ -4,7 +4,7 @@
 <NavigationLock OnBeforeInternalNavigation=this.LocationChangingHandler ConfirmExternalNavigation=_isDirty />
 @if (Employee != null)
 {
-    <il-section>
+    <div class="iled-section">
         <h1>@Employee.ProfileName CV</h1>
         <p>Add a professional resume or CV to this profile by uploading a file below. If you have a CV already loaded, delete the CV before uploading a new document. Make sure you save any changes.</p>
         <p><strong>Note that this is on a public website. Remove any personal information like phone numbers and addresses before uploading.</strong></p>
@@ -12,9 +12,9 @@
         <DocumentUploader IsDisabled=@Employee.IsEntryDisabled @ref="@DocumentUploader" FileUrl="@Employee.CVUrl" ItemId="@Employee.NetIdTruncated" Delete="DeleteDocument" Save="SaveDocument"></DocumentUploader>
 
         <div class="iled-buttons-left">
-            <button class="il-button il-orange" disabled="@Employee.IsEntryDisabled" @onclick="Send" @onblur="RemoveMessage">Save Document</button>
+            <button class="ilw-button ilw-theme-orange-1" disabled="@Employee.IsEntryDisabled" @onclick="Send" @onblur="RemoveMessage">Save Document</button>
             <ViewProfile NetId="@Employee.NetId"></ViewProfile>
         </div>
-    </il-section>
+    </div>
     <ToastPopup></ToastPopup>
 }

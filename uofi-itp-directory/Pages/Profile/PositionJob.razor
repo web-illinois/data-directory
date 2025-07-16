@@ -5,14 +5,14 @@
 
 @if (Employee != null)
 {
-    <il-section>
+    <div class="iled-section">
         <h1>@Employee.ProfileName Jobs</h1>
         <p>Edit job information below. Note that you may not be able to edit everything on this page.</p>
         <Instructions ChildContent="@Instructions"></Instructions>
 
         @if (!string.IsNullOrWhiteSpace(ShowBackButton) && ShowBackButton == "add")
         {
-            <p><a href="/office/people" class="il-button">Back to Adding People</a></p>
+            <p><a href="/office/people" class="ilw-button">Back to Adding People</a></p>
         }
 
         @if (IsMultiple)
@@ -100,10 +100,10 @@
                     {
                         @if (profile.Tags.Select(t => t.Title).Contains(tag.Title))
                         {
-                            <button disabled="@(profile.IsEntryDisabled && !tag.AllowEmployeeToEdit)" class="il-button il-orange" @onclick="() => RemoveTag(tag, profile)">Remove @tag.Title (this is added)</button>
+                            <button disabled="@(profile.IsEntryDisabled && !tag.AllowEmployeeToEdit)" class="ilw-button ilw-theme-orange-1" @onclick="() => RemoveTag(tag, profile)">Remove @tag.Title (this is added)</button>
                         } else
                         {
-                            <button disabled="@(profile.IsEntryDisabled && !tag.AllowEmployeeToEdit)" class="il-button" @onclick="() => AddTag(tag, profile)">@tag.Title</button>
+                            <button disabled="@(profile.IsEntryDisabled && !tag.AllowEmployeeToEdit)" class="ilw-button" @onclick="() => AddTag(tag, profile)">@tag.Title</button>
                         }
                     }
                     <div class="iled-instructions">
@@ -113,10 +113,10 @@
             }
         }
     <div class="iled-buttons-left">
-        <button class="il-button il-orange" @onclick="Send" disabled="@Employee.IsEntryDisabled" @onblur="RemoveMessage">Save</button>
+        <button class="ilw-button ilw-theme-orange-1" @onclick="Send" disabled="@Employee.IsEntryDisabled" @onblur="RemoveMessage">Save</button>
         <ViewProfile NetId="@Employee.NetId"></ViewProfile>
     </div>
     <ToastPopup></ToastPopup>
 
-    </il-section>
+    </div>
 }
