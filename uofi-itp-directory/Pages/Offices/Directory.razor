@@ -2,7 +2,7 @@
 
 <PageTitle>Office Links | Illinois</PageTitle>
 
-<il-section>
+<div class="iled-section">
     <h1>@OfficeTitle Links</h1>
     <p>Your office information is accessible through an Application Programming Interface (API). This allows applications from other systems on campus to access this information.</p>
     <p>You have two options to access this information</p>
@@ -11,7 +11,7 @@
         <li><em>By Code</em>: You can create a unique code that you can use. Often, this code is more memorable than your ID.</li>
     </ul>
 
-</il-section>
+</div>
 @if (!OfficeId.HasValue)
 {
     <MultiChoice @ref="_multiChoice" Type="MultiChoiceTypeEnum.Office" AreaOfficeThinObjects="_officeThinObjects" OnClickCallback="AssignId"></MultiChoice>
@@ -20,7 +20,7 @@ else if (Office != null)
 {
     <div class="iled-section-split">
         <div>
-            <a href="https://directoryapi.itpartners.illinois.edu/Api/Office/Id/@Office.Id" target="_blank" class="il-button">Link to get information by ID</a>
+            <a href="https://directoryapi.itpartners.illinois.edu/Api/Office/Id/@Office.Id" target="_blank" class="ilw-button">Link to get information by ID</a>
         </div>
         <div>
             @if (string.IsNullOrWhiteSpace(OfficeSettings.InternalCode))
@@ -29,7 +29,7 @@ else if (Office != null)
             }
             else
             {
-                <a href="https://directoryapi.itpartners.illinois.edu/Api/Office/Code/@OfficeSettings.InternalCode" target="_blank" class="il-button">Link to get information by Code</a>
+                <a href="https://directoryapi.itpartners.illinois.edu/Api/Office/Code/@OfficeSettings.InternalCode" target="_blank" class="ilw-button">Link to get information by Code</a>
             }
         </div>
     </div>
@@ -45,7 +45,7 @@ else if (Office != null)
         </div>
     </div>
     <div class="iled-buttons-left">
-        <button class="il-button il-orange" @onclick="Send" @onblur="RemoveMessage">Save</button>
+        <button class="ilw-button ilw-theme-orange-1" @onclick="Send" @onblur="RemoveMessage">Save</button>
     <ClearCacheButton></ClearCacheButton>
     </div>
 <ToastPopup></ToastPopup>

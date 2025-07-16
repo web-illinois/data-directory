@@ -18,8 +18,10 @@ namespace uofi_itp_directory.Pages.Profile {
         public int Height { get; set; }
 
         public ImageUploader? ImageUploader { get; set; } = default!;
-
         public string Instructions { get; set; } = "";
+
+        [CascadingParameter]
+        public LayoutProfile Layout { get; set; } = default!;
 
         [Parameter]
         public string Refresh { get; set; } = "";
@@ -74,6 +76,7 @@ namespace uofi_itp_directory.Pages.Profile {
         }
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             var employeeId = CacheHelper.GetCachedEmployee(await AuthenticationStateProvider.GetAuthenticationStateAsync(), CacheHolder, Refresh);
             Employee = await AccessHelper.GetEmployee(await AuthenticationStateProvider.GetAuthenticationStateAsync(), EmployeeSecurityHelper, employeeId);
             var areaSettings = await EmployeeSecurityHelper.GetEmployeeSettings(Employee);
@@ -85,6 +88,7 @@ namespace uofi_itp_directory.Pages.Profile {
             } else {
                 Instructions = await EmployeeAreaHelper.HeadshotInstructions(Employee.NetId);
             }
+            StateHasChanged();
         }
 
         protected override async Task OnParametersSetAsync() => await OnInitializedAsync();

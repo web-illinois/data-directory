@@ -13,32 +13,32 @@
 <div class="iled-card-list">
     @if (FullSecurityItem?.HasProfile ?? false)
     {
-        <il-card class="il-theme-gray">
+        <ilw-card theme="gray">
             <h2>Edit My Profile</h2>
             <p>You have a profile. Edit or preview your directory profile</p>
-            <div class="iled-buttons">
-                <a href="/profile/general" class="il-button">Edit</a>
+            <div slot="footer" class="iled-buttons">
+                <a href="/profile/general" class="ilw-button">Edit</a>
                 <ViewProfile></ViewProfile>
             </div>
-        </il-card>
+        </ilw-card>
     }
     @if (FullSecurityItem?.IsAnyAdmin ?? false)
     {
-        <il-card class="il-theme-gray">
+        <ilw-card theme="gray">
             <h2>Office Administration</h2>
             <p>You are an office administrator. Edit those in your office and office information, including office location, hours, and contact information.</p>
-            <div class="iled-buttons">
-                <a href="/office/people" class="il-button">Edit People</a>
-                <a href="/office/hours" class="il-button">Edit Office Hours</a>
+            <div slot="footer" class="iled-buttons">
+                <a href="/office/people" class="ilw-button">Edit People</a>
+                <a href="/office/hours" class="ilw-button">Edit Office Hours</a>
             </div>
-        </il-card>
+        </ilw-card>
     }
-    <il-card class="il-theme-gray">
+    <ilw-card theme="gray">
         <h2>Find an Administrator</h2>
         <p>If you find incorrect information about an office, you can view a list of office/unit administrators and their contact information.</p>
-        <div class="iled-buttons">
-            <a href="/search/offices" class="il-button">Office Admins</a>
-            <a href="/search/units" class="il-button">Unit Admins</a>
+        <div slot="footer" class="iled-buttons">
+            <a href="/search/offices" class="ilw-button">Office Admins</a>
+            <a href="/search/units" class="ilw-button">Unit Admins</a>
         </div>
-    </il-card>
+    </ilw-card>
 </div>

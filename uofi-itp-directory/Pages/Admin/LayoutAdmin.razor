@@ -1,20 +1,17 @@
 ﻿@inherits LayoutComponentBase
 @layout SidebarLayout
-
-<il-section-with-sidebar>
+<CascadingValue Value="this">
+<ilw-columns mode="sidebar-left" gap="44px" width="page">
     <div slot="sidebar">
-        <il-section-nav>
-            <h3><a href="/admin/units">Administration</a></h3>
-            <ul>
-                <li>
-                    <a title="Add and Remove Units" href="/admin/units">Add and Remove Units</a>
-                </li>
-                <li>
-                    <a title="Global Administrators" href="/admin/users">Global Administrators</a>
-                </li>
-            </ul>
-        </il-section-nav>
+        <ilw-section-nav>
+            <span class="ilw-section-nav--root">Administration</span>
+            <a title="Add and Remove Units" aria-current="@(BaseUrl == "/admin/units" ? "page" : null)" href="/admin/units">Add and Remove Units</a>
+            <a title="Global Administrators" aria-current="@(BaseUrl == "/admin/users" ? "page" : null)" href="/admin/users">Global Administrators</a>
+        </ilw-section-nav>
         <LoginInformation></LoginInformation>
     </div>
-    @Body
-</il-section-with-sidebar>
+    <ilw-content>
+        @Body
+    </ilw-content>
+</ilw-columns>
+</CascadingValue>

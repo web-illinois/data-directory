@@ -14,6 +14,8 @@ namespace uofi_itp_directory.Pages.Offices {
     public partial class Internal {
         private bool _isDirty = false;
         protected void SetDirty() => _isDirty = true;
+        [CascadingParameter]
+        public LayoutOffice Layout { get; set; } = default!;
 
         private MultiChoice? _multiChoice = default!;
         private List<AreaOfficeThinObject> _officeThinObjects = default!;
@@ -64,6 +66,7 @@ namespace uofi_itp_directory.Pages.Offices {
         }
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             var cachedAreaThinObject = CacheHelper.GetCachedOffice(await AuthenticationStateProvider.GetAuthenticationStateAsync(), CacheHolder);
             if (cachedAreaThinObject != null) {
                 OfficeId = cachedAreaThinObject.Id;

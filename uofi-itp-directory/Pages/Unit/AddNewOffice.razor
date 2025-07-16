@@ -2,22 +2,22 @@
 
 <PageTitle>Unit General | Illinois</PageTitle>
 
-<il-section>
+<div class="iled-section">
     <h1>@UnitTitle</h1>
     <p>Add and remove offices below.</p>
-</il-section>
+</div>
 @if (!UnitId.HasValue)
 {
     <MultiChoice @ref="_multiChoice" Type="MultiChoiceTypeEnum.Area" AreaOfficeThinObjects="_areaThinObjects" OnClickCallback="AssignId"></MultiChoice>
 }
 else
 {
-    <il-section class="iled-username-parent">
+    <div class="iled-section iled-username-parent">
         @foreach (var office in Offices ?? new List<Office>())
         {
             <GenericItem GenericEntry="@office" Text="@office.Title" OnClickCallback="e => RemoveEntry(office.Id)"></GenericItem>
         }
-    </il-section>
+    </div>
 
     <div class="iled-section-split">
         <div class="iled-input-box-parent">
@@ -40,7 +40,7 @@ else
         </div>
     </div>
     <div class="iled-buttons-left">
-        <button class="il-button il-orange" @onclick="Send" @onblur="RemoveMessage">Save</button>
+        <button class="ilw-button ilw-theme-orange-1" @onclick="Send" @onblur="RemoveMessage">Save</button>
         <ClearCacheButton></ClearCacheButton>
     </div>
     <ToastPopup></ToastPopup>

@@ -14,7 +14,7 @@
             @if (!string.IsNullOrWhiteSpace(FileUrl))
             {
                 <a target="_blank" href="@FileUrl"><img class="thumbnail" src="@FileUrl?@Cache" alt="Image for item" /></a>
-                <button @onclick="@DeleteFile" disabled="@IsDisabled" class="il-button" @onblur="RemoveMessage">Delete</button>
+                <button @onclick="@DeleteFile" disabled="@IsDisabled" class="ilw-button" @onblur="RemoveMessage">Delete</button>
             }
         </div>
     </div>

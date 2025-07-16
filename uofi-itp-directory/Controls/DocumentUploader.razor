@@ -14,7 +14,7 @@
             @if (!string.IsNullOrWhiteSpace(FileUrl))
             {
                 <strong><a target="_blank" href="@FileUrl">Document (will open in new tab)</a></strong>
-                <button @onclick="@DeleteFile" disabled="@IsDisabled" class="il-button" @onblur="RemoveMessage">Delete</button>
+                <button @onclick="@DeleteFile" disabled="@IsDisabled" class="ilw-button" @onblur="RemoveMessage">Delete</button>
             }
         </div>
     </div>

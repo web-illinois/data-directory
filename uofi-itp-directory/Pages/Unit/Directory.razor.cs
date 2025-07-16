@@ -16,6 +16,9 @@ namespace uofi_itp_directory.Pages.Unit {
         public Area Area { get; set; } = default!;
         public AreaSettings AreaSettings { get; set; } = default!;
 
+        [CascadingParameter]
+        public LayoutUnit Layout { get; set; } = default!;
+
         [Parameter]
         public int? UnitId { get; set; }
 
@@ -55,6 +58,7 @@ namespace uofi_itp_directory.Pages.Unit {
         }
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             var cachedAreaThinObject = CacheHelper.GetCachedArea(await AuthenticationStateProvider.GetAuthenticationStateAsync(), CacheHolder);
             if (cachedAreaThinObject != null) {
                 UnitId = cachedAreaThinObject.Id;

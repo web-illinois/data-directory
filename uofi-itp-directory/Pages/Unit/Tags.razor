@@ -2,29 +2,29 @@
 
 <PageTitle>Unit Tags | Illinois</PageTitle>
 
-<il-section>
+<div class="iled-section">
     <h1>@UnitTitle Tags</h1>
     <p>Edit your unit’s tags below.</p>
-</il-section>
+</div>
 @if (!UnitId.HasValue)
 {
     <MultiChoice @ref="_multiChoice" Type="MultiChoiceTypeEnum.Area" AreaOfficeThinObjects="_areaThinObjects" OnClickCallback="AssignId"></MultiChoice>
 }
 else if (AreaTags != null)
 {
-    <il-section>
+    <div class="iled-section">
         <h2>Existing Tags</h2>
         <p>Note that tags cannot be edited. If you need to change a tag, then delete the old tag and re-add it.</p>
-        <p>If a tag is removed, it may take a few days for the tag to be removed from the directory repository.</p>
+        <p><em>If a tag is removed, it may take a few hours for the tag to be removed from the directory repository.</em> Names will be added to a queue and processed at a regular interval. <a href="/search/logs">See the logs</a> to see if a name has been processed. </p>
         @foreach (var tag in AreaTags)
         {
             <div class="iled-username">
-                <span>@tag.FullTitle</span> <button class="il-button il-orange" @onclick="() => RemoveTag(tag)">Remove Tag</button>
+                <span>@tag.FullTitle</span> <button class="ilw-button ilw-theme-orange-1" @onclick="() => RemoveTag(tag)">Remove Tag</button>
             </div>
         }
-    </il-section>
+    </div>
 
-    <il-section>
+    <div class="iled-section">
         <h2>Add New Tag</h2>
         <div class="iled-section-split">
             <div class="iled-input-box-parent">
@@ -55,9 +55,9 @@ else if (AreaTags != null)
             </div>
         </div>
         <div class="iled-buttons-left">
-            <button class="il-button" @onclick="Send" @onblur="RemoveMessage">Add New Tag</button>
+            <button class="ilw-button" @onclick="Send" @onblur="RemoveMessage">Add New Tag</button>
             <ClearCacheButton></ClearCacheButton>
         </div>
         <ToastPopup></ToastPopup>
-    </il-section>
+    </div>
 }

@@ -13,9 +13,13 @@
     public partial class PositionJob {
         private bool _isDirty = false;
         public Dictionary<int, List<AreaTag>> AreaTags { get; set; } = default!;
-
         public Employee? Employee { get; set; } = default!;
+
         public string Instructions { get; set; } = "";
+
+        [CascadingParameter]
+        public LayoutProfile Layout { get; set; } = default!;
+
         public Dictionary<int, bool> OfficeDescriptionUsed { get; set; } = default!;
         public string PersonName { get; set; } = "My Profile";
 
@@ -67,6 +71,7 @@
         }
 
         protected override async Task OnInitializedAsync() {
+            Layout.Rebuild();
             var employeeId = CacheHelper.GetCachedEmployee(await AuthenticationStateProvider.GetAuthenticationStateAsync(), CacheHolder, Refresh);
             Employee = await AccessHelper.GetEmployee(await AuthenticationStateProvider.GetAuthenticationStateAsync(), EmployeeSecurityHelper, employeeId);
             if (Employee == null) {
@@ -82,6 +87,7 @@
             }
             Instructions = await EmployeeAreaHelper.EmployeeInstructions(Employee.NetId);
             PersonName = Employee.ProfileName;
+            StateHasChanged();
         }
 
         protected override async Task OnParametersSetAsync() => await OnInitializedAsync();

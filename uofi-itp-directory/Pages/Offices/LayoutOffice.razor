@@ -1,38 +1,25 @@
 ﻿@inherits LayoutComponentBase
 @layout SidebarLayout
-
-<il-section-with-sidebar>
+<CascadingValue Value="this">
+<ilw-columns mode="sidebar-left" gap="44px" width="page">
     <div slot="sidebar">
-        <il-section-nav>
-            <h3><a href="/office/general">Office Administration</a></h3>
-            <ul>
-                <li>
-                    <a title="General Information" href="/office/general">General Information</a>
-                </li>
-                <li>
-                    <a title="Office Hours" href="/office/hours">Office Hours</a>
-                </li>
-                <li>
-                    <a title="People" href="/office/people">Edit People in Your Office</a>
-                </li>
-                <li>
-                    <a title="Batch Load" href="/office/peoplebatch">Batch Load People to Your Office</a>
-                </li>
-                <li>
-                    <a title="Office Administrators" href="/office/users">Office Administrators</a>
-                </li>
-                @if (FullSecurityItem?.IsUnitAdmin ?? false)
-                {
-                    <li>
-                        <a title="Internal Information" href="/office/internal">Internal Information</a>
-                    </li>
-                    <li>
-                        <a title="Links to Pull Information" href="/office/directory">Links to Pull Information</a>
-                    </li>
-                }
-            </ul>
-        </il-section-nav>
+        <ilw-section-nav>
+            <span class="ilw-section-nav--root">Office Administration</span>
+            <a title="General Information" aria-current="@(BaseUrl == "/office/general" ? "page" : null)" href="/office/general">General Information</a>
+            <a title="Office Hours" aria-current="@(BaseUrl == "/office/hours" ? "page" : null)" href="/office/hours">Office Hours</a>
+            <a title="People" aria-current="@(BaseUrl == "/office/people" ? "page" : null)" href="/office/people">Edit People in Your Office</a>
+            <a title="Batch Load" aria-current="@(BaseUrl == "/office/peoplebatch" ? "page" : null)" href="/office/peoplebatch">Batch Load People to Your Office</a>
+            <a title="Office Administrators" aria-current="@(BaseUrl == "/office/users" ? "page" : null)" href="/office/users">Office Administrators</a>
+            @if (FullSecurityItem?.IsUnitAdmin ?? false)
+            {
+                <a title="Internal Information" aria-current="@(BaseUrl == "/office/internal" ? "page" : null)" href="/office/internal">Internal Information</a>
+                <a title="Links to Pull Information" aria-current="@(BaseUrl == "/office/directory" ? "page" : null)" href="/office/directory">Links to Pull Information</a>
+            }
+        </ilw-section-nav>
         <LoginInformation></LoginInformation>
     </div>
-    @Body
-</il-section-with-sidebar>
+    <ilw-content>
+        @Body
+    </ilw-content>
+</ilw-columns>
+</CascadingValue>

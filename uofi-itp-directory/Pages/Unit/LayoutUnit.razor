@@ -1,32 +1,21 @@
 ﻿@inherits LayoutComponentBase
 @layout SidebarLayout
-
-<il-section-with-sidebar>
+<CascadingValue Value="this">
+<ilw-columns mode="sidebar-left" gap="44px" width="page">
     <div slot="sidebar">
-        <il-section-nav>
-            <h3><a href="/unit/general">Unit Administration</a></h3>
-            <ul>
-                <li>
-                    <a title="General Information" href="/unit/general">General Information</a>
-                </li>
-                <li>
-                    <a title="Add and Remove Offices" href="/unit/offices">Add and Remove Offices</a>
-                </li>
-                <li>
-                    <a title="Unit Administrators" href="/unit/users">Unit Administrators</a>
-                </li>
-                <li>
-                    <a title="Internal Information" href="/unit/internal">Internal Information</a>
-                </li>
-                <li>
-                    <a title="Tag Information" href="/unit/tags">Tag Information</a>
-                </li>
-                <li>
-                    <a title="Links to Pull Information" href="/unit/directory">Links to Pull Information</a>
-                </li>
-            </ul>
-        </il-section-nav>
+        <ilw-section-nav>
+            <span class="ilw-section-nav--root">Unit Administration</span>
+            <a title="General Information" aria-current="@(BaseUrl == "/unit/general" ? "page" : null)" href="/unit/general">General Information</a>
+            <a title="Add and Remove Offices" aria-current="@(BaseUrl == "/unit/offices" ? "page" : null)" href="/unit/offices">Add and Remove Offices</a>
+            <a title="Unit Administrators" aria-current="@(BaseUrl == "/unit/users" ? "page" : null)" href="/unit/users">Unit Administrators</a>
+            <a title="Internal Information" aria-current="@(BaseUrl == "/unit/internal" ? "page" : null)" href="/unit/internal">Internal Information</a>
+            <a title="Tag Information" aria-current="@(BaseUrl == "/unit/tags" ? "page" : null)" href="/unit/tags">Tag Information</a>
+            <a title="Links to Pull Information" aria-current="@(BaseUrl == "/unit/directory" ? "page" : null)" href="/unit/directory">Links to Pull Information</a>
+        </ilw-section-nav>
         <LoginInformation></LoginInformation>
     </div>
+    <ilw-content>
     @Body
-</il-section-with-sidebar>
+    </ilw-content>
+</ilw-columns>
+</CascadingValue>

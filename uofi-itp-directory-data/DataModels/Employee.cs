@@ -19,6 +19,8 @@ namespace uofi_itp_directory_data.DataModels {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
 
+        public bool IsAddressHidden { get; set; } = false;
+
         [NotMapped]
         public bool IsCurrentUser { get; set; } = false;
 
