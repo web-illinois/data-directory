@@ -14,8 +14,9 @@ namespace uofi_itp_directory_data.DataAccess {
         private readonly LogHelper _logHelper = logHelper;
 
         public async Task<(int employeeId, string message)> GenerateJobProfile(int officeId, string netid, string changedByNetId, string title = "", ProfileCategoryTypeEnum profileCategoryTypeEnum = ProfileCategoryTypeEnum.None) {
+            netid = netid.Trim().ToLowerInvariant();
             if (!netid.EndsWith("@illinois.edu"))
-                netid = netid + "@illinois.edu";
+                netid += "@illinois.edu";
 
             var checkExistingProfile = await _directoryRepository.ReadAsync(d => d.JobProfiles.Include(jp => jp.EmployeeProfile).Any(jp => jp.OfficeId == officeId && jp.EmployeeProfile.NetId == netid));
             if (checkExistingProfile)
@@ -32,8 +33,8 @@ namespace uofi_itp_directory_data.DataAccess {
                     ListedNameLast = name.LastName,
                     IsActive = true,
                     LastUpdated = DateTime.Now,
-                    EmployeeHours = new List<EmployeeHour> { new() { Day = DayOfWeek.Sunday }, new() { Day = DayOfWeek.Monday }, new() { Day = DayOfWeek.Tuesday }, new() { Day = DayOfWeek.Wednesday }, new() { Day = DayOfWeek.Thursday }, new() { Day = DayOfWeek.Friday }, new() { Day = DayOfWeek.Saturday } },
-                    JobProfiles = new List<JobProfile> { new() { IsActive = profileCategoryTypeEnum != ProfileCategoryTypeEnum.None, InternalOrder = 3, LastUpdated = DateTime.Now, Title = !string.IsNullOrWhiteSpace(title) ? title : name.Title, OfficeId = officeId, Category = profileCategoryTypeEnum } }
+                    EmployeeHours = [new() { Day = DayOfWeek.Sunday }, new() { Day = DayOfWeek.Monday }, new() { Day = DayOfWeek.Tuesday }, new() { Day = DayOfWeek.Wednesday }, new() { Day = DayOfWeek.Thursday }, new() { Day = DayOfWeek.Friday }, new() { Day = DayOfWeek.Saturday }],
+                    JobProfiles = [new() { IsActive = profileCategoryTypeEnum != ProfileCategoryTypeEnum.None, InternalOrder = 3, LastUpdated = DateTime.Now, Title = !string.IsNullOrWhiteSpace(title) ? title : name.Title, OfficeId = officeId, Category = profileCategoryTypeEnum }]
                 };
                 _ = await _directoryRepository.CreateAsync(employee);
                 _ = await _logHelper.CreateEmployeeLog(changedByNetId, "Added New Employee", "", employee.Id, employee.NetId);
