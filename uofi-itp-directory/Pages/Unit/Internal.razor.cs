@@ -94,7 +94,6 @@ namespace uofi_itp_directory.Pages.Unit {
                 UnitTitle = cachedAreaThinObject.Title;
                 await AssignTextFields();
             }
-
             _areaThinObjects = await AccessHelper.GetAreas(await AuthenticationStateProvider.GetAuthenticationStateAsync(), PersonOptionHelper);
             if (_areaThinObjects.IsSingle()) {
                 UnitId = _areaThinObjects.Single().Id;
@@ -130,7 +129,7 @@ namespace uofi_itp_directory.Pages.Unit {
 
         private async Task AssignTextFields() {
             Area = await AreaHelper.GetAreaById(UnitId, await AuthenticationStateProvider.GetUser());
-            AreaSettings = await AreaHelper.GetAreaSettingsByAreaId(UnitId);
+            AreaSettings = await AreaHelper.GetAreaSettingsByAreaId(Area.Id);
             PublishingLocation = SetPublishingLocation(Area);
             ProfileInformation = SetProfileInformation(AreaSettings);
             _originalAllowAccess = AreaSettings.AllowAdministratorsAccessToPeople;

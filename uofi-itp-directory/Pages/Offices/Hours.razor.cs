@@ -96,7 +96,7 @@ namespace uofi_itp_directory.Pages.Offices {
         private async Task AssignTextFields() {
             if (OfficeId.HasValue) {
                 Office = await OfficeHelper.GetOfficeById(OfficeId.Value, await AuthenticationStateProvider.GetUser());
-                OfficeHours = await OfficeHelper.GetOfficeHoursById(OfficeId.Value);
+                OfficeHours = await OfficeHelper.GetOfficeHoursById(Office.Id);
             }
         }
 

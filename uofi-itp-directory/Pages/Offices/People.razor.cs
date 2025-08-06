@@ -114,7 +114,7 @@ namespace uofi_itp_directory.Pages.Offices {
         private async Task AssignTextFields() {
             if (OfficeId.HasValue) {
                 Office = await OfficeHelper.GetOfficeById(OfficeId.Value, await AuthenticationStateProvider.GetUser());
-                JobProfiles = (await JobProfileHelper.GetJobProfileThinObjects(OfficeId.Value)) ?? [];
+                JobProfiles = (await JobProfileHelper.GetJobProfileThinObjects(Office.Id)) ?? [];
             }
         }
 
