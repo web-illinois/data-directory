@@ -20,3 +20,10 @@
 <p>If you have another system that loads your faculty information, you can trigger that in step 5 instead of using the Default Faculty Load.</p>
 
 <p>If you don't have the IT staff to build out a JavaScript profile, we can help you with this. We are working with WIGG and the WCOE to create standard profiles.</p>
+
+<h2>Directory Export</h2>
+<p>While <a href="https://directoryapi.wigg.illinois.edu/api/swagger/ui">the Directory API</a> can export most of the data concerning the area, office, and directory information, there are some instances where you need to get raw HTML or binaries instead of JSON. To handle that, we have a few links within the Directory application itself that can support that.</p>
+<h3>Picture</h3>
+<p>To get your picture, go to <em>https://directory.wigg.illinois.edu/picture/(netid)</em> -- this will send you a binary of your image in a webp format. If the Net ID could not be found, it will show a generic image of a person.</p>
+<h3>Illinois Directory Snippet</h3>
+<p>To get your directory information, go to <em>https://directory.wigg.illinois.edu/campusexport/(internal-code)/(netid)</em> -- this will send you HTML code that matches the format for the Illinois Directory to import. The internal code can be found using the <a href="https://directory.wigg.illinois.edu/unit/directory">Links to Pull Information</a> in the Directory Application.</p>

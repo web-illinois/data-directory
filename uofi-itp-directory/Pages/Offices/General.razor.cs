@@ -11,6 +11,7 @@ using uofi_itp_directory_data.Helpers;
 using uofi_itp_directory_data.Security;
 
 namespace uofi_itp_directory.Pages.Offices {
+
     public partial class General {
         private bool _isDirty = false;
         private MultiChoice? _multiChoice = default!;
@@ -91,7 +92,7 @@ namespace uofi_itp_directory.Pages.Offices {
         private async Task AssignTextFields() {
             if (OfficeId.HasValue) {
                 Office = await OfficeHelper.GetOfficeById(OfficeId.Value, await AuthenticationStateProvider.GetUser());
-                Instructions = await EmployeeAreaHelper.OfficeInstructions(OfficeId);
+                Instructions = await EmployeeAreaHelper.OfficeInstructions(Office.Id);
             }
         }
 

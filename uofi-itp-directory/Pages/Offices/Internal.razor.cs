@@ -13,19 +13,22 @@ namespace uofi_itp_directory.Pages.Offices {
 
     public partial class Internal {
         private bool _isDirty = false;
-        protected void SetDirty() => _isDirty = true;
+        private MultiChoice? _multiChoice = default!;
+
+        private List<AreaOfficeThinObject> _officeThinObjects = default!;
+
         [CascadingParameter]
         public LayoutOffice Layout { get; set; } = default!;
 
-        private MultiChoice? _multiChoice = default!;
-        private List<AreaOfficeThinObject> _officeThinObjects = default!;
         public Office Office { get; set; } = default!;
 
         [Parameter]
         public int? OfficeId { get; set; }
 
         public OfficeSettings OfficeSettings { get; set; } = default!;
+
         public string OfficeTitle { get; set; } = "Office";
+
         public int PublishingLocation { get; set; }
 
         [Inject]
@@ -81,6 +84,8 @@ namespace uofi_itp_directory.Pages.Offices {
             }
         }
 
+        protected void SetDirty() => _isDirty = true;
+
         private static int SetPublishingLocation(Office office) {
             if (!office.IsActive && !office.CanAddPeople) {
                 return 9;
@@ -93,19 +98,20 @@ namespace uofi_itp_directory.Pages.Offices {
             }
             return 2;
         }
+
+        private async Task AssignTextFields() {
+            if (OfficeId.HasValue) {
+                Office = await OfficeHelper.GetOfficeById(OfficeId.Value, await AuthenticationStateProvider.GetUser());
+                OfficeSettings = await OfficeHelper.GetOfficeSettingsById(Office.Id);
+                PublishingLocation = SetPublishingLocation(Office);
+            }
+        }
+
         private async Task LocationChangingHandler(LocationChangingContext arg) {
             if (_isDirty) {
                 if (!(await JsRuntime.InvokeAsync<bool>("confirm", $"You have unsaved changes. Are you sure?"))) {
                     arg.PreventNavigation();
                 }
-            }
-        }
-
-        private async Task AssignTextFields() {
-            if (OfficeId.HasValue) {
-                Office = await OfficeHelper.GetOfficeById(OfficeId.Value, await AuthenticationStateProvider.GetUser());
-                OfficeSettings = await OfficeHelper.GetOfficeSettingsById(OfficeId.Value);
-                PublishingLocation = SetPublishingLocation(Office);
             }
         }
     }
