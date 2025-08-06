@@ -77,7 +77,7 @@ namespace uofi_itp_directory.Pages.Offices {
         private async Task AssignTextFields() {
             if (OfficeId.HasValue) {
                 Office = await OfficeHelper.GetOfficeById(OfficeId.Value, await AuthenticationStateProvider.GetUser());
-                OfficeSettings = await OfficeHelper.GetOfficeSettingsById(OfficeId.Value);
+                OfficeSettings = await OfficeHelper.GetOfficeSettingsById(Office.Id);
             }
         }
     }
