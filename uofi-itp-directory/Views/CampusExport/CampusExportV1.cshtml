@@ -1,0 +1,191 @@
+﻿@{
+    Layout = null;
+}
+@model dynamic
+
+<div class="flex-container  profile-photo  has-avatar"><img src="@Model.imageUrl" alt="@Model.imageAltText" /></div>
+<div id="less-details" class="flex-container  profile">
+    <h2 class="name  flex-col-6"> @Model.fullName </h2>
+    <div class="role  flex-col-6">@Model.primaryTitle</div>
+    <div class="department  flex-col-6"> @Model.primaryOffice </div>
+    <h3 class="visiblyhidden">Address and Contact Information</h3>
+    <div class="profile-details">
+        <div class="address" data-type="address">
+            <div data-address="address-1">@Model.roomNumber @Model.building</div>
+            <div data-address="address-2">@Model.addressLine1 @Model.addressLine2</div>
+            @if (Model.city != "")
+            {
+                <span data-address="city">@Model.city,</span> <span data-address="state">@Model.state</span> <span data-address="zipcode">@Model.zip</span>
+            }
+        </div>
+        <div class="phone"> <a href="tel:@Model.phone">@Model.phoneFormatted</a> </div>
+    </div>
+    <div class="profile-details">
+        <div class="email">
+            <script>
+            displayIllinois('@Model.email.ToString().Replace("@illinois.edu", "")')
+            </script>
+        </div>
+        <div class="url"> <a href="@Model.profileUrl" target="_new">Department Profile</a> </div>
+    </div>
+    <div class="categories" id="ws-cat">
+        @if (Model.biography.ToString() != "")
+        {
+            <div class="detail-block">
+                <h3>Professional Summary</h3>
+                <div>@Html.Raw(Model.biography.ToString())</div>
+            </div>
+        }
+        @if (Model.organizations != null && Model.organizations.Count > 0)
+        {
+            <div class="detail-block">
+                <h3>Key Professional Appointments</h3>
+                <ul>
+                @foreach (var item in Model.organizations)
+                {
+                    <li>@Html.Raw(item.title) @(item.institution == null || item.institution == "" ? "" : ", " + Html.Raw(item.institution))</li>
+                }
+                </ul>
+            </div>
+        }
+        @if (Model.educationHistory != null && Model.educationHistory.Count > 0)
+        {
+            <div class="detail-block">
+                <h3>Educational Background</h3>
+                <ul>
+                @foreach (var item in Model.educationHistory)
+                {
+                    <li>@Html.Raw(item.title) @(item.institution == null || item.institution == "" ? "" : ", " + Html.Raw(item.institution))</li>
+                }
+                </ul>
+            </div>
+        }
+        @if (Model.awards != null && Model.awards.Count > 0)
+        {
+            <div class="detail-block">
+                <h3>Awards &amp; Honors</h3>
+                <ul>
+                @foreach (var item in Model.awards)
+                {
+                    <li>@Html.Raw(item.title) @(item.year == null || item.year == "" ? "" : ", " + Html.Raw(item.year))</li>
+                }
+                </ul>
+            </div>
+        }
+        @if (Model.researchStatement.ToString() != "")
+        {
+            <div class="detail-block">
+                <h3>Research Statement</h3>
+                <div>@Html.Raw(Model.researchStatement.ToString())</div>
+            </div>
+        }
+        @if (Model.publications != null && Model.publications.Count > 0)
+        {
+            <div class="detail-block">
+                <h3>Select Publications</h3>
+                <ul>
+                @foreach (var item in Model.publications)
+                {
+                    if (item.url == "")
+                    {
+                        <li>@Html.Raw(item.title)</li>
+                    }
+                    else
+                    {
+                        <li><a href="@item.url">@Html.Raw(item.title)</a></li>
+                    }
+                }
+                </ul>
+            </div>
+        }
+        @if (Model.presentations != null && Model.presentations.Count > 0)
+        {
+            <div class="detail-block">
+                <h3>Select Presentations</h3>
+                <ul>
+                @foreach (var item in Model.presentations)
+                {
+                    if (item.url == "")
+                    {
+                        <li>@Html.Raw(item.title)</li>
+                    }
+                    else
+                    {
+                        <li><a href="@item.url">@Html.Raw(item.title)</a></li>
+                    }
+                }
+                </ul>
+            </div>
+        }
+        @if (Model.services != null && Model.services.Count > 0)
+        {
+            <div class="detail-block">
+                <h3>Services</h3>
+                <ul>
+                @foreach (var item in Model.services)
+                {
+                    if (item.url == "")
+                    {
+                        <li>@Html.Raw(item.title)</li>
+                    }
+                    else
+                    {
+                        <li><a href="@item.url">@Html.Raw(item.title)</a></li>
+                    }
+                }
+                </ul>
+            </div>
+        }
+        @if (Model.grants != null && Model.grants.Count > 0)
+        {
+            <div class="detail-block">
+                <h3>Grants</h3>
+                <ul>
+                @foreach (var item in Model.grants)
+                {
+                    if (item.url == "")
+                    {
+                        <li>@Html.Raw(item.title)</li>
+                    }
+                    else
+                    {
+                        <li><a href="@item.url">@Html.Raw(item.title)</a></li>
+                    }
+                }
+                </ul>
+            </div>
+        }
+        @if (Model.links != null && Model.links.Count > 0)
+        {
+            <div class="detail-block">
+                <h3>Links</h3>
+                <ul>
+                @foreach (var item in Model.links)
+                {
+                    <li><a href="@item.url">@Html.Raw(item.title)</a></li>
+                }
+                </ul>
+            </div>
+        }
+        @if (Model.courses != null && Model.courses.Count > 0)
+        {
+            <div class="detail-block">
+                <h3>Courses</h3>
+                <ul>
+                @foreach (var item in Model.courses)
+                {
+                    if (item.url == "")
+                    {
+                        <li>@Html.Raw(item.title): @Html.Raw(item.description)</li>
+                    }
+                    else
+                    {
+                        <li><a href="@item.url">@Html.Raw(item.title)</a>: @Html.Raw(item.description)</li>
+                    }
+                }
+                </ul>
+            </div>
+        }
+    </div>
+    <script id="related-links" src="/webservices/js/ds/relatedLinks.js"></script>
+</div>
