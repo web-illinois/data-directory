@@ -20,7 +20,6 @@ namespace uofi_itp_directory.Pages.Unit {
         public string NetId { get; set; } = "";
         public List<SecurityEntry> SecurityEntries { get; set; } = default!;
 
-        [Parameter]
         public int? UnitId { get; set; }
 
         public string UnitTitle { get; set; } = "Unit";

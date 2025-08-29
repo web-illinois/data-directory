@@ -23,7 +23,6 @@ namespace uofi_itp_directory.Pages.Offices {
 
         public Office Office { get; set; } = default!;
 
-        [Parameter]
         public int? OfficeId { get; set; }
 
         public string OfficeTitle { get; set; } = "Office";

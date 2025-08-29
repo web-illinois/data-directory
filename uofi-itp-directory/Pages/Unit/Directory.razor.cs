@@ -19,7 +19,6 @@ namespace uofi_itp_directory.Pages.Unit {
         [CascadingParameter]
         public LayoutUnit Layout { get; set; } = default!;
 
-        [Parameter]
         public int? UnitId { get; set; }
 
         public string UnitTitle { get; set; } = "Unit";

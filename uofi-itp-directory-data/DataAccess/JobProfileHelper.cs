@@ -34,7 +34,7 @@ namespace uofi_itp_directory_data.DataAccess {
                     IsActive = true,
                     LastUpdated = DateTime.Now,
                     EmployeeHours = [new() { Day = DayOfWeek.Sunday }, new() { Day = DayOfWeek.Monday }, new() { Day = DayOfWeek.Tuesday }, new() { Day = DayOfWeek.Wednesday }, new() { Day = DayOfWeek.Thursday }, new() { Day = DayOfWeek.Friday }, new() { Day = DayOfWeek.Saturday }],
-                    JobProfiles = [new() { IsActive = profileCategoryTypeEnum != ProfileCategoryTypeEnum.None, InternalOrder = 3, LastUpdated = DateTime.Now, Title = !string.IsNullOrWhiteSpace(title) ? title : name.Title, OfficeId = officeId, Category = profileCategoryTypeEnum }]
+                    JobProfiles = [new() { IsActive = true, InternalOrder = 3, LastUpdated = DateTime.Now, Title = !string.IsNullOrWhiteSpace(title) ? title : name.Title, OfficeId = officeId, Category = profileCategoryTypeEnum }]
                 };
                 _ = await _directoryRepository.CreateAsync(employee);
                 _ = await _logHelper.CreateEmployeeLog(changedByNetId, "Added New Employee", "", employee.Id, employee.NetId);
@@ -42,7 +42,7 @@ namespace uofi_itp_directory_data.DataAccess {
                 return (employee.Id, $"Employee {name.Name} created with new information");
             }
 
-            _ = await _directoryRepository.CreateAsync(new JobProfile { IsActive = profileCategoryTypeEnum != ProfileCategoryTypeEnum.None, InternalOrder = 3, LastUpdated = DateTime.Now, Title = !string.IsNullOrWhiteSpace(title) ? title : name.Title, EmployeeProfileId = existingEmployee.Id, OfficeId = officeId, Category = profileCategoryTypeEnum });
+            _ = await _directoryRepository.CreateAsync(new JobProfile { IsActive = true, InternalOrder = 3, LastUpdated = DateTime.Now, Title = !string.IsNullOrWhiteSpace(title) ? title : name.Title, EmployeeProfileId = existingEmployee.Id, OfficeId = officeId, Category = profileCategoryTypeEnum });
             _ = await _logHelper.CreateProfileLog(changedByNetId, "Added Profile to Existing Employee", "", existingEmployee.Id, existingEmployee.NetId);
 
             return (existingEmployee.Id, $"Employee {name.Name} created with existing information");

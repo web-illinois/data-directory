@@ -64,6 +64,11 @@ namespace uofi_itp_directory_search.SearchHelper {
                     returnValue.People.Add(JsonConvert.DeserializeObject<Employee>(hit._source.ToString()));
                 }
             }
+            if (returnValue.People.Count > 0 && jobTypes.Any()) {
+                foreach (var person in returnValue.People) {
+                    person.JobProfiles = [.. person.JobProfiles.Where(j => jobTypes.Contains(j.JobType))];
+                }
+            }
             if (json != null && json?.suggest != null && json?.suggest.suggestion.Count > 0 && json?.suggest.suggestion[0].options.Count > 0) {
                 returnValue.Suggestion = json?.suggest.suggestion[0].options[0].text.ToString() ?? "";
             }

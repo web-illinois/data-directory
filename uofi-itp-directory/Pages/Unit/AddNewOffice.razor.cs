@@ -23,7 +23,6 @@ namespace uofi_itp_directory.Pages.Unit {
         public string OfficeName { get; set; } = "";
         public List<Office> Offices { get; set; } = default!;
 
-        [Parameter]
         public int? UnitId { get; set; }
 
         public string UnitTitle { get; set; } = "Unit";
