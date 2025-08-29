@@ -25,6 +25,7 @@ namespace uofi_itp_directory_search.SearchHelper {
         }
 
         public async Task<DirectoryItem> Search(string query, IEnumerable<string> offices, IEnumerable<string> jobTypes, IEnumerable<string> tags, bool useFullText, int skip, int size, string source) {
+            // if querying a single office, then get all results and sort by priority
             var usePrioritySort = offices.Count() == 1;
             var searchResponse = await _openSearchLowLevelClient.SearchAsync<StringResponse>(LowLevelClientFactory.Index, JsonStringManager.GetJsonForSearch(query, skip, size, JsonStringManager.GetJsonFilter(source, offices, jobTypes, tags), useFullText, usePrioritySort));
             dynamic? json = JsonConvert.DeserializeObject(searchResponse.Body ?? "");
