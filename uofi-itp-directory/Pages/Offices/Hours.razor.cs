@@ -26,7 +26,6 @@ namespace uofi_itp_directory.Pages.Offices {
 
         public List<OfficeHour> OfficeHours { get; set; } = default!;
 
-        [Parameter]
         public int? OfficeId { get; set; }
 
         public string OfficeTitle { get; set; } = "Office";

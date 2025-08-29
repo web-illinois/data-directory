@@ -39,7 +39,10 @@
                 : "{ \"size\": 9999, \"query\": { \"bool\": { \"must\": { \"multi_match\": { \"query\": \"" + s + "\", \"fields\": [ \"lastname\", \"firstname\", \"username\" ] } }, \"filter\": { " + filter + " } } }, \"suggest\" : { \"suggestion\" : { \"text\" : \"" + s + "\", \"term\" : { \"field\" : \"fullname\" } } } }";
         }
 
-        public static string GetJsonForSearch(string s, int skip, int size, string filter, bool useFullText) {
+        public static string GetJsonForSearch(string s, int skip, int size, string filter, bool useFullText, bool usePriority) {
+            if (string.IsNullOrEmpty(s) && usePriority) {
+                return "{ \"from\": 0, \"size\": 9999, \"sort\": [\"fullnamereversed\"], \"query\": { \"bool\": { \"must\": { \"match_all\": {} }, \"filter\": { " + filter + " } } } }";
+            }
             if (string.IsNullOrEmpty(s)) {
                 return "{ \"from\": " + skip + ", \"size\": " + size + ", \"sort\": [\"fullnamereversed\"], \"query\": { \"bool\": { \"must\": { \"match_all\": {} }, \"filter\": { " + filter + " } } } }";
             }

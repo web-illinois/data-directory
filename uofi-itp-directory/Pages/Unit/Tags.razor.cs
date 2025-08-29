@@ -24,7 +24,6 @@ namespace uofi_itp_directory.Pages.Unit {
         public ProfileCategoryTypeEnum NewTagFilter { get; set; }
         public string NewTagName { get; set; } = "";
 
-        [Parameter]
         public int? UnitId { get; set; }
 
         public string UnitTitle { get; set; } = "Unit";

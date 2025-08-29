@@ -27,7 +27,6 @@ namespace uofi_itp_directory.Pages.Unit {
 
         public int PublishingLocation { get; set; }
 
-        [Parameter]
         public int? UnitId { get; set; }
 
         public string UnitTitle { get; set; } = "Unit";
