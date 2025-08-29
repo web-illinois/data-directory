@@ -22,7 +22,6 @@ namespace uofi_itp_directory.Pages.Offices {
         public string Name { get; set; } = "";
         public string NetId { get; set; } = "";
 
-        [Parameter]
         public int? OfficeId { get; set; }
 
         public string OfficeTitle { get; set; } = "Office";

@@ -26,7 +26,6 @@ namespace uofi_itp_directory.Pages.Unit {
         [SupplyParameterFromQuery(Name = "back")]
         public string? ShowBackButton { get; set; }
 
-        [Parameter]
         public int? UnitId { get; set; }
 
         public string UnitTitle { get; set; } = "Unit";
