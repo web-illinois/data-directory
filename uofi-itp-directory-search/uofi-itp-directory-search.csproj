@@ -11,6 +11,7 @@
     <PackageReference Include="AWSSDK.OpenSearchService" Version="3.7.404.1" />
     <PackageReference Include="OpenSearch.Client" Version="1.8.0" />
     <PackageReference Include="OpenSearch.Net.Auth.AwsSigV4" Version="1.8.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.11" />
   </ItemGroup>
 
   <ItemGroup>

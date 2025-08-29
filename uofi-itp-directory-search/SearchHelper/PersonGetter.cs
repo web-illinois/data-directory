@@ -25,7 +25,8 @@ namespace uofi_itp_directory_search.SearchHelper {
         }
 
         public async Task<DirectoryItem> Search(string query, IEnumerable<string> offices, IEnumerable<string> jobTypes, IEnumerable<string> tags, bool useFullText, int skip, int size, string source) {
-            var searchResponse = await _openSearchLowLevelClient.SearchAsync<StringResponse>(LowLevelClientFactory.Index, JsonStringManager.GetJsonForSearch(query, skip, size, JsonStringManager.GetJsonFilter(source, offices, jobTypes, tags), useFullText));
+            var usePrioritySort = offices.Count() == 1;
+            var searchResponse = await _openSearchLowLevelClient.SearchAsync<StringResponse>(LowLevelClientFactory.Index, JsonStringManager.GetJsonForSearch(query, skip, size, JsonStringManager.GetJsonFilter(source, offices, jobTypes, tags), useFullText, usePrioritySort));
             dynamic? json = JsonConvert.DeserializeObject(searchResponse.Body ?? "");
 
             var returnValue = new DirectoryItem();
@@ -38,15 +39,16 @@ namespace uofi_itp_directory_search.SearchHelper {
             if (json != null && json?.suggest != null && json?.suggest.suggestion.Count > 0 && json?.suggest.suggestion[0].options.Count > 0) {
                 returnValue.Suggestion = json?.suggest.suggestion[0].options[0].text.ToString() ?? "";
             }
-            if (offices.Count() == 1) {
+            if (usePrioritySort) {
                 foreach (var emp in returnValue.People) {
                     emp.JobProfiles = emp.JobProfiles.Where(j => j.Office == offices.First()).ToList();
                     emp.PrimaryOffice = offices.First();
                     emp.PrimaryTitle = emp.JobProfiles.FirstOrDefault(j => j.Office == offices.FirstOrDefault())?.Title ?? emp.PrimaryTitle;
                 }
                 if (string.IsNullOrWhiteSpace(query)) {
-                    returnValue.People = returnValue.People.OrderBy(p => p.JobProfiles.FirstOrDefault()?.DisplayOrder).ThenBy(p => p.FullNameReversed).ToList();
+                    returnValue.People = [.. returnValue.People.OrderBy(p => p.JobProfiles.FirstOrDefault()?.DisplayOrder).ThenBy(p => p.FullNameReversed)];
                 }
+                returnValue.People = [.. returnValue.People.Skip(skip).Take(size)];
             }
             return returnValue;
         }
