@@ -9,15 +9,17 @@ namespace uofi_itp_directory.ControlHelper {
 
         public static async Task<List<AreaOfficeThinObject>> GetAreas(AuthenticationState? authenticationState, PersonOptionHelper? personOptionHelper) => authenticationState == null || personOptionHelper == null
                 ? []
-                : [.. await personOptionHelper.Areas(authenticationState.User?.Identity?.Name)];
+                : [.. await personOptionHelper.Areas(authenticationState.GetName())];
 
         public static async Task<Employee?> GetEmployee(AuthenticationState? authenticationState, EmployeeHelper? employeeSecurityHelper, int? id) =>
-            authenticationState == null || employeeSecurityHelper == null ? null : (await employeeSecurityHelper.GetEmployee(id, authenticationState.User?.Identity?.Name ?? ""));
+            authenticationState == null || employeeSecurityHelper == null ? null : (await employeeSecurityHelper.GetEmployee(id, authenticationState.GetName()));
 
         public static async Task<List<AreaOfficeThinObject>> GetOffices(AuthenticationState? authenticationState, PersonOptionHelper? personOptionHelper) => authenticationState == null || personOptionHelper == null
                 ? []
-                : [.. await personOptionHelper.Offices(authenticationState.User?.Identity?.Name)];
+                : [.. await personOptionHelper.Offices(authenticationState.GetName())];
 
         public static bool IsSingle(this IEnumerable<AreaOfficeThinObject> areaOfficeThinObjects) => areaOfficeThinObjects.Count() == 1;
+
+        private static string GetName(this AuthenticationState authenticationState) => authenticationState.User?.Identity?.Name ?? "";
     }
 }

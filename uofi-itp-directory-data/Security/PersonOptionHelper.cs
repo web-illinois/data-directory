@@ -30,9 +30,6 @@ namespace uofi_itp_directory_data.Security {
             return returnValue;
         }
 
-        public async Task<bool> HasProfile(string? name) => CheckParameters(name) &&
-                    (await _directoryRepository.ReadAsync(c => c.JobProfiles.Include(c => c.EmployeeProfile).Any(c => c.EmployeeProfile.NetId == name)));
-
         public async Task<bool> IsAreaAdmin(string? name, int areaId) => CheckParameters(name) &&
                             (await _directoryRepository.ReadAsync(c => c.SecurityEntries.Any(p => p.Email == name && p.IsActive && (p.IsFullAdmin || p.AreaId == areaId))));
 
