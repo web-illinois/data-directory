@@ -41,12 +41,14 @@ namespace uofi_itp_directory_data.Helpers {
         private async Task<(AreaSettings areaSettings, string fullName)> GetSettings(string netid) {
             netid = netid.ToLowerInvariant();
             var employee = await _directoryRepository.ReadAsync(d => d.Employees.Include(e => e.JobProfiles).ThenInclude(jp => jp.Office).SingleOrDefault(e => e.NetId == netid));
-            return employee == null || employee.Id == 0 ? (new AreaSettings(), "") : (await _directoryRepository.ReadAsync(d => d.AreaSettings.Single(a => a.AreaId == employee.PrimaryJobProfile.Office.AreaId)), employee.Name);
+            return employee == null || employee.Id == 0 || employee.JobProfiles == null || employee.PrimaryJobProfile.Office == null ?
+                (new AreaSettings(), "") :
+                (await _directoryRepository.ReadAsync(d => d.AreaSettings.SingleOrDefault(a => a.AreaId == employee.PrimaryJobProfile.Office.AreaId)) ?? new AreaSettings(), employee.Name);
         }
 
         private async Task<AreaSettings> GetSettings(int? officeId) {
             var office = await _directoryRepository.ReadAsync(d => d.Offices.SingleOrDefault(o => o.Id == officeId));
-            return office == null || office.Id == 0 || office.AreaId == 0 ? new AreaSettings() : await _directoryRepository.ReadAsync(d => d.AreaSettings.Single(a => a.AreaId == office.AreaId));
+            return office == null || office.Id == 0 || office.AreaId == 0 ? new AreaSettings() : await _directoryRepository.ReadAsync(d => d.AreaSettings.SingleOrDefault(a => a.AreaId == office.AreaId) ?? new AreaSettings());
         }
     }
 }
