@@ -25,7 +25,9 @@ namespace uofi_itp_directory.Controllers {
                     }
                 }
             }
-            return person == null || person?.username?.ToString() == "" || !show ? NotFound() : View("CampusExportV1", person);
+
+            return person == null || person?.username?.ToString() == "" ? NotFound() :
+                show ? View("CampusExportV1", person) : Content("");
         }
     }
 }
