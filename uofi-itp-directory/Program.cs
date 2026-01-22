@@ -11,6 +11,7 @@ using uofi_itp_directory_data.Security;
 using uofi_itp_directory_data.Uploads;
 using uofi_itp_directory_external.DataWarehouse;
 using uofi_itp_directory_external.Experts;
+using uofi_itp_directory_external.ProgramCourse;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +39,8 @@ builder.Services.AddScoped<EmployeeAreaHelper>();
 builder.Services.AddScoped<OfficeManagerHelper>();
 builder.Services.AddScoped<ImageScaler>();
 builder.Services.AddScoped<EmployeeActivityHelper>();
+builder.Services.AddScoped<EmployeeCourseHelper>();
+builder.Services.AddScoped(c => new ProgramCourseInformation(builder.Configuration["ProgramCourseUrl"]));
 builder.Services.AddScoped(b => new UploadStorage(builder.Configuration["AzureStorage"], builder.Configuration["AzureAccountName"], builder.Configuration["AzureAccountKey"], builder.Configuration["AzureImageContainerName"], builder.Configuration["AzureCvContainerName"]));
 builder.Services.AddScoped(b => new SignatureGenerator(builder.Configuration["WebServicesSignatureLink"]));
 builder.Services.AddSingleton<CacheHolder>();

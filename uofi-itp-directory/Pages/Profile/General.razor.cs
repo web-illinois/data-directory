@@ -45,12 +45,16 @@ namespace uofi_itp_directory.Pages.Profile {
         [Inject]
         protected IJSRuntime JsRuntime { get; set; } = default!;
 
+        [Inject]
+        protected SecurityEntryHelper SecurityEntryHelper { get; set; } = default!;
+
         public async Task RemoveMessage() => _ = await JsRuntime.InvokeAsync<bool>("removeAlertOnScreen");
 
         public async Task Send() {
             if (Employee != null) {
                 _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "Information starting to update");
                 _ = await EmployeeSecurityHelper.SaveEmployee(Employee, await AuthenticationStateProvider.GetUser(), "Employee General");
+                _ = await SecurityEntryHelper.UpdateSecurityEntry(Employee.NetId, Employee.NameFirst, Employee.NameLast);
                 _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "Information updated");
                 _isDirty = false;
             }

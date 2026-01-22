@@ -28,7 +28,7 @@ namespace uofi_itp_directory_data.DataAccess {
         }
 
         public async Task<Employee?> GetEmployee(int? id, string name) {
-            var employee = await _directoryRepository.ReadAsync(d => d.Employees.Include(e => e.JobProfiles).ThenInclude(jp => jp.Tags).Include(e => e.JobProfiles).ThenInclude(jp => jp.Office).Include(e => e.EmployeeActivities).Include(e => e.EmployeeHours).FirstOrDefault(e => e.NetId == name && id == null || e.Id == id));
+            var employee = await _directoryRepository.ReadAsync(d => d.Employees.Include(e => e.JobProfiles).ThenInclude(jp => jp.Tags).Include(e => e.JobProfiles).ThenInclude(jp => jp.Office).Include(e => e.EmployeeActivities).Include(e => e.EmployeeHours).Include(e => e.EmployeeCourses).FirstOrDefault(e => e.NetId == name && id == null || e.Id == id));
             if (employee == null) {
                 return null;
             }
@@ -68,7 +68,7 @@ namespace uofi_itp_directory_data.DataAccess {
 
         public async Task<Employee?> GetEmployeeReadOnly(string netId, string source) {
             netId = AddIllinoisEdu(netId);
-            var employee = await _directoryRepository.ReadAsync(d => d.Employees.Include(e => e.JobProfiles).ThenInclude(jp => jp.Office).ThenInclude(o => o.Area).ThenInclude(a => a.AreaSettings).Include(e => e.JobProfiles).ThenInclude(jp => jp.Tags).Include(e => e.EmployeeActivities).Include(e => e.EmployeeHours).FirstOrDefault(e => e.NetId == netId));
+            var employee = await _directoryRepository.ReadAsync(d => d.Employees.Include(e => e.JobProfiles).ThenInclude(jp => jp.Office).ThenInclude(o => o.Area).ThenInclude(a => a.AreaSettings).Include(e => e.JobProfiles).ThenInclude(jp => jp.Tags).Include(e => e.EmployeeActivities).Include(e => e.EmployeeHours).Include(e => e.EmployeeCourses).FirstOrDefault(e => e.NetId == netId));
             if (employee != null && employee.JobProfiles != null) {
                 employee.JobProfiles = employee.JobProfiles.Where(j => j.Office.Area.AreaSettings.InternalCode == source && j.Office.CanAddPeople).ToList();
             }

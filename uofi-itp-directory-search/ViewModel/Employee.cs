@@ -4,6 +4,20 @@ namespace uofi_itp_directory_search.ViewModel {
 
     public class Employee : EmployeeCompact {
 
+        [JsonProperty("alternatecontact")]
+        public string AlternateContact { get; set; } = "";
+
+        [JsonProperty("alternateemail")]
+        public string AlternateEmail { get; set; } = "";
+
+        [JsonProperty("alternatephone")]
+        public string AlternatePhone { get; set; } = "";
+
+        [JsonProperty("alternatephoneformatted")]
+        public string AlternatePhoneFormatted => !AlternatePhone.Contains('-') && AlternatePhone.Length == 7
+            ? "217-" + AlternatePhone.Insert(3, "-") : !AlternatePhone.Contains('-') && AlternatePhone.Length == 10
+            ? AlternatePhone.Insert(6, "-").Insert(3, "-") : AlternatePhone;
+
         [JsonProperty("addressline1")]
         public string AddressLine1 { get; set; } = "";
 

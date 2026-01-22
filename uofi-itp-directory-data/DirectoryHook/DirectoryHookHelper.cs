@@ -110,7 +110,13 @@ namespace uofi_itp_directory_data.DirectoryHook {
                     }
                 }
             }
+            await UpdateLastUpdated(employee);
             return (areAllSuccessful, netId, results);
+        }
+
+        private async Task<bool> UpdateLastUpdated(Employee employee) {
+            employee.LastRefreshed = DateTime.Now;
+            return await _directoryRepository.UpdateAsync(employee) > 0;
         }
     }
 }

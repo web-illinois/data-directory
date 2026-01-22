@@ -8,6 +8,7 @@
     <div class="iled-section">
         <h1>@Employee.ProfileName Jobs</h1>
         <p>Edit job information below. Note that you may not be able to edit everything on this page.</p>
+        <LastUpdated Employee="@Employee"></LastUpdated>
         <Instructions ChildContent="@Instructions"></Instructions>
 
         @if (!string.IsNullOrWhiteSpace(ShowBackButton) && ShowBackButton == "add")
