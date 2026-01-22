@@ -173,7 +173,8 @@ else if (Area != null && AreaSettings != null)
             <div class="iled-instructions">
                 Do you want specific instructions to show up when a user is editing a job profile or employee information?
             </div>
-        </div>    <div class="iled-input-box-parent">
+        </div>    
+        <div class="iled-input-box-parent">
             <div class="iled-input-box">
                 <label for="ed-ins3">Employee Activities Instructions</label>
                 <input id="ed-ins3" type="text" @bind="AreaSettings.InstructionsEmployeeActivities">
@@ -184,8 +185,17 @@ else if (Area != null && AreaSettings != null)
         </div>
         <div class="iled-input-box-parent">
             <div class="iled-input-box">
-                <label for="ed-ins4">Employee Signature Instructions</label>
-                <input id="ed-ins4" type="text" @bind="AreaSettings.InstructionsEmployeeSignature" @bind:after="SetDirty">
+                <label for="ed-ins4">Employee Course Instructions</label>
+                <input id="ed-ins4" type="text" @bind="AreaSettings.InstructionsEmployeeCourses">
+            </div>
+            <div class="iled-instructions">
+                Do you want specific instructions to show up when a user is editing an employee course?
+            </div>
+        </div>
+        <div class="iled-input-box-parent">
+            <div class="iled-input-box">
+                <label for="ed-ins5">Employee Signature Instructions</label>
+                <input id="ed-ins5" type="text" @bind="AreaSettings.InstructionsEmployeeSignature" @bind:after="SetDirty">
             </div>
             <div class="iled-instructions">
                 Do you want specific instructions to show up when a user is generating an employee signature?
@@ -193,8 +203,8 @@ else if (Area != null && AreaSettings != null)
         </div>
         <div class="iled-input-box-parent">
             <div class="iled-input-box">
-                <label for="ed-ins5">Employee Headshot Instructions</label>
-                <input id="ed-ins5" type="text" @bind="AreaSettings.InstructionsEmployeeHeadshot" @bind:after="SetDirty">
+                <label for="ed-ins6">Employee Headshot Instructions</label>
+                <input id="ed-ins6" type="text" @bind="AreaSettings.InstructionsEmployeeHeadshot" @bind:after="SetDirty">
             </div>
             <div class="iled-instructions">
                 Do you want specific instructions to show up when a user is uploading an employee headshot? This does not include dimensions.
@@ -202,8 +212,8 @@ else if (Area != null && AreaSettings != null)
         </div>
         <div class="iled-input-box-parent">
             <div class="iled-input-box">
-                <label for="ed-ins6">Employee CV Instructions</label>
-                <input id="ed-ins6" type="text" @bind="AreaSettings.InstructionsEmployeeCv" @bind:after="SetDirty">
+                <label for="ed-ins7">Employee CV Instructions</label>
+                <input id="ed-ins7" type="text" @bind="AreaSettings.InstructionsEmployeeCv" @bind:after="SetDirty">
             </div>
             <div class="iled-instructions">
                 Do you want specific instructions to show up when a user is uploading an employee CV?
@@ -214,8 +224,8 @@ else if (Area != null && AreaSettings != null)
         <h2>User Instructions</h2>
         <div class="iled-input-box-parent">
             <div class="iled-input-box">
-                <label for="ed-ins7">Office Instructions</label>
-                <input id="ed-ins7" type="text" @bind="AreaSettings.InstructionsOffice" @bind:after="SetDirty">
+                <label for="ed-ins8">Office Instructions</label>
+                <input id="ed-ins8" type="text" @bind="AreaSettings.InstructionsOffice" @bind:after="SetDirty">
             </div>
             <div class="iled-instructions">
                 Do you want specific instructions to show up when a user is editing an office?

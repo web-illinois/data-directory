@@ -21,9 +21,9 @@ namespace uofi_itp_directory_data.DataAccess {
             var office = new Office {
                 Title = officename,
                 AreaId = areaId,
-                IsActive = false,
+                IsActive = true,
                 IsInternalOnly = true,
-                OfficeSettings = new OfficeSettings(),
+                OfficeSettings = new OfficeSettings { IsActive = true },
                 OfficeHours = new List<OfficeHour> { new() { Day = DayOfWeek.Sunday }, new() { Day = DayOfWeek.Monday }, new() { Day = DayOfWeek.Tuesday }, new() { Day = DayOfWeek.Wednesday }, new() { Day = DayOfWeek.Thursday }, new() { Day = DayOfWeek.Friday }, new() { Day = DayOfWeek.Saturday } },
                 Admins = new List<SecurityEntry> { new() { ListedNameLast = name.LastName, ListedNameFirst = name.FirstName, Email = SecurityEntry.TransformName(netid), LastUpdated = DateTime.Now, IsFullAdmin = false, IsActive = true } }
             };

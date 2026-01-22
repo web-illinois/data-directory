@@ -1,5 +1,5 @@
-﻿using System.Text.RegularExpressions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 using uofi_itp_directory_data.Data;
 using uofi_itp_directory_data.DataModels;
 
@@ -13,6 +13,8 @@ namespace uofi_itp_directory_data.Helpers {
         public static string ConvertProfileUrl(string profileUrl, string netid, string name) => profileUrl.Replace("{netid}", ConvertNetId(netid)).Replace("{name}", ConvertName(name));
 
         public async Task<string> ActivitiesInstructions(string netid) => (await GetSettings(netid)).areaSettings.InstructionsEmployeeActivities;
+
+        public async Task<string> CoursesInstructions(string netid) => (await GetSettings(netid)).areaSettings.InstructionsEmployeeCourses;
 
         public async Task<string> CvInstructions(string netid) => (await GetSettings(netid)).areaSettings.InstructionsEmployeeCv;
 

@@ -8,6 +8,7 @@
     <h1>@Employee.ProfileName</h1>
     <p>Welcome to @(Employee.IsCurrentUser ? "your profile" : "the profile of " + Employee.ProfileName)! Edit the profile information below.</p>
         <p>You can <a href="https://go.uillinois.edu/myprofile">edit some information in the My UI Info</a> and it will update your directory information as well. If you update the My UI Info, it will take a few days to process. You can force a refresh by clicking the Save button at the end of this screen.</p>
+        <LastUpdated Employee="@Employee"></LastUpdated>
         <Instructions ChildContent="@Instructions"></Instructions>
 
         @if (!string.IsNullOrWhiteSpace(ShowBackButton) && ShowBackButton == "search")
@@ -121,12 +122,47 @@
             </div>
         </div>
     </div>
+    <h3>Alternate Contact Information</h3>
+    <div class="iled-section-split">
+        <div class="iled-input-box-parent">
+            <div class="iled-input-box">
+                <label for="ed-altname">Alternate Contact Name</label>
+                <input id="ed-altname" type="text" disabled="@Employee.IsEntryDisabled" @bind="Employee.AlternateContact" @bind:after="SetDirty">
+            </div>
+            <div class="iled-instructions">
+                Use this section for an assistant or other alternate contact information.
+            </div>
+        </div>
+        <div class="iled-input-box-parent">
+            <div class="iled-input-box">
+                <label for="ed-usealtcontact">Use Alternate Contact as Primary</label>
+                <input id="ed-usealtcontact" type="checkbox" disabled="@Employee.IsEntryDisabled" @bind="Employee.UseAlternateContactAsPrimary" @bind:after="SetDirty">
+            </div>
+            <div class="iled-instructions">
+                This will allow you to override your primary contact information with the alternate contact's information.
+            </div>
+        </div>
+    </div>
+    <div class="iled-section-split">
+        <div class="iled-input-box-parent">
+            <div class="iled-input-box">
+                <label for="ed-lastname">Alternate Contact Email</label>
+                <input autocomplete="family-name" id="ed-lastname" type="email" disabled="@Employee.IsEntryDisabled" @bind="Employee.AlternateContactEmail" @bind:after="SetDirty">
+            </div>
+        </div>
+        <div class="iled-input-box-parent">
+            <div class="iled-input-box">
+                <label for="ed-altphone">Alternate Contact Phone Number</label>
+                <input id="ed-altphone" type="tel" disabled="@Employee.IsEntryDisabled" @bind="Employee.AlternateContactPhone" @bind:after="SetDirty">
+            </div>
+        </div>
+    </div>
     <h3>Phone Number</h3>
     <div class="iled-section-split">
         <div class="iled-input-box-parent">
             <div class="iled-input-box">
                 <label for="ed-phone">Phone Number</label>
-                <input id="ed-phone" type="text" disabled="@Employee.IsEntryDisabled" @bind="Employee.Phone" @bind:after="SetDirty">
+                    <input id="ed-phone" type="tel" disabled="@Employee.IsEntryDisabled" @bind="Employee.Phone" @bind:after="SetDirty">
             </div>
         </div>
         <div class="iled-input-box-parent">
@@ -144,6 +180,5 @@
         <ViewProfile NetId="@Employee.NetId"></ViewProfile>
     </div>
     <ToastPopup></ToastPopup>
-
 </div>
 }

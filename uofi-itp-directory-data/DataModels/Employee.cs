@@ -5,6 +5,9 @@ using System.Text.RegularExpressions;
 namespace uofi_itp_directory_data.DataModels {
 
     public class Employee : BaseDataItem {
+        public string AlternateContact { get; set; } = "";
+        public string AlternateContactEmail { get; set; } = "";
+        public string AlternateContactPhone { get; set; } = "";
         public string AddressLine1 { get; set; } = "";
         public string AddressLine2 { get; set; } = "";
         public string Biography { get; set; } = "";
@@ -12,7 +15,10 @@ namespace uofi_itp_directory_data.DataModels {
         public string City { get; set; } = "";
         public string CVUrl { get; set; } = "";
         public virtual ICollection<EmployeeActivity> EmployeeActivities { get; set; } = default!;
+        public virtual ICollection<EmployeeCourse> EmployeeCourses { get; set; } = default!;
         public virtual ICollection<EmployeeHour> EmployeeHours { get; set; } = default!;
+        [NotMapped]
+        public string Email { get; set; } = "";
         public string EmployeeHourText { get; set; } = "";
 
         [Key]
@@ -32,7 +38,6 @@ namespace uofi_itp_directory_data.DataModels {
         // used by the code to determine if the user can edit this object
         public virtual ICollection<JobProfile> JobProfiles { get; set; } = default!;
 
-        // used by the code to determine if this user is this person
         public DateTime? LastRefreshed { get; set; }
 
         public string ListedNameFirst { get; set; } = "";
@@ -77,8 +82,18 @@ namespace uofi_itp_directory_data.DataModels {
         public string ProfileUrl { get; set; } = "";
         public string Room { get; set; } = "";
         public string State { get; set; } = "";
+        public bool UseAlternateContactAsPrimary { get; set; } = false;
         public bool UsePrimaryOfficeAsAddress { get; set; } = false;
         public string ZipCode { get; set; } = "";
+
+        public void PrepareForSearch() {
+            if (UseAlternateContactAsPrimary) {
+                Email = AlternateContactEmail;
+                Phone = AlternateContactPhone;
+            } else {
+                Email = NetId;
+            }
+        }
 
         public string GenerateSignatureName() {
             if (string.IsNullOrWhiteSpace(PreferredNameFirst) && string.IsNullOrWhiteSpace(ListedNameFirst) && string.IsNullOrWhiteSpace(PreferredNameLast) && string.IsNullOrWhiteSpace(ListedNameLast)) {
