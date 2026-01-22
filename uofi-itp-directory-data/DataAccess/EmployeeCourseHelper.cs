@@ -9,14 +9,14 @@ namespace uofi_itp_directory_data.DataAccess {
         private readonly DirectoryRepository _directoryRepository = directoryRepository;
         private readonly LogHelper _logHelper = logHelper;
 
-        public async Task<int> DeleteActivity(EmployeeCourse course, int employeeId, string employeeNetId, string changedByNetId) {
+        public async Task<int> DeleteCourse(EmployeeCourse course, int employeeId, string employeeNetId, string changedByNetId) {
             var returnValue = await _directoryRepository.DeleteAsync(course);
             _ = await _logHelper.CreateEmployeeLog(changedByNetId, "Deleted course " + course.Title, course.ToString(), employeeId, employeeNetId);
             _ = _directoryHookHelper.SendHook(employeeId, true);
             return returnValue;
         }
 
-        public async Task<int> SaveActivity(EmployeeCourse course, int employeeId, string employeeNetId, string changedByNetId) {
+        public async Task<int> SaveCourse(EmployeeCourse course, int employeeId, string employeeNetId, string changedByNetId) {
             course.EmployeeId = employeeId;
             var returnValue = await _directoryRepository.UpdateAsync(course);
             _ = await _logHelper.CreateEmployeeLog(changedByNetId, "Added/changed course " + course.Title, course.ToString(), employeeId, employeeNetId);

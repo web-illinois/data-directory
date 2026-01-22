@@ -51,7 +51,7 @@ namespace uofi_itp_directory.Pages.Profile {
         public async Task Delete(EmployeeCourse course) {
             if (await JsRuntime.InvokeAsync<bool>("confirm", $"This will delete the course \"{course.Title}\". Are you sure?")) {
                 _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "Course deleted");
-                _ = await EmployeeCourseHelper.DeleteActivity(course, Employee?.Id ?? 0, Employee?.NetId ?? "", await AuthenticationStateProvider.GetUser());
+                _ = await EmployeeCourseHelper.DeleteCourse(course, Employee?.Id ?? 0, Employee?.NetId ?? "", await AuthenticationStateProvider.GetUser());
                 _isDirty = false;
             }
         }
@@ -82,7 +82,7 @@ namespace uofi_itp_directory.Pages.Profile {
                         Employee.EmployeeCourses = [.. courses.Select(c => new EmployeeCourse { Title = c.Name, CourseNumber = c.CourseNumber, Description = c.Description, Rubric = c.Rubric, Url = c.Url, InternalOrder = 3 })];
                         Reorder();
                         foreach (var course in Employee.EmployeeCourses) {
-                            _ = await EmployeeCourseHelper.SaveActivity(course, Employee?.Id ?? 0, Employee?.NetId ?? "", await AuthenticationStateProvider.GetUser());
+                            _ = await EmployeeCourseHelper.SaveCourse(course, Employee?.Id ?? 0, Employee?.NetId ?? "", await AuthenticationStateProvider.GetUser());
                         }
                         _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "Courses refreshed");
                     } else {
@@ -127,7 +127,7 @@ namespace uofi_itp_directory.Pages.Profile {
         public async Task Save(EmployeeCourse course) {
             if (course.InEditState) {
                 _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", $"Course \"{course.Title}\" updated");
-                _ = await EmployeeCourseHelper.SaveActivity(course, Employee?.Id ?? 0, Employee?.NetId ?? "", await AuthenticationStateProvider.GetUser());
+                _ = await EmployeeCourseHelper.SaveCourse(course, Employee?.Id ?? 0, Employee?.NetId ?? "", await AuthenticationStateProvider.GetUser());
                 course.InEditState = false;
                 _isDirty = false;
                 Reorder();
