@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using uofi_itp_directory_data.DataModels;
 
 namespace uofi_itp_directory_data.Data {
@@ -26,6 +26,7 @@ namespace uofi_itp_directory_data.Data {
         public DbSet<DirectoryEntry> DirectoryEntries { get; set; }
 
         public DbSet<EmployeeActivity> EmployeeActivities { get; set; }
+        public DbSet<EmployeeCourse> EmployeeCourses { get; set; }
         public DbSet<EmployeeHour> EmployeeHours { get; set; }
         public DbSet<Employee> Employees { get; set; }
 

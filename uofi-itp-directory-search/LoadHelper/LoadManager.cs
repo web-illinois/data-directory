@@ -1,5 +1,5 @@
-﻿using System.Text;
-using OpenSearch.Net;
+﻿using OpenSearch.Net;
+using System.Text;
 using uofi_itp_directory_data.DataAccess;
 using uofi_itp_directory_data.DataModels;
 using uofi_itp_directory_external.DataWarehouse;
@@ -50,12 +50,15 @@ namespace uofi_itp_directory_search.LoadHelper {
                         AddLog($"Username {netId} removed from source {source}");
                     return _logger.ToString();
                 }
+                AddLog($"Number of profiles: {employee.JobProfiles?.Count}");
+                AddLog($"Number of activities: {employee.EmployeeActivities?.Count}");
+                AddLog($"Number of courses: {employee.EmployeeCourses?.Count}");
                 AddLog("Getting Experts information");
                 var expertsProfile = await _illinoisExpertsManager.GetExperts(netId);
                 AddLog(useCampusPictures ? "Getting image from campus" : "Validating image");
                 var imageUrl = useCampusPictures ? DirectoryImage.GetCampusImagePathFromNetId(netId) : DirectoryImage.CheckImage(employee.PhotoUrl);
                 AddLog("Getting courses from programcourses.itpartners.illinois.edu");
-                var courses = _programCourseInformation.GetCourses(source, netId).ToList();
+                var courses = (await _programCourseInformation.GetCourses(source, netId)).ToList();
                 AddLog($"Combining information: EDW, IT Partners Directory, Image{(expertsProfile.UseExperts ? ", Experts" : "")}{(courses.Count > 0 ? ", Courses" : "")}");
                 var profile = EmployeeTranslator.Translate(edwItem, employee, imageUrl, courses, expertsProfile, source);
                 AddLog("Adding to directory using " + source);

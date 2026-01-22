@@ -82,6 +82,7 @@ namespace uofi_itp_directory.Pages.Profile {
                 _ = await EmployeeActivityHelper.SaveActivity(activity, Employee?.Id ?? 0, Employee?.NetId ?? "", await AuthenticationStateProvider.GetUser());
                 activity.InEditState = false;
                 _isDirty = false;
+                Reorder();
             } else {
                 activity.InEditState = true;
             }
@@ -100,6 +101,7 @@ namespace uofi_itp_directory.Pages.Profile {
                     activity.InEditState = false;
                 }
             }
+            Reorder();
             StateHasChanged();
         }
 
@@ -112,6 +114,12 @@ namespace uofi_itp_directory.Pages.Profile {
                 if (!(await JsRuntime.InvokeAsync<bool>("confirm", $"You have unsaved changes. Are you sure?"))) {
                     arg.PreventNavigation();
                 }
+            }
+        }
+
+        private void Reorder() {
+            if (Employee != null && Employee.EmployeeActivities != null) {
+                Employee.EmployeeActivities = [.. Employee.EmployeeActivities.OrderBy(a => a.Type).ThenBy(a => a.InternalOrder).ThenBy(a => a.Title)];
             }
         }
     }

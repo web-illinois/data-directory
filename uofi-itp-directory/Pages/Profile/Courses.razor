@@ -1,0 +1,85 @@
+﻿@page "/profile/courses/{refresh?}"
+
+<PageTitle>Profile Courses | Illinois</PageTitle>
+<NavigationLock OnBeforeInternalNavigation=this.LocationChangingHandler ConfirmExternalNavigation=_isDirty />
+@if (Employee != null) {
+    <div class="iled-section">
+        <h1>@Employee.ProfileName Courses</h1>
+        @if (AreaCode != "") {
+            <p>Course information will be loaded automatically via the IT Partners Program / Course Repository based on a "best-guess" process. If you want to have more control over your course information, you may click the <em>Load Default Courses</em> button at the bottom to load your default courses, and then you can edit them as needed. If you wish to go back to the default version, then remove all of your courses.</p>
+        } else {
+            <p>Add course information to this profile below. Once you enter the rubric and course number, you may click the "Pull Course"</p>
+        }
+    </div>
+
+    @foreach (var course in Employee.EmployeeCourses) {
+        <div class="iled-activity">
+            <p class="iled-activity-title">Course</p>
+            <div class="iled-activity-content">
+                <div class="iled-section-split-25">
+                    <div class="iled-input-box-parent">
+                        <div class="iled-input-box">
+                            <label for="ed-rubric-@course.Id">Rubric</label>
+                            <input id="ed-rubric-@course.Id" type="text" disabled="@(Employee.IsEntryDisabled || !course.InEditState)" @bind="course.Rubric">
+                        </div>
+                    </div>
+                    <div class="iled-input-box-parent">
+                        <div class="iled-input-box">
+                            <label for="ed-course-number-@course.Id">Course Number</label>
+                            <input id="ed-course-number-@course.Id" type="text" disabled="@(Employee.IsEntryDisabled || !course.InEditState)" @bind="course.CourseNumber">
+                        </div>
+                    </div>
+                    <div class="iled-input-box-parent">
+                        <div class="iled-input-box">
+                            <label for="ed-display-order-@course.Id">Display Order</label>
+                            <select id="ed-display-order-@course.Id" disabled="@(!course.InEditState)" @bind="course.InternalOrder">
+                                @foreach (var enumtype in Enum.GetValues<ProfileDisplayEnum>().OrderBy(o => o)) {
+                                    <option value="@((int)enumtype)">@enumtype.ToPrettyString()</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column-reverse;">
+                        @if (!Employee.IsEntryDisabled && course.InEditState)
+                        {
+                        <button class="ilw-button" @onclick="() => Load(course)" disabled="@(course.Rubric == "" || course.CourseNumber == "")" >Load from Campus</button>
+                        }
+                    </div>
+                </div>
+                <div class="iled-input-box-parent">
+                    <div class="iled-input-box">
+                        <label for="ed-title-@course.Id" class="iled-label-required">Title</label>
+                        <input id="ed-title-@course.Id" type="text" required disabled="@(Employee.IsEntryDisabled || !course.InEditState)" @bind="course.Title">
+                    </div>
+                </div>
+                <div class="iled-input-box-parent">
+                    <div class="iled-input-box">
+                        <label for="ed-url-@course.Id">Url</label>
+                        <input id="ed-url-@course.Id" type="url" disabled="@(Employee.IsEntryDisabled || !course.InEditState)" @bind="course.Url">
+                    </div>
+                </div>
+                <div class="iled-input-box-parent">
+                    <div class="iled-input-box">
+                        <label for="ed-description-@course.Id">Description</label>
+                        <textarea id="ed-description-@course.Id" disabled="@(Employee.IsEntryDisabled || !course.InEditState)" @bind="course.Description"></textarea>
+                    </div>
+                </div>
+                <div class="iled-buttons-left">
+                    <button class="ilw-button ilw-theme-orange-1" disabled="@Employee.IsEntryDisabled" @onclick="() => Save(course)" @onblur="RemoveMessage">@(course.InEditState ? "Save" : "Edit")</button>
+                    <button class="ilw-button" disabled="@(Employee.IsEntryDisabled || course.InEditState)" @onclick="() => Delete(course)" @onblur="RemoveMessage">Delete</button>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    <div class="iled-buttons-left">
+        <button class="ilw-button" @onclick="New" disabled="@Employee.IsEntryDisabled">New Course</button>
+        @if (AreaCode != "")
+        {
+            <button class="ilw-button" @onclick="LoadAll" disabled="@Employee.IsEntryDisabled">Load Default Courses</button>
+        }
+        <ViewProfile NetId="@Employee.NetId"></ViewProfile>
+    </div>
+    <ToastPopup></ToastPopup>
+}

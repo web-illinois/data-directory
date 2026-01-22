@@ -28,6 +28,23 @@ namespace uofi_itp_directory_data.DataAccess {
             return (securityEntry, $"User '{name.Name}' created");
         }
 
+        public async Task<bool> UpdateSecurityEntry(string netid, string firstNameOverride, string lastNameOverride) {
+            var securityEntries = await _directoryRepository.ReadAsync(d => d.SecurityEntries.Where(se => se.Email == netid));
+            if (securityEntries.Count() == 0) {
+                return false;
+            }
+            var name = await _dataWarehouseManager.GetDataWarehouseItem(netid);
+            if (!name.IsValid) {
+                return false;
+            }
+            foreach (var securityEntry in securityEntries) {
+                securityEntry.ListedNameFirst = !string.IsNullOrWhiteSpace(firstNameOverride) ? firstNameOverride : name.FirstName;
+                securityEntry.ListedNameLast = !string.IsNullOrWhiteSpace(lastNameOverride) ? lastNameOverride : name.LastName;
+                _ = await _directoryRepository.UpdateAsync(securityEntry);
+            }
+            return true;
+        }
+
         public async Task<int> Delete(SecurityEntry? securityEntry, string changedByNetId) {
             _ = await _logHelper.CreateSecurityLog(changedByNetId, "Deleted security item", securityEntry?.ToString() ?? "", securityEntry?.Id ?? 0, securityEntry?.Email ?? "");
             return await _directoryRepository.DeleteAsync(securityEntry);

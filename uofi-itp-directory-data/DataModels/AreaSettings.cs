@@ -20,6 +20,7 @@ namespace uofi_itp_directory_data.DataModels {
 
         public string InstructionsEmployee { get; set; } = "";
         public string InstructionsEmployeeActivities { get; set; } = "";
+        public string InstructionsEmployeeCourses { get; set; } = "";
         public string InstructionsEmployeeCv { get; set; } = "";
         public string InstructionsEmployeeHeadshot { get; set; } = "";
         public string InstructionsEmployeeSignature { get; set; } = "";
