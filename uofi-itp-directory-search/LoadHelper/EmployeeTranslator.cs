@@ -26,7 +26,7 @@ namespace uofi_itp_directory_search.LoadHelper {
             ImageUrl = imageUrl,
             LastName = ChooseFirstNonBlank(directoryEmployee.PreferredNameLast, dataWarehouseItem.LastName),
             LinkName = directoryEmployee.NameLinked,
-            LinkedInUrl = expertsProfile.LinkedIn,
+            LinkedInUrl = ChooseFirstNonBlank(expertsProfile.LinkedIn, directoryEmployee.EmployeeActivities.FirstOrDefault(a => a.Type == dM.ActivityTypeEnum.Link && a.Title.ToLower().Contains("linkedin"))?.Url),
             LastUpdated = DateTime.Now,
             NetId = directoryEmployee.NetIdTruncated,
             Phone = directoryEmployee.UseAlternateContactAsPrimary ? directoryEmployee.AlternateContactPhone : directoryEmployee.IsPhoneHidden ? "" : ChooseFirstNonBlank(directoryEmployee.Phone, dataWarehouseItem.PhoneFull),
