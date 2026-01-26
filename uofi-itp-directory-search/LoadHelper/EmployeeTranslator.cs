@@ -26,7 +26,7 @@ namespace uofi_itp_directory_search.LoadHelper {
             ImageUrl = imageUrl,
             LastName = ChooseFirstNonBlank(directoryEmployee.PreferredNameLast, dataWarehouseItem.LastName),
             LinkName = directoryEmployee.NameLinked,
-            LinkedInUrl = ChooseFirstNonBlank(expertsProfile.LinkedIn, directoryEmployee.EmployeeActivities.FirstOrDefault(a => a.Type == dM.ActivityTypeEnum.Link && a.Title.ToLower().Contains("linkedin"))?.Url),
+            LinkedInUrl = ChooseFirstNonBlank(expertsProfile.LinkedIn, directoryEmployee.EmployeeActivities.FirstOrDefault(a => a.Type == dM.ActivityTypeEnum.Link && a.Url.ToLower().Contains("linkedin.com"))?.Url),
             LastUpdated = DateTime.Now,
             NetId = directoryEmployee.NetIdTruncated,
             Phone = directoryEmployee.UseAlternateContactAsPrimary ? directoryEmployee.AlternateContactPhone : directoryEmployee.IsPhoneHidden ? "" : ChooseFirstNonBlank(directoryEmployee.Phone, dataWarehouseItem.PhoneFull),
@@ -79,7 +79,7 @@ namespace uofi_itp_directory_search.LoadHelper {
 
         private static List<BaseItem> TranslateLinks(IEnumerable<dM.EmployeeActivity> directoryActivites, IEnumerable<ExpertsItem> experts) => experts != null && experts.Any()
                 ? [.. experts.Select(a => new BaseItem { DisplayOrder = a.SortOrder, IsHighlighted = a.IsHighlighted, Title = a.TitleFull, Url = a.Url })]
-                : [.. directoryActivites.Where(da => da.Type == dM.ActivityTypeEnum.Link).Select(da => new BaseItem { DisplayOrder = da.InternalOrder, IsHighlighted = false, Title = da.Title, Url = da.Url })];
+                : [.. directoryActivites.Where(da => da.Type == dM.ActivityTypeEnum.Link && !da.Url.ToLower().Contains("linkedin.com")).Select(da => new BaseItem { DisplayOrder = da.InternalOrder, IsHighlighted = false, Title = da.Title, Url = da.Url })];
 
         private static List<InstitutionalRangedItem> TranslateOrganizations(IEnumerable<dM.EmployeeActivity> directoryActivites, IEnumerable<ExpertsItem> experts) => experts != null && experts.Any()
                 ? [.. experts.Select(a => new InstitutionalRangedItem { DisplayOrder = a.SortOrder, IsHighlighted = a.IsHighlighted, Title = a.TitleFull, Url = a.Url, Institution = a.Institution, YearEnded = a.YearEnded, YearStarted = a.Year })]
