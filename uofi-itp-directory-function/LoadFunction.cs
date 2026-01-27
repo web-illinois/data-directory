@@ -20,7 +20,7 @@ namespace uofi_itp_directory_function {
         [Function("ClearLoadProcess")]
         [OpenApiOperation(operationId: "Clear Load Process", tags: "Load", Description = "Clear the load process to restart it. Used if you need to refresh from scratch.")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "A status of what it did.")]
-        public async Task<IActionResult> ClearLoadProcess([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Load")] HttpRequest req) =>
+        public async Task<IActionResult> ClearLoadProcess([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "clearLoad")] HttpRequest req) =>
             LogAndReturn(await _queueManager.Clear());
 
         [Function("LoadPersonAutomatically")]
