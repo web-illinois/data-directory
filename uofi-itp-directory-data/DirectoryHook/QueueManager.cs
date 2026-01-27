@@ -26,5 +26,10 @@ namespace uofi_itp_directory_data.DirectoryHook {
                 }
             }
         }
+
+        public async Task<string> Clear() {
+            var items = await _directoryHookHelper.LoadAreas();
+            return $"Queue is being emptied. Adding {items} names to queue.";
+        }
     }
 }

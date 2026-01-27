@@ -1,4 +1,3 @@
-using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
@@ -6,6 +5,7 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using System.Net;
 using uofi_itp_directory_data.DirectoryHook;
 using uofi_itp_directory_function.Helpers;
 using uofi_itp_directory_search.LoadHelper;
@@ -16,6 +16,12 @@ namespace uofi_itp_directory_function {
         private readonly LoadManager _loadManager = loadManager;
         private readonly ILogger<LoadFunction> _logger = logger;
         private readonly QueueManager _queueManager = queueManager;
+
+        [Function("ClearLoadProcess")]
+        [OpenApiOperation(operationId: "Clear Load Process", tags: "Load", Description = "Clear the load process to restart it. Used if you need to refresh from scratch.")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "A status of what it did.")]
+        public async Task<IActionResult> ClearLoadProcess([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Load")] HttpRequest req) =>
+            LogAndReturn(await _queueManager.Clear());
 
         [Function("LoadPersonAutomatically")]
         [OpenApiOperation(operationId: "Load Person Automatically", tags: "Load", Description = "Load a person using the default parameters and source information. Note that this account has to be listed as using the default load for this to work properly.")]
