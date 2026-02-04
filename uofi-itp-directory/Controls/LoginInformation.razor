@@ -1,5 +1,10 @@
 ﻿<AuthorizeView>
     <Authorized>
-        <div class="iled-login">Logged in as @context.User.Identity?.Name</div>
+        <div class="iled-login">
+            <div>Logged in as @context.User.Identity?.Name</div>
+            <div>
+                <button @onclick="@ClearCache" disabled="@IsDisabled" class="ilw-button">Reset View</button>
+            </div>
+        </div>
     </Authorized>
 </AuthorizeView>

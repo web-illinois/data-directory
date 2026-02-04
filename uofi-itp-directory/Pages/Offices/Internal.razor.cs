@@ -12,6 +12,7 @@ using uofi_itp_directory_data.Security;
 namespace uofi_itp_directory.Pages.Offices {
 
     public partial class Internal {
+        private List<AreaOfficeThinObject> _areaThinObjects = default!;
         private bool _isDirty = false;
         private MultiChoice? _multiChoice = default!;
 
@@ -80,6 +81,8 @@ namespace uofi_itp_directory.Pages.Offices {
                 OfficeId = _officeThinObjects.Single().Id;
                 OfficeTitle = _officeThinObjects.Single().Title;
                 await AssignTextFields();
+            } else {
+                _areaThinObjects = await AccessHelper.GetAreas(await AuthenticationStateProvider.GetAuthenticationStateAsync(), PersonOptionHelper);
             }
         }
 

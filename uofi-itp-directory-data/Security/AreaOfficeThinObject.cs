@@ -17,9 +17,11 @@ namespace uofi_itp_directory_data.Security {
         public AreaOfficeThinObject(Office office) {
             Id = office.Id;
             Title = $"{office.Area.Title} - {office.Title}";
+            ParentId = office.Area.Id;
         }
 
         public int Id { get; set; }
+        public int ParentId { get; set; }
         public string Title { get; set; } = "";
     }
 }

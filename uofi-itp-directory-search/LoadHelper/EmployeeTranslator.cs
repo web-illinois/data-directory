@@ -52,6 +52,7 @@ namespace uofi_itp_directory_search.LoadHelper {
             JobProfiles = TranslateJobProfiles(directoryEmployee.JobProfiles),
             Keywords = expertsProfile.Keywords,
             Links = TranslateLinks(directoryEmployee.EmployeeActivities, expertsProfile.Links),
+            News = TranslateNews(expertsProfile.Clippings),
             Presentations = TranslatePresentations(directoryEmployee.EmployeeActivities, expertsProfile.Presentations),
             Publications = TranslatePublications(directoryEmployee.EmployeeActivities, expertsProfile.Publications),
             Services = TranslateServices(expertsProfile.Services),
@@ -80,6 +81,12 @@ namespace uofi_itp_directory_search.LoadHelper {
         private static List<BaseItem> TranslateLinks(IEnumerable<dM.EmployeeActivity> directoryActivites, IEnumerable<ExpertsItem> experts) => experts != null && experts.Any()
                 ? [.. experts.Select(a => new BaseItem { DisplayOrder = a.SortOrder, IsHighlighted = a.IsHighlighted, Title = a.TitleFull, Url = a.Url })]
                 : [.. directoryActivites.Where(da => da.Type == dM.ActivityTypeEnum.Link && !da.Url.ToLower().Contains("linkedin.com")).Select(da => new BaseItem { DisplayOrder = da.InternalOrder, IsHighlighted = false, Title = da.Title, Url = da.Url })];
+
+        private static List<NewsArticle> TranslateNews(IEnumerable<ExpertsItem> experts) => experts != null && experts.Any()
+        ? [.. experts.Select(a => new NewsArticle { DisplayOrder = a.SortOrder, IsHighlighted = a.IsHighlighted, Title = a.TitleFull, Url = a.Url, Date = ConvertDate(a.Year), Source = a.Institution })]
+        : [];
+
+        private static string ConvertDate(string s) => DateTime.TryParse(s, out var date) ? date.ToString("MMMM dd, yyyy") : "";
 
         private static List<InstitutionalRangedItem> TranslateOrganizations(IEnumerable<dM.EmployeeActivity> directoryActivites, IEnumerable<ExpertsItem> experts) => experts != null && experts.Any()
                 ? [.. experts.Select(a => new InstitutionalRangedItem { DisplayOrder = a.SortOrder, IsHighlighted = a.IsHighlighted, Title = a.TitleFull, Url = a.Url, Institution = a.Institution, YearEnded = a.YearEnded, YearStarted = a.Year })]

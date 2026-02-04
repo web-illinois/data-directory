@@ -4,12 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace uofi_itp_directory_data.DataModels {
 
     public class AreaSettings : BaseDataItem {
-        private const string _path = "https://facultyapi.itpartners.illinois.edu/api/LoadPerson?name={netid}&source={code}";
+        private const string _path = "https://directoryapi.wigg.illinois.edu/api/LoadPerson?name={netid}&source={code}";
         public bool AllowAdministratorsAccessToPeople { get; set; } = true;
         public bool AllowBeta { get; set; } = false;
 
         public bool AllowInformationForIllinoisExpertsMembers { get; set; } = false;
         public bool AllowPeople { get; set; } = false;
+        public string ApiSecretCurrent { get; set; } = "";
+        public DateTime? ApiSecretLastChanged { get; set; }
+        public string ApiSecretPrevious { get; set; } = "";
         public virtual Area Area { get; set; } = default!;
         public int AreaId { get; set; }
         public bool AutoloadProfiles { get; set; } = false;

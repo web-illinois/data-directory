@@ -1,9 +1,20 @@
 ﻿@if (AreaOfficeThinObjects != null)
 {
+    @if (UseParentSelection())
+    {
+       <div class="iled-input-box" style="margin-bottom: 10px;">
+            <label for="ed-multichoiceparent">Unit Filter</label>
+            <select id="ed-multichoiceparent" @bind="SelectedParentId">
+                @foreach (var item in AreaOfficeParentThinObjectsSorted) {
+                    <option value="@item.Id"> @item.Title</option>
+                }
+            </select>
+        </div>
+    }
     <div class="iled-input-box">
         <label for="ed-multichoice">@Label[Type]</label>
         <select id="ed-multichoice" @bind="SelectedId">
-            @foreach (var item in AreaOfficeThinObjectsSorted)
+            @foreach (var item in AreaOfficeThinObjectsSorted())
             {
                 <option value="@item.Id"> @item.Title</option>
             }

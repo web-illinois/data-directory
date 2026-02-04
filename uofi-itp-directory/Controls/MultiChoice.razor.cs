@@ -13,15 +13,33 @@ namespace uofi_itp_directory.Controls {
         public readonly Dictionary<MultiChoiceTypeEnum, string> Label = new() { { MultiChoiceTypeEnum.Area, "Choose a unit" }, { MultiChoiceTypeEnum.Office, "Choose an office" } };
 
         [Parameter]
+        public IEnumerable<AreaOfficeThinObject> AreaOfficeParentThinObjects { get; set; } = default!;
+
+        public IEnumerable<AreaOfficeThinObject> AreaOfficeParentThinObjectsSorted => AreaOfficeParentThinObjects.OrderBy(a => a.Title);
+
+        [Parameter]
         public IEnumerable<AreaOfficeThinObject> AreaOfficeThinObjects { get; set; } = default!;
 
-        public IEnumerable<AreaOfficeThinObject> AreaOfficeThinObjectsSorted => AreaOfficeThinObjects.OrderBy(a => a.Title);
+        public IEnumerable<AreaOfficeThinObject> AreaOfficeThinObjectsSorted() {
+            if (SelectedParentId == 0) {
+                return AreaOfficeThinObjects.OrderBy(a => a.Title);
+            } else {
+                if (SelectedId == 0) {
+                    SelectedId = AreaOfficeThinObjects.Where(a => a.ParentId == SelectedParentId).OrderBy(a => a.Title).First().Id;
+                }
+                return AreaOfficeThinObjects.Where(a => a.ParentId == SelectedParentId).OrderBy(a => a.Title);
+            }
+        }
 
         [Parameter]
         public EventCallback<MouseEventArgs> OnClickCallback { get; set; }
 
         [Parameter]
         public int SelectedId { get; set; }
+
+        public bool UseParentSelection() => AreaOfficeParentThinObjects != null && AreaOfficeParentThinObjects.Count() > 1;
+
+        public int SelectedParentId { get; set; }
 
         [Parameter]
         public string SelectedTitle { get; set; } = "";

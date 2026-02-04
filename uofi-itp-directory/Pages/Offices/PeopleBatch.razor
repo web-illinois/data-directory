@@ -8,7 +8,7 @@
 </div>
 @if (!OfficeId.HasValue)
 {
-    <MultiChoice @ref="_multiChoice" Type="MultiChoiceTypeEnum.Office" AreaOfficeThinObjects="_officeThinObjects" OnClickCallback="AssignId"></MultiChoice>
+    <MultiChoice @ref="_multiChoice" Type="MultiChoiceTypeEnum.Office" AreaOfficeThinObjects="_officeThinObjects" AreaOfficeParentThinObjects="_areaThinObjects" OnClickCallback="AssignId"></MultiChoice>
 }
 else 
 {
