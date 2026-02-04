@@ -40,6 +40,7 @@ main {
         text-align: center;
         font-size: 1.4rem;
         padding: 10px;
+        margin-top: 0;
     }
 
     .iled-float p {
@@ -72,11 +73,9 @@ p.iled-instructions-specific {
     margin-bottom: 20px;
 }
 
-div[slot="sidebar"] {
-    display: grid;
-    grid-template-rows: 1fr 35px;
-    height: 100%;
-    row-gap: 20px;
+ilw-page main ilw-section-nav {
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--il-storm-80);
 }
 
 .iled-login {

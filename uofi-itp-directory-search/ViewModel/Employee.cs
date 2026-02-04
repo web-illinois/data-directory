@@ -63,6 +63,9 @@ namespace uofi_itp_directory_search.ViewModel {
         [JsonProperty("officejobtypelist")]
         public List<string> OfficeTitleList => JobProfiles?.Select(a => $"{a.Office.ToLowerInvariant()} {a.JobType.ToLowerInvariant()}").Distinct().ToList() ?? [];
 
+        [JsonProperty("news")]
+        public List<NewsArticle> News { get; set; } = default!;
+
         [JsonProperty("organizations")]
         public List<InstitutionalRangedItem> Organizations { get; set; } = default!;
 

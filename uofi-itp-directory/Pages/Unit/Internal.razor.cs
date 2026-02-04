@@ -7,6 +7,7 @@ using uofi_itp_directory.Controls;
 using uofi_itp_directory_data.Cache;
 using uofi_itp_directory_data.DataAccess;
 using uofi_itp_directory_data.DataModels;
+using uofi_itp_directory_data.Helpers;
 using uofi_itp_directory_data.Security;
 
 namespace uofi_itp_directory.Pages.Unit {
@@ -17,7 +18,7 @@ namespace uofi_itp_directory.Pages.Unit {
         private MultiChoice? _multiChoice = default!;
 
         public Area Area { get; set; } = default!;
-
+        public string ApiGuid { get; set; } = "";
         public AreaSettings AreaSettings { get; set; } = default!;
 
         [CascadingParameter]
@@ -30,6 +31,9 @@ namespace uofi_itp_directory.Pages.Unit {
         public int? UnitId { get; set; }
 
         public string UnitTitle { get; set; } = "Unit";
+
+        [Inject]
+        protected ApiHelper ApiHelper { get; set; } = default!;
 
         [Inject]
         protected AreaHelper AreaHelper { get; set; } = default!;
@@ -70,6 +74,9 @@ namespace uofi_itp_directory.Pages.Unit {
             AreaSettings.AllowPeople = ProfileInformation > 0;
             AreaSettings.AllowAdministratorsAccessToPeople = ProfileInformation > 1;
             AreaSettings.AllowInformationForIllinoisExpertsMembers = ProfileInformation > 2;
+            if (AreaSettings.UrlPeopleRefreshType != PeopleRefreshTypeEnum.Custom) {
+                AreaSettings = await ApiHelper.InvalidateApi(AreaSettings.AreaId) ?? new AreaSettings();
+            }
             _ = await AreaHelper.UpdateArea(Area, await AuthenticationStateProvider.GetUser());
             _ = await AreaHelper.UpdateAreaSettings(AreaSettings, Area.Title, await AuthenticationStateProvider.GetUser());
             if (_originalAllowAccess != AreaSettings.AllowAdministratorsAccessToPeople) {
@@ -99,6 +106,17 @@ namespace uofi_itp_directory.Pages.Unit {
                 UnitTitle = _areaThinObjects.Single().Title;
                 await AssignTextFields();
             }
+        }
+
+        public async Task CreateApi() {
+            var results = await ApiHelper.AdvanceApi(UnitId ?? 0);
+            AreaSettings = results.Item1 ?? new AreaSettings();
+            ApiGuid = results.Item2;
+        }
+
+        public async Task InvalidateApi() {
+            AreaSettings = await ApiHelper.InvalidateApi(UnitId ?? 0) ?? new AreaSettings();
+            ApiGuid = "";
         }
 
         protected void SetDirty() => _isDirty = true;

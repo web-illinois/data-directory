@@ -11,6 +11,7 @@ using uofi_itp_directory_data.Security;
 namespace uofi_itp_directory.Pages.Offices {
 
     public partial class PeopleBatch {
+        private List<AreaOfficeThinObject> _areaThinObjects = default!;
         public MultiChoice? _multiChoice = default!;
         private List<AreaOfficeThinObject> _officeThinObjects = default!;
 
@@ -85,6 +86,8 @@ namespace uofi_itp_directory.Pages.Offices {
                 OfficeId = _officeThinObjects.Single().Id;
                 OfficeTitle = _officeThinObjects.Single().Title;
                 await AssignTextFields();
+            } else {
+                _areaThinObjects = await AccessHelper.GetAreas(await AuthenticationStateProvider.GetAuthenticationStateAsync(), PersonOptionHelper);
             }
         }
 

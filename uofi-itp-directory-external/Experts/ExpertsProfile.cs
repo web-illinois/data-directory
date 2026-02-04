@@ -3,6 +3,7 @@
     public class ExpertsProfile {
         public List<ExpertsItem> Awards { get; set; } = default!;
         public string Biography { get; set; } = "";
+        public List<ExpertsItem> Clippings { get; set; } = [];
         public List<ExpertsItem> EducationHistory { get; set; } = default!;
         public string ExpertsId { get; set; } = "";
         public string ExpertsUrl { get; set; } = "";

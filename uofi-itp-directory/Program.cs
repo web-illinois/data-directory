@@ -37,6 +37,7 @@ builder.Services.AddScoped<JobProfileHelper>();
 builder.Services.AddScoped<SecurityEntryHelper>();
 builder.Services.AddScoped<EmployeeAreaHelper>();
 builder.Services.AddScoped<OfficeManagerHelper>();
+builder.Services.AddScoped<ApiHelper>();
 builder.Services.AddScoped<ImageScaler>();
 builder.Services.AddScoped<EmployeeActivityHelper>();
 builder.Services.AddScoped<EmployeeCourseHelper>();

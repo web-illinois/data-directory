@@ -9,6 +9,9 @@
     <UserSecretsId>67f6ead6-d3fd-4d00-ad40-f70d85b4b7e9</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="local.settings.json" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="local.settings.json" />
   </ItemGroup>
   <ItemGroup>
