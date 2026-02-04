@@ -1,19 +1,22 @@
-using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
-using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using System.Net;
 using uofi_itp_directory_data.DirectoryHook;
+using uofi_itp_directory_data.Helpers;
 using uofi_itp_directory_function.Helpers;
 using uofi_itp_directory_search.LoadHelper;
+using uofi_itp_directory_search.ViewModel;
 
 namespace uofi_itp_directory_function {
 
-    public class LoadFunction(ILogger<LoadFunction> logger, QueueManager queueManager, LoadManager loadManager) {
+    public class LoadFunction(ILogger<LoadFunction> logger, QueueManager queueManager, LoadManager loadManager, ApiHelper apiHelper, PersonSetter personSetter) {
+        private readonly ApiHelper _apiHelper = apiHelper;
         private readonly LoadManager _loadManager = loadManager;
+        private readonly PersonSetter _personSetter = personSetter;
         private readonly ILogger<LoadFunction> _logger = logger;
         private readonly QueueManager _queueManager = queueManager;
 
@@ -25,17 +28,30 @@ namespace uofi_itp_directory_function {
         public async Task<IActionResult> LoadPerson([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Load/Person/{source}/{netid}")] HttpRequest req, string source, string netid) => LogAndReturn(await _loadManager.LoadPerson(netid, source));
 
         [Function("LoadPersonManually")]
-        [OpenApiOperation(operationId: "Load Person", tags: "Load", Description = "Load a person sending the json of the body, manually overriding any other options. Note that you need to register your API key with IT Partners to let us know you want to use this option. If you do this, we will not load anything from EDW -- we will rely on you to give us basic information and profile information.")]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Header)]
-        [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The NetID of the person you want to load.")]
-        [OpenApiParameter(name: "source", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "Source value.")]
+        [OpenApiOperation(operationId: "Load Person", tags: "Load", Description = "Load a person sending the json of the body, manually overriding any other options. Note that you need to register your API key with the application before you use this option. If you do this, we will not load anything from EDW -- we will rely on you to give us basic information and profile information.")]
+        [OpenApiParameter(name: "ilw-key", In = ParameterLocation.Header, Required = true, Type = typeof(string), Description = "The API Key.")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "A status of what it did.")]
-        public Task<IActionResult> LoadPersonManually([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "Load/Manual")] HttpRequest req) {
-            //TODO Need to implement once someone needs it - must include 'var body = new StreamReader(req.Body).ReadToEnd();'
+        public async Task<IActionResult> LoadPersonManually([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "Load/Manual")] HttpRequest req) {
             try {
-                return Task.FromResult<IActionResult>(new OkObjectResult("Not implemented yet"));
+
+                var key = req.GetCodeFromHeader();
+                var people = await req.ReadFromJsonAsync<IEnumerable<Employee>>() ?? [];
+                var sourceName = people.FirstOrDefault()?.Source ?? "";
+                var allowApi = await _apiHelper.CheckApi(sourceName, key);
+                if (!allowApi) {
+                    throw new Exception("API Key in header ilw-key is needed, was sent " + key);
+                }
+                var count = new List<string>();
+                foreach (var person in people) {
+                    if (sourceName == person.Source) {
+                        if (await _personSetter.SaveSingle(person)) {
+                            count.Add(person.NetId);
+                        }
+                    }
+                }
+                return new OkObjectResult($"Loaded {count.Count} people: {string.Join(", ", count)}");
             } catch (Exception e) {
-                return Task.FromResult<IActionResult>(new BadRequestObjectResult(e.Message));
+                return new BadRequestObjectResult(e.Message);
             }
         }
 

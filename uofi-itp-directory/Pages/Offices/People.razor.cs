@@ -12,6 +12,7 @@ using uofi_itp_directory_external.DataWarehouse;
 namespace uofi_itp_directory.Pages.Offices {
 
     public partial class People {
+        private List<AreaOfficeThinObject> _areaThinObjects = default!;
         private MultiChoice? _multiChoice = default!;
         private List<AreaOfficeThinObject> _officeThinObjects = default!;
         public bool IsPersonDisabled => SelectedProfile == 0;
@@ -107,6 +108,8 @@ namespace uofi_itp_directory.Pages.Offices {
                 OfficeId = _officeThinObjects.Single().Id;
                 OfficeTitle = _officeThinObjects.Single().Title;
                 await AssignTextFields();
+            } else {
+                _areaThinObjects = await AccessHelper.GetAreas(await AuthenticationStateProvider.GetAuthenticationStateAsync(), PersonOptionHelper);
             }
         }
 

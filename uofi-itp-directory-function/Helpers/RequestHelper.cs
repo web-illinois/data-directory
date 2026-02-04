@@ -16,6 +16,8 @@ namespace uofi_itp_directory_function.Helpers {
 
         public static IEnumerable<string> GetJobTypes(this HttpRequest req) => req.GetArray(_jobTypes);
 
+        public static string GetCodeFromHeader(this HttpRequest req) => req.Headers.FirstOrDefault(h => h.Key == "ilw-key").Value.FirstOrDefault() ?? string.Empty;
+
         public static IEnumerable<string> GetOffices(this HttpRequest req) => req.GetArray(_offices);
 
         public static IEnumerable<OfficeTypeEnum> GetOfficesTypes(this HttpRequest req) => req.GetArray(_officeTypes).Where(o => Enum.IsDefined(typeof(OfficeTypeEnum), o)).Select(Enum.Parse<OfficeTypeEnum>);

@@ -80,7 +80,7 @@ else if (Area != null && AreaSettings != null)
                 <select id="ed-refreshurl-option" @bind="AreaSettings.UrlPeopleRefreshType" @bind:after="SetDirty">
                     <option value="@PeopleRefreshTypeEnum.None">No Faculty Load</option>
                     <option value="@PeopleRefreshTypeEnum.Default">Default Faculty Load</option>
-                    <option value="@PeopleRefreshTypeEnum.Custom">Custom URL</option>
+                    <option value="@PeopleRefreshTypeEnum.Custom">Custom URL with API Key</option>
                 </select>
             </div>
             <div class="iled-instructions">
@@ -116,18 +116,28 @@ else if (Area != null && AreaSettings != null)
                     <input id="ed-refreshurl" type="text" @bind="AreaSettings.UrlPeopleRefresh" @bind:after="SetDirty">
                 </div>
                 <div class="iled-instructions">
-                    URL the system should use to refresh a profile. Use the term <em>{netid}</em> to signify the user's NetID. Example: https://refresh.illinois.edu/Load?name={netid}
+                    URL the system should use to refresh a profile. Use the term <em>{netid}</em> to signify the user's NetID. Example: <em>https://refresh.illinois.edu/Load?name={netid}</em>. This may be left blank if you don't want information to be loaded automatically.
                 </div>
             </div>
-            <div class="iled-input-box-parent">
-                <div class="iled-input-box">
-                    <label for="ed-auto">Auto-load profiles to directory hook</label>
-                    <input id="ed-auto" type="checkbox" @bind="AreaSettings.AutoloadProfiles" @bind:after="SetDirty">
-                </div>
-                <div class="iled-instructions">
-                    Check this box if you want a regular refresh of your information.
-                </div>
-            </div>
+
+            <h3>API Updates</h3>
+            <p>This generates an API key that will allow you to programatically add, update, and delete items within your source.</p>
+            @if (AreaSettings.ApiSecretCurrent != "") {
+                <p>You currently have an API key active. This was last changed on @AreaSettings.ApiSecretLastChanged?.ToShortDateString().</p>
+                <ul class="ilw-buttons">
+                    <li><button class="ilw-button" @onclick="CreateApi">Create a New API key</button></li>
+                    <li><button class="ilw-button" @onclick="InvalidateApi">Invalidate the API key</button></li>
+                </ul>
+            } else {
+                <p>You do not currently have an API key active.</p>
+                <p><button class="ilw-button" @onclick="CreateApi">Create a New API key</button></p>
+            }
+            @if (ApiGuid != "") {
+                <p>The API key has been generated (you do not need to click Save for you to use the API key). Please record this as you will not be able to access this after your leave this page.</p>
+                <p>If you had a valid API key before creating this new API key, it will be usable as well. If you wish to deactivate the old API key (because it has been compromised), then you should invalidate the API key and then create a new key.</p>
+                <p>If you change your <strong>Profile Refresh Options</strong> unit setting to something besides <em>Custom URL with API Key</em>, the API key will be invalidated.</p>
+                <p><code>API Key: <strong>@ApiGuid</strong></code></p>
+            }
         }
         <h2>Image Information</h2>
         <div class="iled-section-split">

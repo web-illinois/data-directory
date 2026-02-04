@@ -22,6 +22,7 @@ namespace uofi_itp_directory_external.Experts {
             if (!profile.Awards.Any()) {
                 profile.Awards = await PrizeReader.AddPrizesToAwardsIfNotPresent(profile.ExpertsId, _baseUrl, _key);
             }
+            profile.Clippings = await ClippingReader.AddClippings(profile.ExpertsId, _baseUrl, _key);
             return profile;
         }
 

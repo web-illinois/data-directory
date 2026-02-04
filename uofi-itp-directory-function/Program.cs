@@ -41,6 +41,7 @@ var host = new HostBuilder()
         _ = services.AddScoped<LogHelper>();
         _ = services.AddScoped<EmployeeAreaHelper>();
         _ = services.AddScoped<AreaHelper>();
+        _ = services.AddScoped<ApiHelper>();
         _ = services.AddScoped(c => new DirectoryHookHelper(c.GetService<DirectoryRepository>(), hostContext.Configuration["Values:FacultyLoadUrl"]));
         _ = services.AddScoped(c => new EmployeeHelper(c.GetService<DirectoryRepository>(), null, c.GetService<DirectoryContext>(), c.GetService<EmployeeAreaHelper>(), c.GetService<LogHelper>()));
         _ = services.AddScoped<QueueManager>();
@@ -48,6 +49,7 @@ var host = new HostBuilder()
         _ = services.AddScoped(c => new IllinoisExpertsManager(hostContext.Configuration["Values:ExpertsUrl"], hostContext.Configuration["Values:ExpertsSecretKey"]));
         _ = services.AddScoped(c => new ProgramCourseInformation(hostContext.Configuration["Values:ProgramCourseUrl"]));
         _ = services.AddScoped(c => new PersonGetter(c.GetService<OpenSearchLowLevelClient>()));
+        _ = services.AddScoped(c => new PersonSetter(hostContext.Configuration["Values:SearchUrl"] ?? "", c.GetService<OpenSearchLowLevelClient>(), Console.WriteLine));
         _ = services.AddScoped(c => new LoadManager(c.GetService<DataWarehouseManager>(), c.GetService<EmployeeHelper>(), c.GetService<ProgramCourseInformation>(), c.GetService<IllinoisExpertsManager>(), c.GetService<AreaHelper>(), hostContext.Configuration["Values:SearchUrl"], c.GetService<OpenSearchLowLevelClient>()));
         _ = services.AddScoped<DirectoryManager>();
         _ = services.AddScoped(c => new EmailHandler(hostContext.Configuration["Values:SocketApiKey"]));
