@@ -41,7 +41,6 @@ var host = new HostBuilder()
         _ = services.AddScoped<LogHelper>();
         _ = services.AddScoped<EmployeeAreaHelper>();
         _ = services.AddScoped<AreaHelper>();
-        _ = services.AddScoped<ApiHelper>();
         _ = services.AddScoped(c => new DirectoryHookHelper(c.GetService<DirectoryRepository>(), hostContext.Configuration["Values:FacultyLoadUrl"]));
         _ = services.AddScoped(c => new EmployeeHelper(c.GetService<DirectoryRepository>(), null, c.GetService<DirectoryContext>(), c.GetService<EmployeeAreaHelper>(), c.GetService<LogHelper>()));
         _ = services.AddScoped<QueueManager>();
