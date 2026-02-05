@@ -97,5 +97,8 @@ namespace uofi_itp_directory_search.ViewModel {
         public string TwitterName { get; set; } = "";
 
         public static string GenerateId(string source, string netId) => $"{source}-{netId}";
+
+        public bool IsValid() => !string.IsNullOrWhiteSpace(NetId) && !string.IsNullOrWhiteSpace(Source)
+             && !string.IsNullOrWhiteSpace(Id) && Id.StartsWith(Source + "-");
     }
 }

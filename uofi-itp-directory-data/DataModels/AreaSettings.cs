@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace uofi_itp_directory_data.DataModels {
 
@@ -49,5 +51,29 @@ namespace uofi_itp_directory_data.DataModels {
 
         public PeopleRefreshTypeEnum UrlPeopleRefreshType { get; set; }
         public string UrlProfile { get; set; } = "";
+
+        public void InvalidateApi() {
+            ApiSecretPrevious = "";
+            ApiSecretCurrent = "";
+            ApiSecretLastChanged = DateTime.Now;
+        }
+
+        public string AdvanceApi() {
+            var guid = Guid.NewGuid().ToString().ToLowerInvariant();
+            var guidHash = HashWithSHA256(guid);
+            ApiSecretPrevious = ApiSecretCurrent;
+            ApiSecretCurrent = guidHash;
+            ApiSecretLastChanged = DateTime.Now;
+            return guid;
+        }
+
+        public bool CheckApi(string key) {
+            var guidHash = HashWithSHA256(key);
+            return this != null &&
+                !string.IsNullOrWhiteSpace(ApiSecretCurrent) &&
+                (guidHash.Equals(ApiSecretCurrent, StringComparison.OrdinalIgnoreCase) || guidHash.Equals(ApiSecretPrevious, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private static string HashWithSHA256(string value) => Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(value + "-Kindness-Rimless-Cupcake-Untimely")));
     }
 }
