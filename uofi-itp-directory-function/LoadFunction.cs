@@ -37,7 +37,7 @@ namespace uofi_itp_directory_function {
         [OpenApiOperation(operationId: "Load Person", tags: "Load", Description = "Load a person sending the json of the body, manually overriding any other options. Note that you need to register your API key with the application before you use this option. If you do this, we will not load anything from EDW -- we will rely on you to give us basic information and profile information.")]
         [OpenApiParameter(name: "ilw-key", In = ParameterLocation.Header, Required = true, Type = typeof(string), Description = "The API Key.")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "A status of what it did.")]
-        public async Task<IActionResult> LoadPersonManually([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "Load/Manual")] HttpRequest req) {
+        public async Task<IActionResult> LoadPersonManually([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Load/Manual")] HttpRequest req) {
             try {
 
                 var key = req.GetCodeFromHeader();
