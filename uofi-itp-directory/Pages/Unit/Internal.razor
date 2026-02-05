@@ -133,7 +133,7 @@ else if (Area != null && AreaSettings != null)
                 <p><button class="ilw-button" @onclick="CreateApi">Create a New API key</button></p>
             }
             @if (ApiGuid != "") {
-                <p>The API key has been generated (you do not need to click Save for you to use the API key). Please record this as you will not be able to access this after your leave this page.</p>
+                <p>The API key has been generated and will be active once you click "Save". Please record this as you will not be able to access this after your leave this page.</p>
                 <p>If you had a valid API key before creating this new API key, it will be usable as well. If you wish to deactivate the old API key (because it has been compromised), then you should invalidate the API key and then create a new key.</p>
                 <p>If you change your <strong>Profile Refresh Options</strong> unit setting to something besides <em>Custom URL with API Key</em>, the API key will be invalidated.</p>
                 <p><code>API Key: <strong>@ApiGuid</strong></code></p>
