@@ -1,0 +1,34 @@
+﻿@page "/search/changelogs"
+
+<PageTitle>Change Log | Illinois</PageTitle>
+
+<div class="iled-section">
+    <h1>Change Log</h1>
+
+    <p>This page shows the change log for areas, offices, and people. </p>
+
+    <div class="iled-input-box-parent">
+        <div class="iled-input-box">
+            <label for="ed-netid">Search Text</label>
+            <input id="ed-netid" type="text" @bind="SearchText">
+        </div>
+    </div>
+    <div class="iled-buttons-left">
+        <button class="ilw-button" @onclick="RefreshInformation">Refresh Information</button>
+    </div>
+
+
+    @if (this.LogItems != null)
+    {
+        <h2>Changes</h2>
+        @if (this.LogItems.Count > 0) {
+            <ul>
+                @foreach (var log in this.LogItems) {
+                    <li style="list-style: none; margin: 0;"><details><summary style="padding: 5px;">@log.DateCreated - @log.SubjectText</summary>@log.ChangeType by @log.ChangedByNetId<br />@log.Data</details></li>
+                }
+            </ul>
+        } else {
+            <p>No logs.</p>
+        }
+    }
+</div>
