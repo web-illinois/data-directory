@@ -34,6 +34,7 @@ builder.Services.AddScoped<LookupHelper>();
 builder.Services.AddScoped<OfficeHelper>();
 builder.Services.AddScoped<EmployeeHelper>();
 builder.Services.AddScoped<JobProfileHelper>();
+builder.Services.AddScoped<LogReaderHelper>();
 builder.Services.AddScoped<SecurityEntryHelper>();
 builder.Services.AddScoped<EmployeeAreaHelper>();
 builder.Services.AddScoped<OfficeManagerHelper>();
