@@ -16,6 +16,16 @@ main {
     overflow: hidden !important;
 }
 
+.inputfile input {
+    margin: 30px 0;
+    border-radius: 5px;
+    padding: 10px;
+    font: 1rem / 1.125rem var(--il-font-sans);
+    background-color: #fff;
+    border: thin var(--il-blue) solid;
+    width: 100%;
+}
+
 .iled-section {
     margin: 0 auto;
     display: grid;

@@ -1,0 +1,29 @@
+﻿@page "/Admin/json"
+
+<PageTitle>Import / Export Json | Illinois</PageTitle>
+
+<div class="iled-section">
+    <h1>Import / Export Json Files</h1>
+    <p>Global Administrators may import and export data from the database. This will allow you to create test copies of the database. </p>
+</div>
+
+<h2>Export the Json file</h2>
+<p>This will not pull in log information or security infomation.</p>
+<p>This is not destructive and can be done multiple times.</p>
+
+<p><button class="ilw-button" @onclick="ExportJson">Export JSON file</button></p>
+
+<h2>Import the Json file</h2>
+<p><strong>This is potentially destructive behavior.</strong></p>
+<p>Note that if the <em>DeleteAllEntries</em> value is set to true, this will wipe out the entire database and repopulate it with the data you import. This will wipe out all security information and all log information from the database. You will be the sole administrator for this test site.</p>
+<p>If the <em>DeleteAllEntries</em> value is set to false, this has the chance of duplicating the areas and offices. This may have the potential of removing security information from the areas.</p>
+<p>This will not update the directory open search service. To do this, you need to wait for the load process to run.</p>
+<p>This process will take a while.</p>
+
+<div class="inputfile">
+<InputFile OnChange="@LoadFile" />
+</div>
+
+<p><button class="ilw-button ilw-theme-orange" @onclick="ImportJson">Import JSON file</button></p>
+
+<ToastPopup></ToastPopup>

@@ -27,6 +27,8 @@ namespace uofi_itp_directory_data.DataAccess {
             return returnValue;
         }
 
+        public async Task<List<Employee>> GetAllEmployeesIncludeEverything() => [.. await _directoryRepository.ReadAsync(d => d.Employees.Include(e => e.EmployeeActivities).Include(e => e.EmployeeHours).Include(e => e.EmployeeCourses))];
+
         public async Task<Employee?> GetEmployee(int? id, string name) {
             var employee = await _directoryRepository.ReadAsync(d => d.Employees.Include(e => e.JobProfiles).ThenInclude(jp => jp.Tags).Include(e => e.JobProfiles).ThenInclude(jp => jp.Office).Include(e => e.EmployeeActivities).Include(e => e.EmployeeHours).Include(e => e.EmployeeCourses).FirstOrDefault(e => e.NetId == name && id == null || e.Id == id));
             if (employee == null) {
@@ -91,6 +93,14 @@ namespace uofi_itp_directory_data.DataAccess {
                 _ = await _logHelper.CreateEmployeeLog(changedByNetId, message, employee.ToString(), employee.Id, employee.NetId);
             }
             return returnValue;
+        }
+        public async Task<int> SaveEmployeeFromJson(Employee employee) {
+            if (await GetEmployeeByNetId(employee.NetId) != 0) {
+                return employee.Id;
+            }
+            employee.ProfileUrl = await _employeeAreaHelper.ProfileViewUrl(employee.NetId, employee.Name);
+            _ = await _directoryRepository.CreateAsync(employee);
+            return employee.Id;
         }
 
         // Used only if the user changed the URL for the area -- very slow.
