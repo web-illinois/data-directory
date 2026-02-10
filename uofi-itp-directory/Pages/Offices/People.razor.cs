@@ -70,10 +70,14 @@ namespace uofi_itp_directory.Pages.Offices {
         public async Task Remove() {
             var thinObject = GetThinObject();
             if (await JsRuntime.InvokeAsync<bool>("confirm", $"This will remove the employee {thinObject.Display} from the profile list. Are you sure?")) {
-                _ = await JobProfileHelper.RemoveJobProfile(thinObject.JobProfileId, thinObject.EmployeeId, thinObject.EmployeeNetId, await AuthenticationStateProvider.GetUser());
-                JobProfiles.RemoveAll(jp => jp.JobProfileId == thinObject.JobProfileId);
-                SelectedProfile = 0;
-                _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", $"User {thinObject.Display} removed");
+                var returnValue = await JobProfileHelper.RemoveJobProfile(thinObject.JobProfileId, thinObject.EmployeeId, thinObject.EmployeeNetId, await AuthenticationStateProvider.GetUser());
+                if (returnValue == 0) {
+                    _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", $"Error: user {thinObject.Display} not removed - id {thinObject.JobProfileId}");
+                } else {
+                    JobProfiles.RemoveAll(jp => jp.JobProfileId == thinObject.JobProfileId);
+                    SelectedProfile = 0;
+                    _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", $"User {thinObject.Display} removed");
+                }
                 StateHasChanged();
             }
         }

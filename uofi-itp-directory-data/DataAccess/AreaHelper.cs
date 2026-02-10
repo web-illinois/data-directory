@@ -47,7 +47,7 @@ namespace uofi_itp_directory_data.DataAccess {
         }
 
         public async Task<List<Area>> GetAreas() => [.. (await _directoryRepository.ReadAsync(d => d.Areas.OrderBy(a => a.Title)))];
-
+        public async Task<List<Area>> GetAreasIncludeEverything() => [.. (await _directoryRepository.ReadAsync(d => d.Areas.Include(a => a.AreaSettings).Include(a => a.AreaTags).Include(a => a.Offices).ThenInclude(o => o.OfficeSettings).Include(a => a.Offices).ThenInclude(o => o.OfficeHours).Include(a => a.Offices).ThenInclude(o => o.JobProfiles).ThenInclude(jp => jp.EmployeeProfile).OrderBy(a => a.Id)))];
         public async Task<AreaSettings> GetAreaSettingsByAreaId(int? areaId) => await _directoryRepository.ReadAsync(d => d.AreaSettings.Single(a => a.AreaId == areaId));
 
         public async Task<AreaSettings> GetAreaSettingsBySource(string source) => await _directoryRepository.ReadAsync(d => d.AreaSettings.SingleOrDefault(a => a.InternalCode == source)) ?? new();
@@ -87,6 +87,10 @@ namespace uofi_itp_directory_data.DataAccess {
         public async Task<int> UpdateAreaSettings(AreaSettings area, string areaName, string changedByNetId) {
             _ = await _logHelper.CreateAreaLog(changedByNetId, "Changed area settings", area.ToString(), area.AreaId, areaName);
             return await _directoryRepository.UpdateAsync(area);
+        }
+
+        public async Task<int> SaveAreaFromJson(Area area) {
+            return await _directoryRepository.CreateAsync(area);
         }
     }
 }

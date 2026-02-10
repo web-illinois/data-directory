@@ -115,8 +115,12 @@ namespace uofi_itp_directory_data.DirectoryHook {
         }
 
         private async Task<bool> UpdateLastUpdated(Employee employee) {
-            employee.LastRefreshed = DateTime.Now;
-            return await _directoryRepository.UpdateAsync(employee) > 0;
+            var employeeToUpdate = await _directoryRepository.ReadAsync(d => d.Employees.SingleOrDefault(e => e.Id == employee.Id));
+            if (employeeToUpdate != null) {
+                employeeToUpdate.LastRefreshed = DateTime.Now;
+                return await _directoryRepository.UpdateAsync(employeeToUpdate) > 0;
+            }
+            return false;
         }
     }
 }
