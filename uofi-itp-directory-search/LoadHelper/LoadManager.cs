@@ -34,8 +34,8 @@ namespace uofi_itp_directory_search.LoadHelper {
                     return _logger.ToString();
                 }
                 //TODO add more area parameters here, potentially split out from the LoadPerson
-                var useCampusPictures = settings?.UrlPeopleRefresh.Contains("use-directory-profile") ?? false;
-                var sendToSearchStax = isAutomated && (settings?.UrlPeopleRefresh.Contains("searchstax") ?? false);
+                var useCampusPictures = settings?.UrlPeopleRefresh.Contains("use-directory-profile", StringComparison.OrdinalIgnoreCase) ?? false;
+                var sendToSearchStax = isAutomated && (settings?.UrlPeopleRefresh.Contains("searchstax", StringComparison.OrdinalIgnoreCase) ?? false);
                 var personSetter = new PersonSetter(_searchUrl, _openSearchLowLevelClient, AddLog);
                 AddLog("Getting initial person information from EDW. ");
                 var edwItem = await _dataWarehouseManager.GetDataWarehouseItem(netId);
