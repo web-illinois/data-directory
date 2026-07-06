@@ -56,7 +56,7 @@ namespace uofi_itp_directory.Pages.Profile {
                 return;
             }
             _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", $"Directory Entry Starting Refresh");
-            var results = await DirectoryHookHelper.SendHook(Employee.Id, false);
+            var results = await DirectoryHookHelper.SendHook(Employee.Id, false, false);
             _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", results.isSuccessful ? "Directory Entry refresh complete" : results.results);
         }
 

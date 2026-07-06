@@ -31,7 +31,14 @@ namespace uofi_itp_directory_function {
         [OpenApiParameter(name: "name", In = ParameterLocation.Path, Required = true, Type = typeof(string), Description = "The NetID of the person you want to load.")]
         [OpenApiParameter(name: "source", In = ParameterLocation.Path, Required = true, Type = typeof(string), Description = "Source value.")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "A status of what it did.")]
-        public async Task<IActionResult> LoadPerson([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Load/Person/{source}/{netid}")] HttpRequest req, string source, string netid) => LogAndReturn(await _loadManager.LoadPerson(netid, source));
+        public async Task<IActionResult> LoadPerson([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Load/Person/{source}/{netid}")] HttpRequest req, string source, string netid) => LogAndReturn(await _loadManager.LoadPerson(netid, source, false));
+
+        [Function("LoadPersonAutomaticallyThroughAutomatedProcess")]
+        [OpenApiOperation(operationId: "Load Person Automatically Through Automated Process", tags: "Load", Description = "Load a person using the default parameters and source information. Note that this account has to be listed as using the default load for this to work properly. This should only be used by the function app, unless you want to explicitly mimic the autoloading of the function application.")]
+        [OpenApiParameter(name: "name", In = ParameterLocation.Path, Required = true, Type = typeof(string), Description = "The NetID of the person you want to load.")]
+        [OpenApiParameter(name: "source", In = ParameterLocation.Path, Required = true, Type = typeof(string), Description = "Source value.")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "A status of what it did.")]
+        public async Task<IActionResult> LoadPersonAutomated([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Load/PersonAutomated/{source}/{netid}")] HttpRequest req, string source, string netid) => LogAndReturn(await _loadManager.LoadPerson(netid, source, true));
 
         [Function("LoadPersonManually")]
         [OpenApiOperation(operationId: "Load Person", tags: "Load", Description = "Load a person sending the json of the body, manually overriding any other options. Note that you need to register your API key with the application before you use this option. If you do this, we will not load anything from EDW -- we will rely on you to give us basic information and profile information.")]

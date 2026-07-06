@@ -6,10 +6,11 @@ using uofi_itp_directory_external.DataWarehouse;
 using uofi_itp_directory_external.Experts;
 using uofi_itp_directory_external.ImageManager;
 using uofi_itp_directory_external.ProgramCourse;
+using uofi_itp_directory_search.SearchStax;
 
 namespace uofi_itp_directory_search.LoadHelper {
 
-    public class LoadManager(DataWarehouseManager? dataWarehouseManager, EmployeeHelper? employeeHelper, ProgramCourseInformation? programCourseInformation, IllinoisExpertsManager? illinoisExpertsManager, AreaHelper? areaHelper, string? searchUrl, OpenSearchLowLevelClient? openSearchLowLevelClient) {
+    public class LoadManager(DataWarehouseManager? dataWarehouseManager, EmployeeHelper? employeeHelper, ProgramCourseInformation? programCourseInformation, IllinoisExpertsManager? illinoisExpertsManager, AreaHelper? areaHelper, string? searchUrl, OpenSearchLowLevelClient? openSearchLowLevelClient, SearchStaxLoader? searchStaxLoader) {
         private readonly AreaHelper _areaHelper = areaHelper ?? default!;
         private readonly DataWarehouseManager _dataWarehouseManager = dataWarehouseManager ?? default!;
         private readonly EmployeeHelper _employeeHelper = employeeHelper ?? default!;
@@ -18,8 +19,9 @@ namespace uofi_itp_directory_search.LoadHelper {
         private readonly OpenSearchLowLevelClient _openSearchLowLevelClient = openSearchLowLevelClient ?? default!;
         private readonly ProgramCourseInformation _programCourseInformation = programCourseInformation ?? default!;
         private readonly string _searchUrl = searchUrl ?? "";
+        private readonly SearchStaxLoader _searchStaxLoader = searchStaxLoader ?? default!;
 
-        public async Task<string> LoadPerson(string netId, string source) {
+        public async Task<string> LoadPerson(string netId, string source, bool isAutomated) {
             AddLog($"Starting process with Net ID {netId} and source {source}");
             try {
                 var settings = await _areaHelper.GetAreaSettingsBySource(source);
@@ -33,6 +35,7 @@ namespace uofi_itp_directory_search.LoadHelper {
                 }
                 //TODO add more area parameters here, potentially split out from the LoadPerson
                 var useCampusPictures = settings?.UrlPeopleRefresh.Contains("use-directory-profile") ?? false;
+                var sendToSearchStax = isAutomated && (settings?.UrlPeopleRefresh.Contains("searchstax") ?? false);
                 var personSetter = new PersonSetter(_searchUrl, _openSearchLowLevelClient, AddLog);
                 AddLog("Getting initial person information from EDW. ");
                 var edwItem = await _dataWarehouseManager.GetDataWarehouseItem(netId);
@@ -64,8 +67,17 @@ namespace uofi_itp_directory_search.LoadHelper {
                 AddLog("Adding to directory using " + source);
                 if (await personSetter.SaveSingle(profile)) {
                     AddLog($"Username {netId} updated in source {source}");
-                    AddLog("Completed Process");
                 }
+                if (await personSetter.SaveSingle(profile)) {
+                    AddLog($"Username {netId} updated in source {source}");
+                }
+                if (sendToSearchStax) {
+                    AddLog($"Sending username {netId} to SearchStax");
+                    var item = await SearchStaxObject.Generate(profile);
+                    var results = await _searchStaxLoader.Send(item.ToString());
+                    AddLog($"SearchStax result: {results}");
+                }
+                AddLog("Completed Process");
             } catch (Exception e) {
                 AddLog($"Error in process, aborting: {e}");
             }
