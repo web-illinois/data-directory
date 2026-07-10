@@ -40,7 +40,7 @@ namespace uofi_itp_directory_data.DirectoryHook {
             if (entry == null) {
                 return new DirectoryEntry(0);
             }
-            var (successful, netId, results) = await SendHook(entry.EmployeeId, false);
+            var (successful, netId, results) = await SendHook(entry.EmployeeId, false, true);
             entry.DateRun = DateTime.Now;
             entry.LastUpdated = DateTime.Now;
             entry.IsSuccessful = successful;
@@ -58,7 +58,7 @@ namespace uofi_itp_directory_data.DirectoryHook {
             return returnValue;
         }
 
-        public async Task<(bool isSuccessful, string netid, string results)> SendHook(int employeeId, bool ignoreResults) {
+        public async Task<(bool isSuccessful, string netid, string results)> SendHook(int employeeId, bool ignoreResults, bool isAutomated) {
             var employee = await _directoryRepository.ReadAsync(d => d.Employees.Include(e => e.JobProfiles).ThenInclude(jp => jp.Office).SingleOrDefault(e => e.Id == employeeId));
             return await SendHookPrivate(employee, ignoreResults);
         }

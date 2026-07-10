@@ -6,10 +6,11 @@ using uofi_itp_directory_external.DataWarehouse;
 using uofi_itp_directory_external.Experts;
 using uofi_itp_directory_external.ImageManager;
 using uofi_itp_directory_external.ProgramCourse;
+using uofi_itp_directory_search.SearchStax;
 
 namespace uofi_itp_directory_search.LoadHelper {
 
-    public class LoadManager(DataWarehouseManager? dataWarehouseManager, EmployeeHelper? employeeHelper, ProgramCourseInformation? programCourseInformation, IllinoisExpertsManager? illinoisExpertsManager, AreaHelper? areaHelper, string? searchUrl, OpenSearchLowLevelClient? openSearchLowLevelClient) {
+    public class LoadManager(DataWarehouseManager? dataWarehouseManager, EmployeeHelper? employeeHelper, ProgramCourseInformation? programCourseInformation, IllinoisExpertsManager? illinoisExpertsManager, AreaHelper? areaHelper, string? searchUrl, OpenSearchLowLevelClient? openSearchLowLevelClient, SearchStaxLoader? searchStaxLoader) {
         private readonly AreaHelper _areaHelper = areaHelper ?? default!;
         private readonly DataWarehouseManager _dataWarehouseManager = dataWarehouseManager ?? default!;
         private readonly EmployeeHelper _employeeHelper = employeeHelper ?? default!;
@@ -18,8 +19,9 @@ namespace uofi_itp_directory_search.LoadHelper {
         private readonly OpenSearchLowLevelClient _openSearchLowLevelClient = openSearchLowLevelClient ?? default!;
         private readonly ProgramCourseInformation _programCourseInformation = programCourseInformation ?? default!;
         private readonly string _searchUrl = searchUrl ?? "";
+        private readonly SearchStaxLoader _searchStaxLoader = searchStaxLoader ?? default!;
 
-        public async Task<string> LoadPerson(string netId, string source) {
+        public async Task<string> LoadPerson(string netId, string source, bool isAutomated) {
             AddLog($"Starting process with Net ID {netId} and source {source}");
             try {
                 var settings = await _areaHelper.GetAreaSettingsBySource(source);
@@ -32,22 +34,22 @@ namespace uofi_itp_directory_search.LoadHelper {
                     return _logger.ToString();
                 }
                 //TODO add more area parameters here, potentially split out from the LoadPerson
-                var useCampusPictures = settings?.UrlPeopleRefresh.Contains("use-directory-profile") ?? false;
+                var useCampusPictures = settings?.UrlPeopleRefresh.Contains("use-directory-profile", StringComparison.OrdinalIgnoreCase) ?? false;
+                var sendToSearchStax = isAutomated && (settings?.UrlPeopleRefresh.Contains("searchstax", StringComparison.OrdinalIgnoreCase) ?? false);
+                var sendDeleteToSearchStax = settings?.UrlPeopleRefresh.Contains("searchstax", StringComparison.OrdinalIgnoreCase) ?? false;
                 var personSetter = new PersonSetter(_searchUrl, _openSearchLowLevelClient, AddLog);
                 AddLog("Getting initial person information from EDW. ");
                 var edwItem = await _dataWarehouseManager.GetDataWarehouseItem(netId);
                 if (edwItem == null || !edwItem.IsValid) {
                     AddLog($"Username {netId} could not be found in EDW - removing user from Amazon OpenSearch Service");
-                    if (await personSetter.DeleteSingle(source, netId))
-                        AddLog($"Username {netId} removed from source {source}");
+                    DeleteEntry(netId, source, personSetter, sendDeleteToSearchStax);
                     return _logger.ToString();
                 }
                 AddLog("Getting information from IT Partners Directory Application");
                 var employee = await _employeeHelper.GetEmployeeReadOnly(netId, source);
                 if (employee == null || employee.JobProfiles.Count == 0) {
                     AddLog($"Username {netId} does not have any appointments for source {source} - removing user from Amazon OpenSearch Service");
-                    if (await personSetter.DeleteSingle(source, netId))
-                        AddLog($"Username {netId} removed from source {source}");
+                    DeleteEntry(netId, source, personSetter, sendDeleteToSearchStax);
                     return _logger.ToString();
                 }
                 AddLog($"Number of profiles: {employee.JobProfiles?.Count}");
@@ -64,12 +66,32 @@ namespace uofi_itp_directory_search.LoadHelper {
                 AddLog("Adding to directory using " + source);
                 if (await personSetter.SaveSingle(profile)) {
                     AddLog($"Username {netId} updated in source {source}");
-                    AddLog("Completed Process");
                 }
+                if (await personSetter.SaveSingle(profile)) {
+                    AddLog($"Username {netId} updated in source {source}");
+                }
+                if (sendToSearchStax) {
+                    AddLog($"Sending username {netId} to SearchStax");
+                    var item = await SearchStaxObject.Generate(profile);
+                    var results = await _searchStaxLoader.Send(item.ToString());
+                    AddLog($"SearchStax result: {results}");
+                }
+                AddLog("Completed Process");
             } catch (Exception e) {
                 AddLog($"Error in process, aborting: {e}");
             }
             return _logger.ToString();
+        }
+
+        private void DeleteEntry(string netId, string source, PersonSetter personSetter, bool sendDeleteToSearchStax) {
+            AddLog($"Deleting {netId} from source {source}");
+            if (personSetter.DeleteSingle(source, netId).Result) {
+                AddLog($"Username {netId} removed from source {source}");
+            }
+            if (sendDeleteToSearchStax) {
+                //TODO should log profile URL so we can delete this from SearchStax
+                AddLog($"Need to manually remove from searchstax");
+            }
         }
 
         private void AddLog(string message) => _logger.AppendLine($"{message} ({DateTime.Now.ToShortTimeString()}). ");
