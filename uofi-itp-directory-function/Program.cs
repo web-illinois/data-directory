@@ -18,6 +18,7 @@ using uofi_itp_directory_function;
 using uofi_itp_directory_search;
 using uofi_itp_directory_search.LoadHelper;
 using uofi_itp_directory_search.SearchHelper;
+using uofi_itp_directory_search.SearchStax;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWebApplication()
@@ -44,12 +45,13 @@ var host = new HostBuilder()
         _ = services.AddScoped(c => new DirectoryHookHelper(c.GetService<DirectoryRepository>(), hostContext.Configuration["Values:FacultyLoadUrl"]));
         _ = services.AddScoped(c => new EmployeeHelper(c.GetService<DirectoryRepository>(), null, c.GetService<DirectoryContext>(), c.GetService<EmployeeAreaHelper>(), c.GetService<LogHelper>()));
         _ = services.AddScoped<QueueManager>();
+        _ = services.AddScoped(c => new SearchStaxLoader(hostContext.Configuration["Values:SearchStaxUrl"], hostContext.Configuration["Values:SearchStaxApiToken"]));
         _ = services.AddScoped(c => new DataWarehouseManager(hostContext.Configuration["Values:DataWarehouseUrl"], hostContext.Configuration["Values:DataWarehouseKey"]));
         _ = services.AddScoped(c => new IllinoisExpertsManager(hostContext.Configuration["Values:ExpertsUrl"], hostContext.Configuration["Values:ExpertsSecretKey"]));
         _ = services.AddScoped(c => new ProgramCourseInformation(hostContext.Configuration["Values:ProgramCourseUrl"]));
         _ = services.AddScoped(c => new PersonGetter(c.GetService<OpenSearchLowLevelClient>()));
         _ = services.AddScoped(c => new PersonSetter(hostContext.Configuration["Values:SearchUrl"] ?? "", c.GetService<OpenSearchLowLevelClient>(), Console.WriteLine));
-        _ = services.AddScoped(c => new LoadManager(c.GetService<DataWarehouseManager>(), c.GetService<EmployeeHelper>(), c.GetService<ProgramCourseInformation>(), c.GetService<IllinoisExpertsManager>(), c.GetService<AreaHelper>(), hostContext.Configuration["Values:SearchUrl"], c.GetService<OpenSearchLowLevelClient>()));
+        _ = services.AddScoped(c => new LoadManager(c.GetService<DataWarehouseManager>(), c.GetService<EmployeeHelper>(), c.GetService<ProgramCourseInformation>(), c.GetService<IllinoisExpertsManager>(), c.GetService<AreaHelper>(), hostContext.Configuration["Values:SearchUrl"], c.GetService<OpenSearchLowLevelClient>(), c.GetService<SearchStaxLoader>()));
         _ = services.AddScoped<DirectoryManager>();
         _ = services.AddScoped(c => new EmailHandler(hostContext.Configuration["Values:SocketApiKey"]));
     })

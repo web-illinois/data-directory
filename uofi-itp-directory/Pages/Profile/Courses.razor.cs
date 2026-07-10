@@ -114,16 +114,6 @@ namespace uofi_itp_directory.Pages.Profile {
             Reorder();
         }
 
-        public async Task RefreshDirectory() {
-            if (Employee == null) {
-                _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "No employee to refresh");
-                return;
-            }
-            _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", $"Directory Entry Starting Refresh");
-            var results = await DirectoryHookHelper.SendHook(Employee.Id, false);
-            _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", results.isSuccessful ? "Directory Entry refresh complete" : results.results);
-        }
-
         public async Task Save(EmployeeCourse course) {
             if (course.InEditState) {
                 _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", $"Course \"{course.Title}\" updated");

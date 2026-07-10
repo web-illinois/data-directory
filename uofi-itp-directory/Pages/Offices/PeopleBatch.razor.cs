@@ -35,6 +35,9 @@ namespace uofi_itp_directory.Pages.Offices {
         protected CacheHolder CacheHolder { get; set; } = default!;
 
         [Inject]
+        protected EmployeeHelper EmployeeSecurityHelper { get; set; } = default!;
+
+        [Inject]
         protected JobProfileHelper JobProfileHelper { get; set; } = default!;
 
         [Inject]
@@ -66,7 +69,10 @@ namespace uofi_itp_directory.Pages.Offices {
                 foreach (var netId in NewNetIds.Split('\n').Select(n => n.Trim([' ', '\t', '\r'])).Where(s => !string.IsNullOrWhiteSpace(s))) {
                     var (employeeId, message) = await JobProfileHelper.GenerateJobProfile(OfficeId.Value, netId, await AuthenticationStateProvider.GetUser(), NewTitle.Trim(), NewProfileCategory);
                     Results += $"{message}. ";
-                    StateHasChanged();
+                    var emp = await EmployeeSecurityHelper.GetEmployee(employeeId, "");
+                    if (emp != null) {
+                        _ = await EmployeeSecurityHelper.SaveEmployee(emp, await AuthenticationStateProvider.GetUser(), "Employee Batch Load");
+                    }
                 }
             } else {
                 _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "Net IDs needs to be filled out");

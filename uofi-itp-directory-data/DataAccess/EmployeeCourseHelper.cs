@@ -12,7 +12,7 @@ namespace uofi_itp_directory_data.DataAccess {
         public async Task<int> DeleteCourse(EmployeeCourse course, int employeeId, string employeeNetId, string changedByNetId) {
             var returnValue = await _directoryRepository.DeleteAsync(course);
             _ = await _logHelper.CreateEmployeeLog(changedByNetId, "Deleted course " + course.Title, course.ToString(), employeeId, employeeNetId);
-            _ = _directoryHookHelper.SendHook(employeeId, true);
+            _ = _directoryHookHelper.SendHook(employeeId, true, false);
             return returnValue;
         }
 
@@ -20,7 +20,7 @@ namespace uofi_itp_directory_data.DataAccess {
             course.EmployeeId = employeeId;
             var returnValue = await _directoryRepository.UpdateAsync(course);
             _ = await _logHelper.CreateEmployeeLog(changedByNetId, "Added/changed course " + course.Title, course.ToString(), employeeId, employeeNetId);
-            _ = _directoryHookHelper.SendHook(employeeId, true);
+            _ = _directoryHookHelper.SendHook(employeeId, true, false);
             return returnValue;
         }
     }
