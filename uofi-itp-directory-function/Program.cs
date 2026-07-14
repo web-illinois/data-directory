@@ -45,7 +45,7 @@ var host = new HostBuilder()
         _ = services.AddScoped(c => new DirectoryHookHelper(c.GetService<DirectoryRepository>(), hostContext.Configuration["Values:FacultyLoadUrl"]));
         _ = services.AddScoped(c => new EmployeeHelper(c.GetService<DirectoryRepository>(), null, c.GetService<DirectoryContext>(), c.GetService<EmployeeAreaHelper>(), c.GetService<LogHelper>()));
         _ = services.AddScoped<QueueManager>();
-        _ = services.AddScoped(c => new SearchStaxLoader(hostContext.Configuration["Values:SearchStaxUrl"], hostContext.Configuration["Values:SearchStaxApiToken"]));
+        _ = services.AddSingleton(c => new SearchStaxLoader(hostContext.Configuration["Values:SearchStaxUrl"], hostContext.Configuration["Values:SearchStaxApiToken"]));
         _ = services.AddScoped(c => new DataWarehouseManager(hostContext.Configuration["Values:DataWarehouseUrl"], hostContext.Configuration["Values:DataWarehouseKey"]));
         _ = services.AddScoped(c => new IllinoisExpertsManager(hostContext.Configuration["Values:ExpertsUrl"], hostContext.Configuration["Values:ExpertsSecretKey"]));
         _ = services.AddScoped(c => new ProgramCourseInformation(hostContext.Configuration["Values:ProgramCourseUrl"]));
