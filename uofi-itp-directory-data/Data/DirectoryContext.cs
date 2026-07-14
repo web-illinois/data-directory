@@ -5,16 +5,12 @@ using uofi_itp_directory_data.DataModels;
 namespace uofi_itp_directory_data.Data {
 
     public class DirectoryContext : DbContext {
-        private readonly Guid id;
-
         public DirectoryContext() : base() {
-            id = Guid.NewGuid();
-            Debug.WriteLine($"{id} context created.");
+            Debug.WriteLine($"Context created.");
         }
 
         public DirectoryContext(DbContextOptions<DirectoryContext> options) : base(options) {
-            id = Guid.NewGuid();
-            Debug.WriteLine($"{id} context created.");
+            Debug.WriteLine($"Context created.");
         }
 
         public DbSet<AreaJobType> AreaJobTypes { get; set; }
@@ -43,23 +39,18 @@ namespace uofi_itp_directory_data.Data {
         public DbSet<SecurityEntry> SecurityEntries { get; set; }
 
         public override void Dispose() {
-            Debug.WriteLine($"{id} context disposed.");
+            Debug.WriteLine($"Context disposed.");
             base.Dispose();
         }
 
         public override ValueTask DisposeAsync() {
-            Debug.WriteLine($"{id} context disposed async.");
+            Debug.WriteLine($"Context disposed async.");
             return base.DisposeAsync();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            Debug.WriteLine($"{id} context starting initial setup.");
-            modelBuilder.Entity<SecurityEntry>().HasData(new List<SecurityEntry>
-            {
-                new("jonker", "Bryan", "Jonker") { Id = -1 },
-                new("rbwatson", "Rob", "Watson") { Id = -2 }
-            });
-            Debug.WriteLine($"{id} context finishing initial setup.");
+            Debug.WriteLine($"Context starting initial setup.");
+            Debug.WriteLine($"Context finishing initial setup.");
         }
     }
 }

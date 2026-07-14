@@ -1,4 +1,3 @@
-using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Extensions.OpenApi.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,8 +32,6 @@ var host = new HostBuilder()
             configuration.Bind(settings);
         });
         var configurationOptions = hostContext.Configuration.Get<ConfigurationOptions>();
-        _ = services.AddApplicationInsightsTelemetryWorkerService();
-        _ = services.ConfigureFunctionsApplicationInsights();
         _ = services.AddDbContextFactory<DirectoryContext>(options => options.UseSqlServer(hostContext.Configuration["Values:AppConnection"]).EnableSensitiveDataLogging(true));
         _ = services.AddScoped<DirectoryRepository>();
         _ = services.AddSingleton(c => LowLevelClientFactory.GenerateClient(hostContext.Configuration["Values:SearchUrl"], hostContext.Configuration["Values:AccessKey"], hostContext.Configuration["Values:SecretKey"]));
@@ -45,9 +42,9 @@ var host = new HostBuilder()
         _ = services.AddScoped(c => new DirectoryHookHelper(c.GetService<DirectoryRepository>(), hostContext.Configuration["Values:FacultyLoadUrl"]));
         _ = services.AddScoped(c => new EmployeeHelper(c.GetService<DirectoryRepository>(), null, c.GetService<DirectoryContext>(), c.GetService<EmployeeAreaHelper>(), c.GetService<LogHelper>()));
         _ = services.AddScoped<QueueManager>();
-        _ = services.AddScoped(c => new SearchStaxLoader(hostContext.Configuration["Values:SearchStaxUrl"], hostContext.Configuration["Values:SearchStaxApiToken"]));
-        _ = services.AddScoped(c => new DataWarehouseManager(hostContext.Configuration["Values:DataWarehouseUrl"], hostContext.Configuration["Values:DataWarehouseKey"]));
-        _ = services.AddScoped(c => new IllinoisExpertsManager(hostContext.Configuration["Values:ExpertsUrl"], hostContext.Configuration["Values:ExpertsSecretKey"]));
+        _ = services.AddSingleton(c => new SearchStaxLoader(hostContext.Configuration["Values:SearchStaxUrl"], hostContext.Configuration["Values:SearchStaxApiToken"]));
+        _ = services.AddSingleton(c => new DataWarehouseManager(hostContext.Configuration["Values:DataWarehouseUrl"], hostContext.Configuration["Values:DataWarehouseKey"]));
+        _ = services.AddSingleton(c => new IllinoisExpertsManager(hostContext.Configuration["Values:ExpertsUrl"], hostContext.Configuration["Values:ExpertsSecretKey"]));
         _ = services.AddScoped(c => new ProgramCourseInformation(hostContext.Configuration["Values:ProgramCourseUrl"]));
         _ = services.AddScoped(c => new PersonGetter(c.GetService<OpenSearchLowLevelClient>()));
         _ = services.AddScoped(c => new PersonSetter(hostContext.Configuration["Values:SearchUrl"] ?? "", c.GetService<OpenSearchLowLevelClient>(), Console.WriteLine));

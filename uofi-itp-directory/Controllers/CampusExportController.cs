@@ -19,7 +19,7 @@ namespace uofi_itp_directory.Controllers {
             dynamic? person = JsonConvert.DeserializeObject(jsonString);
             var show = false;
             if (person != null || person?.username?.ToString() != "" && person?.jobProfiles != null) {
-                foreach (var profile in person?.jobProfiles) {
+                foreach (var profile in person?.jobProfiles ?? Array.Empty<dynamic>()) {
                     if (profile.displayOrder > 0) {
                         show = true;
                     }
