@@ -1,11 +1,11 @@
-﻿using System.Net;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using System.Net;
 using uofi_itp_directory_data.Data;
 using uofi_itp_directory_data.DataModels;
 using uofi_itp_directory_data.Helpers;
@@ -70,7 +70,7 @@ namespace uofi_itp_directory_function {
                 .Include(a => a.Offices).ThenInclude(o => o.OfficeHours)
                 .Include(a => a.Offices).ThenInclude(o => o.OfficeSettings)
                 .Where(a => a.IsActive && a.Id == id)
-                .Select(a => new AreaInformation(a, false, officeTypes)).ToList().Where(a => a.Offices.Any()).FirstOrDefault()));
+                .Select(a => new AreaInformation(a, false, officeTypes)).ToList().FirstOrDefault(a => a.Offices.Any())));
         }
 
         [Function("AreaCode")]
@@ -85,7 +85,7 @@ namespace uofi_itp_directory_function {
                 .Include(a => a.Offices).ThenInclude(o => o.OfficeHours)
                 .Include(a => a.Offices).ThenInclude(o => o.OfficeSettings)
                 .Where(a => a.IsActive && a.AreaSettings.InternalCode == code)
-                .Select(a => new AreaInformation(a, false, officeTypes)).ToList().Where(a => a.Offices.Any()).FirstOrDefault()));
+                .Select(a => new AreaInformation(a, false, officeTypes)).ToList().FirstOrDefault(a => a.Offices.Any())));
         }
 
         [Function("JobTypes")]

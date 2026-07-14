@@ -1,4 +1,3 @@
-using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Extensions.OpenApi.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,8 +32,6 @@ var host = new HostBuilder()
             configuration.Bind(settings);
         });
         var configurationOptions = hostContext.Configuration.Get<ConfigurationOptions>();
-        _ = services.AddApplicationInsightsTelemetryWorkerService();
-        _ = services.ConfigureFunctionsApplicationInsights();
         _ = services.AddDbContextFactory<DirectoryContext>(options => options.UseSqlServer(hostContext.Configuration["Values:AppConnection"]).EnableSensitiveDataLogging(true));
         _ = services.AddScoped<DirectoryRepository>();
         _ = services.AddSingleton(c => LowLevelClientFactory.GenerateClient(hostContext.Configuration["Values:SearchUrl"], hostContext.Configuration["Values:AccessKey"], hostContext.Configuration["Values:SecretKey"]));
