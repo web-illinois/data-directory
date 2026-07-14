@@ -46,8 +46,8 @@ var host = new HostBuilder()
         _ = services.AddScoped(c => new EmployeeHelper(c.GetService<DirectoryRepository>(), null, c.GetService<DirectoryContext>(), c.GetService<EmployeeAreaHelper>(), c.GetService<LogHelper>()));
         _ = services.AddScoped<QueueManager>();
         _ = services.AddSingleton(c => new SearchStaxLoader(hostContext.Configuration["Values:SearchStaxUrl"], hostContext.Configuration["Values:SearchStaxApiToken"]));
-        _ = services.AddScoped(c => new DataWarehouseManager(hostContext.Configuration["Values:DataWarehouseUrl"], hostContext.Configuration["Values:DataWarehouseKey"]));
-        _ = services.AddScoped(c => new IllinoisExpertsManager(hostContext.Configuration["Values:ExpertsUrl"], hostContext.Configuration["Values:ExpertsSecretKey"]));
+        _ = services.AddSingleton(c => new DataWarehouseManager(hostContext.Configuration["Values:DataWarehouseUrl"], hostContext.Configuration["Values:DataWarehouseKey"]));
+        _ = services.AddSingleton(c => new IllinoisExpertsManager(hostContext.Configuration["Values:ExpertsUrl"], hostContext.Configuration["Values:ExpertsSecretKey"]));
         _ = services.AddScoped(c => new ProgramCourseInformation(hostContext.Configuration["Values:ProgramCourseUrl"]));
         _ = services.AddScoped(c => new PersonGetter(c.GetService<OpenSearchLowLevelClient>()));
         _ = services.AddScoped(c => new PersonSetter(hostContext.Configuration["Values:SearchUrl"] ?? "", c.GetService<OpenSearchLowLevelClient>(), Console.WriteLine));
