@@ -1,5 +1,4 @@
-﻿using Azure.Identity;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
@@ -100,7 +99,7 @@ namespace uofi_itp_directory.Pages.Admin {
             var authstate = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var name = authstate.User?.Identity?.Name;
             if (!await PersonOptionHelper.IsFullAdmin(name)) {
-                throw new AuthenticationFailedException("Full Admin access required");
+                throw new Exception("Full Admin access required");
             }
         }
     }

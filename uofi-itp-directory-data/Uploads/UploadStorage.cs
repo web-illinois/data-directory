@@ -1,5 +1,4 @@
-﻿using Azure.Identity;
-using Azure.Storage;
+﻿using Azure.Storage;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 
@@ -58,10 +57,6 @@ namespace uofi_itp_directory_data.Uploads {
 
         private string GetContainer(bool isImage) => isImage ? _azureImageContainerName : _azureCvContainerName;
 
-        private BlobServiceClient GetServiceClient() => string.IsNullOrWhiteSpace(_azureAccountName) && string.IsNullOrWhiteSpace(_azureAccountKey) ?
-            new BlobServiceClient(
-                new Uri(_azureClientUrl),
-                new DefaultAzureCredential(true)) :
-            new BlobServiceClient(new Uri(_azureClientUrl), new StorageSharedKeyCredential(_azureAccountName, _azureAccountKey));
+        private BlobServiceClient GetServiceClient() => new BlobServiceClient(new Uri(_azureClientUrl), new StorageSharedKeyCredential(_azureAccountName, _azureAccountKey));
     }
 }
