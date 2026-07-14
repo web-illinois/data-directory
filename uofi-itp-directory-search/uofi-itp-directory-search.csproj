@@ -1,17 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>uofi_itp_directory_search</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.OpenSearchService" Version="3.7.404.1" />
-    <PackageReference Include="OpenSearch.Client" Version="1.8.0" />
-    <PackageReference Include="OpenSearch.Net.Auth.AwsSigV4" Version="1.8.0" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.11" />
+    <PackageReference Include="AWSSDK.OpenSearchService" Version="4.0.102.1" />
+    <PackageReference Include="OpenSearch.Client" Version="2.0.0" />
+    <PackageReference Include="OpenSearch.Net.Auth.AwsSigV4" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
