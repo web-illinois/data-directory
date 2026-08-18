@@ -67,9 +67,6 @@ namespace uofi_itp_directory_search.LoadHelper {
                 if (await personSetter.SaveSingle(profile)) {
                     AddLog($"Username {netId} updated in source {source}");
                 }
-                if (await personSetter.SaveSingle(profile)) {
-                    AddLog($"Username {netId} updated in source {source}");
-                }
                 if (sendToSearchStax) {
                     AddLog($"Sending username {netId} to SearchStax");
                     var item = await SearchStaxObject.Generate(profile);
