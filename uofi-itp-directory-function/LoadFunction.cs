@@ -81,6 +81,7 @@ namespace uofi_itp_directory_function {
         [OpenApiParameter(name: "take", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "The number of names to process.")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "A status of what it did. If it loaded names, it will list the net IDs of the names that were loaded.")]
         public async Task<IActionResult> Process([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Load")] HttpRequest req) =>
+
             LogAndReturn(await _queueManager.Process(req.GetTake()));
 
         private OkObjectResult LogAndReturn(string s) {
