@@ -23,10 +23,17 @@ namespace uofi_itp_directory_function {
         [Function("OfficeChart")]
         [OpenApiOperation(operationId: "OfficeChart", tags: "Office", Description = "Get an office chart by ID.")]
         [OpenApiParameter(name: "id", In = ParameterLocation.Path, Required = true, Type = typeof(int), Description = "The ID of the office chart you want")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The JSON representation of an office chart")]
-        public async Task<IActionResult> GetOfficeChart([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "OfficeChart/{id}")] HttpRequest req, int id)
-            => new OkObjectResult(await _directoryRepository.ReadAsync(c => c.Offices.Where(o => o.IsActive && o.Id == id)
-                .Select(o => o.OrgChartJson).FirstOrDefault()));
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(string), Description = "The JSON representation of an office chart")]
+        public async Task<IActionResult> GetOfficeChart([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "OfficeChart/{id}")] HttpRequest req, int id) {
+            var officeChartJson = await _directoryRepository.ReadAsync(c => c.Offices.Where(o => o.IsActive && o.Id == id)
+                .Select(o => o.OrgChartJson).FirstOrDefault());
+
+            return new ContentResult {
+                Content = officeChartJson,
+                ContentType = "application/json; charset=UTF-8",
+                StatusCode = (int)HttpStatusCode.OK
+            };
+        }
 
 
         [Function("Office")]

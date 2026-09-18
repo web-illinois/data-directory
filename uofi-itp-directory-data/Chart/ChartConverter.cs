@@ -56,12 +56,17 @@ namespace uofi_itp_directory_data.Orgchart {
             var keys = new[] { "title", "subtitle", "large", "weight" };
 
             for (var i = 0; i < keys.Length && i < fields.Length; i++) {
-                var value = fields[i].Trim();
+                var value = fields[i].Trim('"', ' ');
                 if (!string.IsNullOrWhiteSpace(value)) {
-                    node[keys[i]] = value;
+                    if (value == "true" || value == "false" || value == "TRUE" || value == "FALSE") {
+                        node[keys[i]] = bool.Parse(value);
+                    } else if (int.TryParse(value, out var intValue)) {
+                        node[keys[i]] = intValue;
+                    } else {
+                        node[keys[i]] = value;
+                    }
                 }
             }
-
             return node;
         }
 
