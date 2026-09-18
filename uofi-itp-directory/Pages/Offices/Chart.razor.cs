@@ -74,6 +74,11 @@ namespace uofi_itp_directory.Pages.Offices {
             }
         }
 
+        public async Task<bool> RemoveChart() {
+            var results = await OfficeHelper.UpdateOfficeChart(OfficeId ?? 0, "", "", await AuthenticationStateProvider.GetUser());
+            _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "Chart removed successfully");
+            return true;
+        }
         public async Task<bool> UploadFile(InputFileChangeEventArgs e) {
             if (e.File.Size > 1024 * _maxAllowedSize) {
                 _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", $"File is too large -- size of file is {float.Round(e.File.Size / (float)(1024 * 1000), 2)}MB and maximum size is {_maxAllowedSize / 1000}MB");
