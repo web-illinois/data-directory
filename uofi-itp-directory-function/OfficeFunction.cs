@@ -1,11 +1,11 @@
-﻿using System.Net;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using System.Net;
 using uofi_itp_directory_data.Data;
 using uofi_itp_directory_function.ViewModels;
 
@@ -19,6 +19,15 @@ namespace uofi_itp_directory_function {
             _logger = logger;
             _directoryRepository = directoryRepository;
         }
+
+        [Function("OfficeChart")]
+        [OpenApiOperation(operationId: "OfficeChart", tags: "Office", Description = "Get an office chart by ID.")]
+        [OpenApiParameter(name: "id", In = ParameterLocation.Path, Required = true, Type = typeof(int), Description = "The ID of the office chart you want")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The JSON representation of an office chart")]
+        public async Task<IActionResult> GetOfficeChart([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "OfficeChart/{id}")] HttpRequest req, int id)
+            => new OkObjectResult(await _directoryRepository.ReadAsync(c => c.Offices.Where(o => o.IsActive && o.Id == id)
+                .Select(o => o.OrgChartJson).FirstOrDefault()));
+
 
         [Function("Office")]
         [OpenApiOperation(operationId: "Office", tags: "Office", Description = "Get an office by ID. This includes office hours and office settings.")]
