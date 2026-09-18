@@ -1,0 +1,28 @@
+﻿@page "/office/chart"
+
+<PageTitle>Office Chart | Illinois</PageTitle>
+<NavigationLock OnBeforeInternalNavigation=this.LocationChangingHandler ConfirmExternalNavigation=_isDirty />
+
+<div class="iled-section">
+    <h1>@OfficeTitle Chart</h1>
+    <p>This is an addon that allows you to upload a tab-delimited file defining your organizational chart and it will convert it to a JSON file for you and store it.</p>
+    <p>You can then either store it on your webserver or reference it directly from the API to generate an organization chart.</p>
+</div>
+@if (!OfficeId.HasValue) {
+    <MultiChoice @ref="_multiChoice" Type="MultiChoiceTypeEnum.Office" AreaOfficeThinObjects="_officeThinObjects" AreaOfficeParentThinObjects="_areaThinObjects" OnClickCallback="AssignId"></MultiChoice>
+} else if (Office != null) {
+    <div class="iled-input-box-parent">
+        <div class="iled-input-box">
+            <label for="chart-file">Upload and Save Chart</label>
+            <InputFile OnChange="@UploadFile" id="chart-file" @onblur="RemoveMessage" class="ilw-button"/>
+        </div>
+    </div>
+    <p>You can get your files by choosing the options below. Note that this will open the file in a new tab and perhaps automatically download based on your browser settings.</p>
+    <ul class="ilw-buttons">
+        <li><a href="/chart/@OfficeId/file" target="_blank">Download Flat File</a></li>
+        <li><a href="/chart/@OfficeId" target="_blank">Download Json File</a></li>
+    </ul>
+    <p>The URL to the json is https://directory.wigg.illinois.edu/chart/@OfficeId</p>
+    <ClearCacheButton></ClearCacheButton>
+    <ToastPopup></ToastPopup>
+}

@@ -38,6 +38,10 @@ namespace uofi_itp_directory_data.DataAccess {
             return office;
         }
 
+        public async Task<string> GetOfficeChartFlatFile(int officeId) => await _directoryRepository.ReadAsync(d => d.Offices.Single(a => a.Id == officeId).OrgChartFlatfile);
+
+        public async Task<string> GetOfficeChartJson(int officeId) => await _directoryRepository.ReadAsync(d => d.Offices.Single(a => a.Id == officeId).OrgChartJson);
+
         public async Task<List<OfficeHour>> GetOfficeHoursById(int officeId) => [.. await _directoryRepository.ReadAsync(d => d.OfficeHours.Where(oh => oh.OfficeId == officeId).OrderBy(oh => oh.Day))];
 
         public async Task<List<Office>> GetOffices(int areaId) => [.. (await _directoryRepository.ReadAsync(d => d.Offices.Where(o => o.AreaId == areaId).OrderBy(a => a.Title)))];
@@ -59,6 +63,14 @@ namespace uofi_itp_directory_data.DataAccess {
 
         public async Task<int> UpdateOffice(Office office, string changedByNetId) {
             _ = await _logHelper.CreateOfficeLog(changedByNetId, "Changed office", office.ToString(), office.Id, office.Title);
+            return await _directoryRepository.UpdateAsync(office);
+        }
+
+        public async Task<int> UpdateOfficeChart(int officeId, string file, string json, string changedByNetId) {
+            var office = await _directoryRepository.ReadAsync(d => d.Offices.Single(a => a.Id == officeId));
+            _ = await _logHelper.CreateOfficeLog(changedByNetId, "Changed office hour", office.ToString(), office.Id, office.Title);
+            office.OrgChartFlatfile = file;
+            office.OrgChartJson = json;
             return await _directoryRepository.UpdateAsync(office);
         }
 
