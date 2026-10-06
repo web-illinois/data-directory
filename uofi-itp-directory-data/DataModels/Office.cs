@@ -50,8 +50,6 @@ namespace uofi_itp_directory_data.DataModels {
         public string OfficeHourText { get; set; } = "";
         public virtual OfficeSettings OfficeSettings { get; set; } = default!;
         public OfficeTypeEnum OfficeType { get; set; }
-        public string OrgChartFlatfile { get; set; } = "";
-        public string OrgChartJson { get; set; } = "";
         public string Phone { get; set; } = "";
         public string Room { get; set; } = "";
         public string State { get; set; } = "";
