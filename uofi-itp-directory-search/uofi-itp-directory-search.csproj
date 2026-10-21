@@ -9,8 +9,9 @@
 
   <ItemGroup>
     <PackageReference Include="AWSSDK.OpenSearchService" Version="4.0.102.1" />
-    <PackageReference Include="OpenSearch.Client" Version="2.0.0" />
-    <PackageReference Include="OpenSearch.Net.Auth.AwsSigV4" Version="2.0.0" />
+    <PackageReference Include="OpenSearch.Client" Version="2.2.0" />
+    <PackageReference Include="OpenSearch.Net.Auth.AwsSigV4" Version="2.2.0" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
   </ItemGroup>
 
   <ItemGroup>
