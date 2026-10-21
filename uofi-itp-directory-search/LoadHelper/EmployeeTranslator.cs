@@ -39,7 +39,7 @@ namespace uofi_itp_directory_search.LoadHelper {
             State = directoryEmployee.IsAddressHidden ? "" : ChooseFirstNonBlank(directoryEmployee.State, dataWarehouseItem.State),
             Quote = expertsProfile.Quote,
             ResearchStatement = expertsProfile.ResearchStatement,
-            Tags = directoryEmployee.PrimaryJobProfile.Tags.Select(t => t.Title).ToList() ?? [],
+            Tags = directoryEmployee.JobProfiles.SelectMany(jp => jp.Tags).Select(t => t.Title).Distinct().ToList() ?? [],
             TeachingStatement = expertsProfile.TeachingStatement,
             TwitterName = expertsProfile.Twitter,
             Uin = dataWarehouseItem.Uin,
