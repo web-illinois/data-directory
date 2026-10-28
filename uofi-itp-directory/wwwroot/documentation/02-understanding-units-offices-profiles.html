@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Understanding Units, Offices, and Profiles | WIGG Directory Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="stylesheet" href="https://cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script src="https://cdn.toolkit.illinois.edu/3/toolkit.js"></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'popup', colorTheme: 'illinois' } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Directory Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+	<main>
+		<ilw-content width="page" class="iled-section iled-section-full">
+            <p><a href="index.html">&larr; Back to Documentation Index</a></p>
+<h1 id="understanding-units-offices-and-profiles">Understanding Units, Offices, and Profiles</h1>
+<h2 id="summary">Summary</h2>
+<p>The directory is organized into three levels. Knowing which level you are editing helps you find the right page.</p>
+<h2 id="definitions">Definitions</h2>
+<ul>
+<li><strong>Unit</strong> - the top-level group (for example, a college or department). Units contain offices. Units are also referred to as <em>areas</em> in some places.</li>
+<li><strong>Office</strong> - a group within a unit that has its own contact information, hours, and people.</li>
+<li><strong>Profile</strong> - information about an individual person. A person can be connected to more than one office, with a different title and job type in each.</li>
+</ul>
+<h2 id="how-they-connect">How they connect</h2>
+<pre><code class="language-text">Unit
+ +-- Office
+ |    +-- Person (job profile: title, job type)
+ |    +-- Person
+ +-- Office
+	  +-- Person
+</code></pre>
+<h2 id="removing-a-person-from-an-office">Removing a person from an office</h2>
+<p>Removing a person from your office only removes the connection between that employee and your office. <strong>The employee's profile information is not deleted.</strong></p>
+<h2 id="people-in-more-than-one-office">People in more than one office</h2>
+<p>If a person belongs to more than one office, they choose a <strong>Primary Office</strong> on the Job / Position page. The primary office's title is what shows when someone looks at the profile. If none is chosen, the first one created is used. See <a href="04-profile-job-information.html">Edit Your Job / Position Information</a>.</p>
+<h2 id="job-type">Job type</h2>
+<p>Each person has a job type per office. A job type of <strong>None</strong> means the person will <strong>not be listed</strong>.</p>
+<h2 id="where-each-type-is-edited">Where each type is edited</h2>
+<div style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th>To edit...</th>
+<th>Go to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A person</td>
+<td><a href="03-profile-general-information.html">Profile pages</a></td>
+</tr>
+<tr>
+<td>An office</td>
+<td><a href="12-office-general-information.html">Office general information</a></td>
+</tr>
+<tr>
+<td>A unit</td>
+<td><a href="17-unit-administration.html">Unit administration</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="searching-for-units-offices-and-profiles">Searching for units, offices, and profiles</h2>
+<p>The <strong>Search</strong> section lets you look up information in the directory. Use the left menu to move between the search pages.</p>
+<div style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th>Search page</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Search for People</strong> (<code>/search/people</code>)</td>
+<td>Find a profile by Net ID. Select <strong>View / Edit Profile</strong> to open it.</td>
+</tr>
+<tr>
+<td><strong>Search for Offices</strong> (<code>/search/offices</code>)</td>
+<td>Find an office and see its details, administrators, and people.</td>
+</tr>
+<tr>
+<td><strong>Search for Units</strong> (<code>/search/units</code>)</td>
+<td>Find a unit and see its details, administrators, and offices.</td>
+</tr>
+<tr>
+<td><strong>Automated Directory Logs</strong> (<code>/search/logs</code>)</td>
+<td>See pending and processed automated updates. See below.</td>
+</tr>
+<tr>
+<td><strong>Change Logs</strong> (<code>/search/changelogs</code>)</td>
+<td>See a log of changes made to units, offices, and people.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="search-for-people">Search for People</h3>
+<ol>
+<li>Type a Net ID in <strong>Lookup / Filter Net ID</strong>.</li>
+<li>Choose a profile from the list.</li>
+<li>Select <strong>View / Edit Profile</strong>.</li>
+</ol>
+<p>This searches only people inside the WIGG Directory. To search the entire campus, use the <a href="https://directory.illinois.edu/search">campus directory</a>.</p>
+<h3 id="search-for-offices">Search for Offices</h3>
+<ol>
+<li>Type part of the office name in <strong>Filter Office</strong>.</li>
+<li>Choose an office from the list.</li>
+<li>Select <strong>View / Edit Office</strong>.</li>
+</ol>
+<p>You can view the office's type, audience, contact information, building information, office hours, internal information, office administrators, and people.</p>
+<h3 id="search-for-units">Search for Units</h3>
+<ol>
+<li>Type part of the unit name in <strong>Filter Unit</strong>.</li>
+<li>Choose a unit from the list.</li>
+<li>Select <strong>View / Edit Unit</strong>.</li>
+</ol>
+<p>You can view the unit's type, audience, URLs, internal settings (such as beta access, profile information, and auto-load), unit administrators, and offices. Select <strong>Back to Search</strong> to return to the list.</p>
+<h3 id="change-logs">Change Logs</h3>
+<p>Enter text in <strong>Search Text</strong> and select <strong>Refresh Information</strong> to see changes. Each entry shows the date, what changed, the type of change, and who made it. Select an entry to see its details.</p>
+<h2 id="automated-loading-of-profile-information">Automated loading of profile information</h2>
+<p>Units can load profile information automatically instead of having each person enter it. A unit administrator turns this on in the unit's <strong>Internal Information</strong> page under <strong>Profile Refresh Options</strong> (No Faculty Load, Default Faculty Load, or Custom URL with API Key). For the default load, select <strong>Auto-load profiles to directory hook</strong> to get a regular refresh of your information. See <a href="23-unit-internal-information.html">Edit Unit Internal Information</a>.</p>
+<p>Automated updates are placed in a queue and processed at regular intervals, so changes are not immediate. Names can take a few hours to be processed, and some directory information can take up to 24 hours to appear.</p>
+<h3 id="automated-directory-logs">Automated Directory Logs</h3>
+<p><strong>Path:</strong> Search &gt; Automated Directory Logs</p>
+<p>This page shows the log of automated directory updates.</p>
+<ul>
+<li><strong>Pending Items</strong> - the number of items waiting to be processed.</li>
+<li><strong>Processed names</strong> - the names that have been processed. Select a name to see its date details and message.</li>
+<li>The log is deleted and refreshed 12 hours after the last item is added.</li>
+</ul>
+<p>Use <strong>Refresh Information</strong> to see the latest counts and processed names.</p>
+<h3 id="add-a-person-to-the-automated-directory-updates">Add a person to the automated directory updates</h3>
+<p>If you need to update a person right away, for example to debug their information, you can add them to the top of the queue.</p>
+<ol>
+<li>Open <strong>Automated Directory Logs</strong>.</li>
+<li>Enter the person's Net ID in <strong>Net ID to load</strong>.</li>
+<li>Select <strong>Send Net ID to queue</strong>.</li>
+<li>A message confirms <strong>Added to queue</strong>. If the Net ID is not in the directory, you will see <strong>Name not found</strong>.</li>
+<li>Select <strong>Refresh Information</strong> to check the latest status. Repeat until the name appears under <strong>Processed names</strong>.</li>
+</ol>
+<p>The person must already exist in the WIGG Directory.</p>
+
+		</ilw-content>
+	</main>
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Directory Application</a>
+		<div slot="actions"><a href="https://go.illinois.edu/directory-toolkit-help">Report a Problem</a></div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

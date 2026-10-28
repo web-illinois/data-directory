@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>How Do I Create a Directory? | WIGG Directory Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="stylesheet" href="https://cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script src="https://cdn.toolkit.illinois.edu/3/toolkit.js"></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'popup', colorTheme: 'illinois' } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Directory Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+	<main>
+		<ilw-content width="page" class="iled-section iled-section-full">
+            <p><a href="index.html">&larr; Back to Documentation Index</a></p>
+<h1 id="how-do-i-create-a-directory">How Do I Create a Directory?</h1>
+<h2 id="summary">Summary</h2>
+<p>A unit can use the WIGG Directory to automatically load faculty and staff information, so profiles can be displayed on the unit's own website.</p>
+<h2 id="steps">Steps</h2>
+<ol>
+<li><strong>Claim your unit.</strong> <a href="https://go.illinois.edu/directory-toolkit-help">Contact us to ask to be a unit administrator for your unit</a>.</li>
+<li>Under <strong>Unit Administration &gt; Links to Pull Information</strong>, add an <strong>Internal Code</strong> and save your changes. See <a href="20-links-to-pull-information.html">Links to Pull Directory Information</a>.</li>
+<li>Under <strong>Unit Administration &gt; Internal Information</strong>, change <strong>Profile Information</strong> to <strong>Full Access</strong>.</li>
+<li>Change the <strong>Profile Url</strong> to the web page and path where your profiles will be displayed.</li>
+<li>Change <strong>Profile Refresh Options</strong> to <strong>Default Faculty Load</strong>.</li>
+<li>Make sure <strong>Auto-load profiles to directory hook</strong> is selected.</li>
+<li>Select <strong>Save</strong>.</li>
+<li>Build out your offices and profile information.</li>
+</ol>
+<p>For details on each setting, see <a href="23-unit-internal-information.html">Edit Unit Internal Information</a>.</p>
+<h2 id="what-happens-next">What happens next</h2>
+<ul>
+<li>Any people you add to your offices are automatically loaded into the faculty load using the unique ID (Internal Code) you specified in step 2.</li>
+<li>You can add JavaScript to create profiles from this information in any content management system (CMS).</li>
+<li>People are loaded automatically once they save information in their profile in this application. Full refreshes also run every day.</li>
+<li>If someone's name is removed from EDW or from the profile list in the directory, their information is removed from the directory.</li>
+</ul>
+<p>To check on loading, or to add a person to the queue, see <a href="02-understanding-units-offices-profiles.html">Understanding Units, Offices, and Profiles</a>.</p>
+<h2 id="using-a-different-system-for-your-faculty-load">Using a different system for your faculty load</h2>
+<p>If you have another system that loads your faculty information, set <strong>Profile Refresh Options</strong> (step 5) to that load instead of <strong>Default Faculty Load</strong>. See <a href="23-unit-internal-information.html">Edit Unit Internal Information</a> for the <strong>Custom URL with API Key</strong> option.</p>
+<h2 id="need-help-building-profiles">Need help building profiles?</h2>
+<p>If you do not have the IT staff to build a JavaScript profile, contact the directory team through the <a href="https://go.illinois.edu/directory-toolkit-help">help link</a>. They are working with WIGG and the WCOE to create standard profiles.</p>
+<h2 id="directory-export">Directory export</h2>
+<p>The <a href="https://directoryapi.wigg.illinois.edu/api/swagger/ui">Directory API</a> can export most of the data for units, offices, and profiles as JSON. When you need raw HTML or binary files instead, the Directory application provides these links:</p>
+<h3 id="picture">Picture</h3>
+<p><code>https://directory.wigg.illinois.edu/picture/(netid)</code></p>
+<p>Returns the person's image as a binary in <strong>webp</strong> format. If the Net ID cannot be found, a generic image of a person is returned.</p>
+<h3 id="illinois-directory-snippet">Illinois Directory snippet</h3>
+<p><code>https://directory.wigg.illinois.edu/campusexport/(internal-code)/(netid)</code></p>
+<p>Returns HTML that matches the format the Illinois Directory imports. Find your internal code under <strong>Links to Pull Information</strong> in the Directory application.</p>
+<h2 id="related-articles">Related articles</h2>
+<ul>
+<li><a href="17-unit-administration.html">Unit Administration Overview</a></li>
+<li><a href="21-troubleshooting-faq.html">Troubleshooting and FAQ</a></li>
+</ul>
+
+		</ilw-content>
+	</main>
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Directory Application</a>
+		<div slot="actions"><a href="https://go.illinois.edu/directory-toolkit-help">Report a Problem</a></div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 namespace uofi_itp_directory_external.ProgramCourse {
 
     public class ProgramCourseInformation(string? programCourseUrl) {
-        private readonly string _baseUrl = programCourseUrl?.Trim('/') ?? "https://programcourseapi.itpartners.illinois.edu/api/CourseByFaculty";
+        private readonly string _baseUrl = programCourseUrl?.Trim('/') ?? "https://courseapi.wigg.illinois.edu/api/CourseByFaculty";
 
         private readonly Dictionary<string, string> _courseTranslation = new() {
             { "education", "coe" }

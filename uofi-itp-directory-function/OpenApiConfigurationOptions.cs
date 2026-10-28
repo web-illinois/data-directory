@@ -15,12 +15,12 @@ namespace uofi_itp_directory_function {
 
         public OpenApiInfo Info { get; set; } = new OpenApiInfo() {
             Version = "1.0.0",
-            Title = "IT Partners Directory API",
-            Description = "<p>List of APIs that allow users to pull information from the IT Partners Directory. Use this with the IT Partners Directory at <a href='https://directory.itpartners.illinois.edu'>https://directory.itpartners.illinois.edu</a>.</p> \n\r\n\r",
+            Title = "WIGG Directory API",
+            Description = "<p>List of APIs that allow users to pull information from the WIGG Directory. Use this with the WIGG Directory at <a href='https://directory.wigg.illinois.edu'>https://directory.wigg.illinois.edu</a>.</p> \n\r\n\r",
             Contact = new OpenApiContact() {
                 Name = "Bryan Jonker",
                 Email = "jonker@illinios.edu",
-                Url = new Uri("https://github.com/itpartnersillinois/uofi-itp-directory"),
+                Url = new Uri("https://github.com/web-illinois/data-directory"),
             }
         };
 

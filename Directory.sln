@@ -21,6 +21,37 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uofi-itp-directory-search",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uofi-itp-directory-external", "uofi-itp-directory-external\uofi-itp-directory-external.csproj", "{AA3FBBF5-D0B6-4158-8517-881DEF34EB89}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{30D84266-5696-4333-ADEF-EA7FD6B9075E}"
+	ProjectSection(SolutionItems) = preProject
+		documentation\01-getting-started.md = documentation\01-getting-started.md
+		documentation\02-understanding-units-offices-profiles.md = documentation\02-understanding-units-offices-profiles.md
+		documentation\03-profile-general-information.md = documentation\03-profile-general-information.md
+		documentation\04-profile-job-information.md = documentation\04-profile-job-information.md
+		documentation\05-profile-headshot.md = documentation\05-profile-headshot.md
+		documentation\06-profile-resume-cv.md = documentation\06-profile-resume-cv.md
+		documentation\07-profile-biography.md = documentation\07-profile-biography.md
+		documentation\08-profile-office-hours.md = documentation\08-profile-office-hours.md
+		documentation\09-profile-activities-and-courses.md = documentation\09-profile-activities-and-courses.md
+		documentation\10-email-signature.md = documentation\10-email-signature.md
+		documentation\11-illinois-experts.md = documentation\11-illinois-experts.md
+		documentation\12-office-general-information.md = documentation\12-office-general-information.md
+		documentation\13-office-hours.md = documentation\13-office-hours.md
+		documentation\14-office-people.md = documentation\14-office-people.md
+		documentation\15-office-batch-load.md = documentation\15-office-batch-load.md
+		documentation\16-office-administrators.md = documentation\16-office-administrators.md
+		documentation\17-unit-administration.md = documentation\17-unit-administration.md
+		documentation\18-unit-tags.md = documentation\18-unit-tags.md
+		documentation\19-search.md = documentation\19-search.md
+		documentation\20-links-to-pull-information.md = documentation\20-links-to-pull-information.md
+		documentation\21-troubleshooting-faq.md = documentation\21-troubleshooting-faq.md
+		documentation\22-unit-general-information.md = documentation\22-unit-general-information.md
+		documentation\23-unit-internal-information.md = documentation\23-unit-internal-information.md
+		documentation\24-unit-administrators.md = documentation\24-unit-administrators.md
+		documentation\25-create-a-directory.md = documentation\25-create-a-directory.md
+		documentation\Build-Documentation.ps1 = documentation\Build-Documentation.ps1
+		documentation\README.md = documentation\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
