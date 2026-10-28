@@ -20,7 +20,7 @@ If you find incorrect information about an office or unit, find its administrato
 2. Choose a profile from the list.
 3. Select **View / Edit Profile**.
 
-> This searches only people inside the IT Partners Directory. To search the entire campus, use the [campus directory](https://directory.illinois.edu/search).
+> This searches only people inside the WIGG Directory. To search the entire campus, use the [campus directory](https://directory.illinois.edu/search).
 
 ## Logs and change history
 

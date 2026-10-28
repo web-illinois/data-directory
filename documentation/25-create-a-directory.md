@@ -2,11 +2,11 @@
 
 ## Summary
 
-A unit can use the IT Partners Directory to automatically load faculty and staff information, so profiles can be displayed on the unit's own website.
+A unit can use the WIGG Directory to automatically load faculty and staff information, so profiles can be displayed on the unit's own website.
 
 ## Steps
 
-1. **Claim your unit.** [Contact us to ask to be a unit administrator for your unit](https://go.illinois.edu/itpartners-directory-help).
+1. **Claim your unit.** [Contact us to ask to be a unit administrator for your unit](https://go.illinois.edu/directory-toolkit-help).
 2. Under **Unit Administration > Links to Pull Information**, add an **Internal Code** and save your changes. See [Links to Pull Directory Information](20-links-to-pull-information.md).
 3. Under **Unit Administration > Internal Information**, change **Profile Information** to **Full Access**.
 4. Change the **Profile Url** to the web page and path where your profiles will be displayed.
@@ -32,7 +32,7 @@ If you have another system that loads your faculty information, set **Profile Re
 
 ## Need help building profiles?
 
-If you do not have the IT staff to build a JavaScript profile, contact the directory team through the [help link](https://go.illinois.edu/itpartners-directory-help). They are working with WIGG and the WCOE to create standard profiles.
+If you do not have the IT staff to build a JavaScript profile, contact the directory team through the [help link](https://go.illinois.edu/directory-toolkit-help). They are working with WIGG and the WCOE to create standard profiles.
 
 ## Directory export
 

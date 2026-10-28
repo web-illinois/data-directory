@@ -2,7 +2,7 @@
 
 ## Summary
 
-The IT Partners Directory lets faculty and staff enter and maintain directory information for units, offices, and individual profiles.
+The WIGG Directory lets faculty and staff enter and maintain directory information for units, offices, and individual profiles.
 
 ## Who can use it
 

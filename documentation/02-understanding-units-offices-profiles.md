@@ -59,7 +59,7 @@ The **Search** section lets you look up information in the directory. Use the le
 2. Choose a profile from the list.
 3. Select **View / Edit Profile**.
 
-This searches only people inside the IT Partners Directory. To search the entire campus, use the [campus directory](https://directory.illinois.edu/search).
+This searches only people inside the WIGG Directory. To search the entire campus, use the [campus directory](https://directory.illinois.edu/search).
 
 ### Search for Offices
 
@@ -109,4 +109,4 @@ If you need to update a person right away, for example to debug their informatio
 4. A message confirms **Added to queue**. If the Net ID is not in the directory, you will see **Name not found**.
 5. Select **Refresh Information** to check the latest status. Repeat until the name appears under **Processed names**.
 
-The person must already exist in the IT Partners Directory.
+The person must already exist in the WIGG Directory.

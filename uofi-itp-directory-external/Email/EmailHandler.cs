@@ -1,5 +1,5 @@
-﻿using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Text;
 
 namespace uofi_itp_directory_external.Email {
 
@@ -13,7 +13,7 @@ namespace uofi_itp_directory_external.Email {
         public async Task<string> Send(string email, bool isDeleted) {
             var subject = isDeleted ? "Automated message -- profile deletion" : "Automated message -- profile change";
             var bodyText = isDeleted ? $"The profile '{email}' has been deleted within the last 24 hours. This may be because your account has been removed from campus records, or just removed from a directory listing. " : $"The profile '{email}' has been changed within the last 24 hours. Please verify that the profile is what you want it to be. ";
-            bodyText += "You are subscribed to any changes to this profile, either because this is your profile or because you maintain an office that has this profile. Please go to https://directory.itpartners.illinois.edu to verify your information, contact your office administrator, and change your preferences to no longer get these emails.";
+            bodyText += "You are subscribed to any changes to this profile, either because this is your profile or because you maintain an office that has this profile. Please go to https://directory.wigg.illinois.edu to verify your information, contact your office administrator, and change your preferences to no longer get these emails.";
 
             var (apiKey, url, error) = await GetAuthentication();
             if (!string.IsNullOrWhiteSpace(error)) {

@@ -38,7 +38,7 @@ After entering the rubric and course number, select **Load from Campus** to fill
 
 ### Automatic course loading
 
-For some units, course information is loaded automatically from the IT Partners Program / Course Repository using a "best-guess" process. For more control:
+For some units, course information is loaded automatically from the WIGG Course Repository using a "best-guess" process. For more control:
 
 1. Select **Load Default Courses** at the bottom of the page.
 2. Edit the loaded courses as needed.

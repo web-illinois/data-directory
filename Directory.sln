@@ -48,7 +48,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		documentation\23-unit-internal-information.md = documentation\23-unit-internal-information.md
 		documentation\24-unit-administrators.md = documentation\24-unit-administrators.md
 		documentation\25-create-a-directory.md = documentation\25-create-a-directory.md
-		documentation\26-about-the-directory.md = documentation\26-about-the-directory.md
+		documentation\Build-Documentation.ps1 = documentation\Build-Documentation.ps1
 		documentation\README.md = documentation\README.md
 	EndProjectSection
 EndProject
