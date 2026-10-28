@@ -12,6 +12,8 @@ If you use Illinois Experts, your biography and activities are managed there and
 2. Select **My Profile** to edit details such as education history and biography.
 3. Or select **Add New** to add activities such as publications, presentations, editorships, and awards.
 
+Tutorials and tips are available in [Illinois Experts Help & FAQs](http://go.illinois.edu/experts).
+
 ## Data you add that is copied to your profile
 
 | Directory section | Where to add it in Illinois Experts |

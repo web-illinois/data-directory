@@ -34,6 +34,7 @@ The IT Partners Directory is where faculty and staff enter directory information
 - [22 - Edit Unit General Information](22-unit-general-information.md)
 - [23 - Edit Unit Internal Information](23-unit-internal-information.md)
 - [24 - Manage Unit Administrators](24-unit-administrators.md)
+- [25 - How Do I Create a Directory?](25-create-a-directory.md)
 
 ## Finding Information and Integrations
 
@@ -43,3 +44,4 @@ The IT Partners Directory is where faculty and staff enter directory information
 ## Help
 
 - [21 - Troubleshooting and FAQ](21-troubleshooting-faq.md)
+- [26 - About the IT Partners Directory](26-about-the-directory.md)
