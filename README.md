@@ -1,4 +1,4 @@
-# IT Partners Directory - README
+# WIGG Directory - README
 
 ## Summary
 
@@ -8,15 +8,21 @@ This solution provides a comprehensive directory system for managing and display
 
 The system is deployed to two production environments:
 
-* **API**: https://directoryapi.itpartners.illinois.edu
+* **API**: https://directoryapi.wigg.illinois.edu
   - Azure Functions application with database connection
   - Serves area, office, employee, and directory information via REST API
 
-* **Web Application**: https://directory.itpartners.illinois.edu
+* **Web Application**: https://directory.wigg.illinois.edu
   - Blazor Server application with database connection
   - Provides user interface for directory management and search
 
 ## Architecture Overview
+
+### Help Documentation
+
+Documentation is in markdown files in the `documentation` folder. The documentation is generated into HTML files in the `docs` folder using a PowerShell script.
+
+**Regenerating**: The Markdown stays the source of truth. After editing a .md file, run pwsh .\documentation\Build-Documentation.ps1 from the repo root and commit the regenerated HTML. The script deletes and rebuilds the folder each time, so don't put hand-edited files there.
 
 ### Loopback Process
 
@@ -438,10 +444,3 @@ Both applications require several external service configurations:
 - OpenSearch indexing runs asynchronously
 - Image uploads are processed and scaled using SixLabors.ImageSharp
 - Database queries use EF Core with eager loading where appropriate
-
----
-
-**Last Updated**: 2024  
-**Maintainers**: IT Partners Team  
-**Target Framework**: .NET 8  
-**License**: University of Illinois

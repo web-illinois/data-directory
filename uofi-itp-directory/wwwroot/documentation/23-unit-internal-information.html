@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Edit Unit Internal Information | WIGG Directory Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="stylesheet" href="https://cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script src="https://cdn.toolkit.illinois.edu/3/toolkit.js"></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'popup', colorTheme: 'illinois' } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Directory Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+	<main>
+		<ilw-content width="page" class="iled-section iled-section-full">
+            <p><a href="index.html">&larr; Back to Documentation Index</a></p>
+<h1 id="edit-unit-internal-information">Edit Unit Internal Information</h1>
+<h2 id="summary">Summary</h2>
+<p>Internal Information controls how your unit works in the directory: notes, publishing, profile editing, profile loading, images, email signatures, and instructions shown to your users.</p>
+<p><strong>Path:</strong> Unit Administration &gt; Internal Information</p>
+<p><em>Requires unit administrator access.</em></p>
+<h2 id="steps">Steps</h2>
+<ol>
+<li>Open <strong>Internal Information</strong> from the left menu.</li>
+<li>If you administer more than one unit, choose the unit first.</li>
+<li>Update the settings below.</li>
+<li>Select <strong>Save</strong>.</li>
+</ol>
+<h2 id="general-settings">General settings</h2>
+<ul>
+<li><strong>Internal Notes</strong> - notes to keep track of information about the unit. These are <strong>not</strong> shown to end users.</li>
+<li><strong>Allow Beta Access</strong> - select to get access to beta features of the directory.</li>
+<li><strong>Profile Information</strong> - controls who can edit profile information:
+<ul>
+<li>Do not allow profile information</li>
+<li>Allow people to edit profile information</li>
+<li>Allow office administrators to edit profile</li>
+<li>Full Access (Illinois Experts / office administrators)</li>
+</ul>
+</li>
+</ul>
+<h2 id="publishing-information">Publishing Information</h2>
+<p><strong>Publishing Location</strong> controls where your unit is shown:</p>
+<ul>
+<li><strong>Do not show</strong></li>
+<li><strong>Publish to site</strong></li>
+<li><strong>Publish to site and helpdesk</strong></li>
+</ul>
+<p>It may take up to 24 hours to populate the directory information.</p>
+<h2 id="profile-settings">Profile settings</h2>
+<p>The following sections appear only when <strong>Profile Information</strong> is set to something other than <em>Do not allow profile information</em>.</p>
+<h3 id="profile-url">Profile Url</h3>
+<p>The URL the system uses to view a profile. Updating this takes a while. Use these placeholders:</p>
+<ul>
+<li><code>{netid}</code> - the user's NetID (lower-case)</li>
+<li><code>{name}</code> - the user's name (lower-case, with dashes instead of spaces)</li>
+</ul>
+<p>Examples: <code>https://education.illinois.edu/profile/{netid}</code> or <code>https://education.illinois.edu/profile/{name}</code></p>
+<h3 id="profile-refresh-options">Profile Refresh Options</h3>
+<p>Choose how profile information is loaded automatically:</p>
+<ul>
+<li><strong>No Faculty Load</strong></li>
+<li><strong>Default Faculty Load</strong> - make sure you add an Internal Code first. See <a href="20-links-to-pull-information.html">Links to Pull Directory Information</a>.
+<ul>
+<li><strong>Options</strong> - add options for the load. Existing options include <code>use-directory-profile</code> and <code>searchstax</code>.</li>
+<li><strong>Auto-load profiles to directory hook</strong> - select for a regular refresh of your information.</li>
+</ul>
+</li>
+<li><strong>Custom URL with API Key</strong>
+<ul>
+<li><strong>Custom Profile Refresh Url</strong> - the URL used to refresh a profile. Use <code>{netid}</code> for the user's NetID, for example <code>https://refresh.illinois.edu/Load?name={netid}</code>. Leave blank if you do not want information loaded automatically.</li>
+</ul>
+</li>
+</ul>
+<h3 id="api-updates-custom-url-only">API Updates (Custom URL only)</h3>
+<p>An API key allows you to add, update, and delete items in your source programmatically.</p>
+<ul>
+<li><strong>Create a New API key</strong> - the key is shown once and becomes active when you select <strong>Save</strong>. <strong>Record it before leaving the page; you cannot view it again.</strong></li>
+<li><strong>Invalidate the API key</strong> - deactivates the current key.</li>
+<li>If you already have a key and create a new one, the old key still works. To deactivate a compromised key, invalidate it first and then create a new one.</li>
+<li>Changing <strong>Profile Refresh Options</strong> to anything other than <em>Custom URL with API Key</em> invalidates the API key.</li>
+</ul>
+<h3 id="image-information">Image Information</h3>
+<ul>
+<li><strong>Profile Image Width</strong> and <strong>Profile Image Height</strong> - the dimensions used for profile headshots.</li>
+</ul>
+<h3 id="email-signature-instructions">Email Signature Instructions</h3>
+<ul>
+<li><strong>Email Signature Additions</strong> - add links to your employees' email signatures by sending a custom querystring. Popular additions are <code>facebook</code>, <code>twitter</code>, <code>instagram</code>, <code>linkedin</code>, <code>youtube</code>, and <code>disclaimer</code>. Use the pattern <code>&amp;facebook=https://www.facebook.com/speciallink</code>.</li>
+</ul>
+<h3 id="user-instructions">User Instructions</h3>
+<p>Optional text shown to your users when they edit the matching item:</p>
+<ul>
+<li>Office Instructions</li>
+<li>Employee Instructions (job profile or employee information)</li>
+<li>Employee Activities Instructions</li>
+<li>Employee Course Instructions</li>
+<li>Employee Signature Instructions</li>
+<li>Employee Headshot Instructions (does not include dimensions)</li>
+<li>Employee CV Instructions</li>
+</ul>
+<p>If profile information is not allowed, only <strong>Office Instructions</strong> is shown.</p>
+<h2 id="order-information">Order Information</h2>
+<p>Some administrators also see an <strong>Order</strong> setting. Units are listed alphabetically unless you choose <strong>Top in List</strong>, <strong>Middle / Default</strong>, or <strong>Bottom in List</strong>.</p>
+<h2 id="related-articles">Related articles</h2>
+<ul>
+<li><a href="22-unit-general-information.html">Edit Unit General Information</a></li>
+<li><a href="20-links-to-pull-information.html">Links to Pull Directory Information</a></li>
+<li><a href="10-email-signature.html">Generate an Email Signature</a></li>
+</ul>
+
+		</ilw-content>
+	</main>
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Directory Application</a>
+		<div slot="actions"><a href="https://go.illinois.edu/directory-toolkit-help">Report a Problem</a></div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

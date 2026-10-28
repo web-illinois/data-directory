@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>WIGG Directory Knowledge Base | WIGG Directory Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="stylesheet" href="https://cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script src="https://cdn.toolkit.illinois.edu/3/toolkit.js"></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'popup', colorTheme: 'illinois' } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Directory Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+	<main>
+		<ilw-content width="page" class="iled-section iled-section-full">
+
+<h1 id="wigg-directory-knowledge-base">WIGG Directory Knowledge Base</h1>
+<p>The WIGG Directory is where faculty and staff enter directory information for <strong>units</strong>, <strong>offices</strong>, and <strong>profiles</strong>. This information may be displayed on your unit and office directories, as well as the Tech Help Center Help Desks page (TeamDynamix).</p>
+<h2 id="getting-started">Getting Started</h2>
+<ul>
+<li><a href="01-getting-started.html">Getting Started and Signing In</a></li>
+<li><a href="02-understanding-units-offices-profiles.html">Understanding Units, Offices, and Profiles</a></li>
+</ul>
+<h2 id="managing-your-profile">Managing Your Profile</h2>
+<ul>
+<li><a href="03-profile-general-information.html">Edit Your General Profile Information</a></li>
+<li><a href="04-profile-job-information.html">Edit Your Job / Position Information</a></li>
+<li><a href="05-profile-headshot.html">Upload or Remove a Headshot</a></li>
+<li><a href="06-profile-resume-cv.html">Upload or Remove a Resume / CV</a></li>
+<li><a href="07-profile-biography.html">Edit Your Biography</a></li>
+<li><a href="08-profile-office-hours.html">Set Your Profile Office Hours</a></li>
+<li><a href="09-profile-activities-and-courses.html">Add Activities and Courses</a></li>
+<li><a href="10-email-signature.html">Generate an Email Signature</a></li>
+<li><a href="11-illinois-experts.html">Using Illinois Experts with Your Profile</a></li>
+</ul>
+<h2 id="office-administration">Office Administration</h2>
+<ul>
+<li><a href="12-office-general-information.html">Edit Office General Information</a></li>
+<li><a href="13-office-hours.html">Set Office Hours</a></li>
+<li><a href="14-office-people.html">Add, Edit, and Remove People in Your Office</a></li>
+<li><a href="15-office-batch-load.html">Batch Load People to Your Office</a></li>
+<li><a href="16-office-administrators.html">Manage Office Administrators</a></li>
+</ul>
+<h2 id="unit-administration">Unit Administration</h2>
+<ul>
+<li><a href="17-unit-administration.html">Unit Administration Overview</a></li>
+<li><a href="18-unit-tags.html">Manage Unit Tags</a></li>
+<li><a href="22-unit-general-information.html">Edit Unit General Information</a></li>
+<li><a href="23-unit-internal-information.html">Edit Unit Internal Information</a></li>
+<li><a href="24-unit-administrators.html">Manage Unit Administrators</a></li>
+<li><a href="25-create-a-directory.html">How Do I Create a Directory?</a></li>
+</ul>
+<h2 id="finding-information-and-integrations">Finding Information and Integrations</h2>
+<ul>
+<li><a href="19-search.html">Find an Administrator or Profile</a></li>
+<li><a href="20-links-to-pull-information.html">Links to Pull Directory Information (API)</a></li>
+</ul>
+<h2 id="help">Help</h2>
+<ul>
+<li><a href="21-troubleshooting-faq.html">Troubleshooting and FAQ</a></li>
+</ul>
+<hr />
+<h2 id="about-this-project">About this Project</h2>
+<h3 id="links-about-the-project">Links about the project</h3>
+<ul>
+<li>The code is in the <a href="https://github.com/web-illinois/data-directory">GitHub repository</a>.</li>
+<li>The project is <a href="https://github.com/orgs/web-illinois/projects/13/views/1">tracked through a GitHub project</a>.</li>
+<li>To report an issue or request a feature, please submit a <a href="https://go.illinois.edu/directory-toolkit-help">GitHub ticket</a>.</li>
+</ul>
+<h3 id="who-supports-this-application">Who Supports This Application?</h3>
+<p>The application cloud support is managed by Tech Services. The directory is maintained by a combination of the WIGG Team, IT Partners @ Education, and the Web COE Team.</p>
+<p>If you find an issue with the directory or want to request additional functionality, please submit a <a href="https://go.illinois.edu/directory-toolkit-help">GitHub ticket</a>.</p>
+<p>We are happy to have others work on the application to meet their needs. Please contact the WIGG Team if you want to contribute.</p>
+<h3 id="can-i-get-information-from-the-directory">Can I get information from the directory?</h3>
+<p>Yes. The directory works with the <a href="https://directoryapi.wigg.illinois.edu/api/swagger/ui">Directory API</a>, which can get unit, office, and basic profile information. It also has a hook that triggers a faculty load.</p>
+<ul>
+<li>The faculty load integrates with Illinois Experts, EDW, and course information from various repositories.</li>
+<li>There are plans to let colleges load their own information about their faculty.</li>
+<li>Because the load is potentially destructive, a custom key is required. The key is distributed to outside applications for their custom loads.</li>
+</ul>
+<p>See <a href="20-links-to-pull-information.html">Links to Pull Directory Information</a> and <a href="25-create-a-directory.html">How Do I Create a Directory?</a>.</p>
+<h3 id="history">History</h3>
+<p>The College of Education needed a way to organize its faculty and staff. EDW and Illinois Experts supplied most of the information, but a few things were missing.</p>
+<p>At the same time, TDX was building the help.illinois.edu site, which needed a list of units and offices. The unit information was originally stored in a Google Sheets document and pulled with Google APIs, which made it difficult to update.</p>
+<p>To meet both needs, a Contact Support Application was created with Tech Services to store unit and office information. Profile information was then added, and the faculty load process was changed to call APIs from this application.</p>
+<p>In 2024, the application was rebuilt to update the code, improve the interface, and simplify the directory load. It was also moved to Tech Services so it can be used by campus.</p>
+
+		</ilw-content>
+	</main>
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Directory Application</a>
+		<div slot="actions"><a href="https://go.illinois.edu/directory-toolkit-help">Report a Problem</a></div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

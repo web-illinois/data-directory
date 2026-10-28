@@ -45,7 +45,7 @@ namespace uofi_itp_directory_search.LoadHelper {
                     DeleteEntry(netId, source, personSetter, sendDeleteToSearchStax);
                     return _logger.ToString();
                 }
-                AddLog("Getting information from IT Partners Directory Application");
+                AddLog("Getting information from WIGG Directory Application");
                 var employee = await _employeeHelper.GetEmployeeReadOnly(netId, source);
                 if (employee == null || employee.JobProfiles.Count == 0) {
                     AddLog($"Username {netId} does not have any appointments for source {source} - removing user from Amazon OpenSearch Service");
@@ -59,9 +59,9 @@ namespace uofi_itp_directory_search.LoadHelper {
                 var expertsProfile = await _illinoisExpertsManager.GetExperts(netId);
                 AddLog(useCampusPictures ? "Getting image from campus" : "Validating image");
                 var imageUrl = useCampusPictures ? DirectoryImage.GetCampusImagePathFromNetId(netId) : DirectoryImage.CheckImage(employee.PhotoUrl);
-                AddLog("Getting courses from programcourses.itpartners.illinois.edu");
+                AddLog("Getting courses from courseapi.wigg.illinois.edu");
                 var courses = (await _programCourseInformation.GetCourses(source, netId)).ToList();
-                AddLog($"Combining information: EDW, IT Partners Directory, Image{(expertsProfile.UseExperts ? ", Experts" : "")}{(courses.Count > 0 ? ", Courses" : "")}");
+                AddLog($"Combining information: EDW, WIGG Directory, Image{(expertsProfile.UseExperts ? ", Experts" : "")}{(courses.Count > 0 ? ", Courses" : "")}");
                 var profile = EmployeeTranslator.Translate(edwItem, employee, imageUrl, courses, expertsProfile, source);
                 AddLog("Adding to directory using " + source);
                 if (await personSetter.SaveSingle(profile)) {
