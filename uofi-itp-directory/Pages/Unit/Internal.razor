@@ -33,17 +33,26 @@ else if (Area != null && AreaSettings != null)
         </div>
         <div class="iled-input-box-parent">
             <div class="iled-input-box">
-                <label for="ed-editprofile">Profile Information</label>
-                <select id="ed-editprofile" @bind="ProfileInformation" @bind:after="SetDirty">
-                    <option value="0">Do not allow profile information</option>
-                    <option value="1">Allow people to edit profile information</option>
-                    <option value="2">Allow office administrators to edit profile</option>
-                    <option value="3">Full Access (Illinois Experts / office administrators)</option>
-                </select>
+                <label for="ed-tags">Allow Tags Per Office</label>
+                <input id="ed-tags" type="checkbox" required @bind="AreaSettings.UseTagsPerOffice" @bind:after="SetDirty">
             </div>
             <div class="iled-instructions">
-                See <a href="/directory">How do I create a directory</a> for instructions on how to create a directory easily.
+                Check this box if you want to allow users to choose individual tags per office.
             </div>
+        </div>
+    </div>
+    <div class="iled-input-box-parent">
+        <div class="iled-input-box">
+            <label for="ed-editprofile">Profile Information</label>
+            <select id="ed-editprofile" @bind="ProfileInformation" @bind:after="SetDirty">
+                <option value="0">Do not allow profile information</option>
+                <option value="1">Allow people to edit profile information</option>
+                <option value="2">Allow office administrators to edit profile</option>
+                <option value="3">Full Access (Illinois Experts / office administrators)</option>
+            </select>
+        </div>
+        <div class="iled-instructions">
+            See <a href="/documentation/25-create-a-directory.html">How do I create a directory</a> for instructions on how to create a directory easily.
         </div>
     </div>
     <h2>Publishing Information</h2>
@@ -58,7 +67,7 @@ else if (Area != null && AreaSettings != null)
                 </select>
             </div>
             <div class="iled-instructions">
-                Note that it may take up to 24 hours to populate the directory information.
+                Note that it may take up to a few days to populate the directory information.
             </div>
         </div>
     </div>

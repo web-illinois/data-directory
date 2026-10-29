@@ -89,6 +89,11 @@ namespace uofi_itp_directory_data.DataAccess {
             return await _directoryRepository.UpdateAsync(area);
         }
 
+        public async Task<bool> UseIndividualTags(int areaId) {
+            var result = await _directoryRepository.ReadAsync(d => d.AreaSettings.FirstOrDefault(a => a.AreaId == areaId));
+            return result?.UseTagsPerOffice ?? false;
+        }
+
         public async Task<int> SaveAreaFromJson(Area area) {
             return await _directoryRepository.CreateAsync(area);
         }
