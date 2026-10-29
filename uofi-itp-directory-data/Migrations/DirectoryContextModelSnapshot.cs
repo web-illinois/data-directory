@@ -198,6 +198,9 @@ namespace uofi_itp_directory_data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("UseTagsPerOffice")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AreaId")

@@ -12,6 +12,8 @@
 
     public partial class PositionJob {
         private bool _isDirty = false;
+
+        public Dictionary<int, bool> UseIndividualOfficeForTags { get; set; } = default!;
         public Dictionary<int, List<AreaTag>> AreaTags { get; set; } = default!;
         public Employee? Employee { get; set; } = default!;
 
@@ -70,6 +72,12 @@
             _isDirty = true;
         }
 
+        protected void AddTagAll(AreaTag tag, int areaId) {
+            foreach (var profile in Employee?.JobProfiles.Where(jp => jp.Office.AreaId == areaId) ?? Enumerable.Empty<JobProfile>()) {
+                AddTag(tag, profile);
+            }
+        }
+
         protected override async Task OnInitializedAsync() {
             Layout.Rebuild();
             var employeeId = CacheHelper.GetCachedEmployee(await AuthenticationStateProvider.GetAuthenticationStateAsync(), CacheHolder, Refresh);
@@ -78,8 +86,10 @@
                 throw new Exception("No employee");
             }
             AreaTags = [];
+            UseIndividualOfficeForTags = [];
             foreach (var areaId in Employee.JobProfiles.Select(jp => jp.Office.AreaId).Distinct()) {
                 AreaTags[areaId] = await AreaHelper.GetAreaTagsByAreaId(areaId);
+                UseIndividualOfficeForTags[areaId] = await AreaHelper.UseIndividualTags(areaId);
             }
             OfficeDescriptionUsed = [];
             foreach (var officeId in Employee.JobProfiles.Select(jp => jp.Office.Id).Distinct()) {
@@ -103,6 +113,12 @@
                 }
             }
             _isDirty = true;
+        }
+
+        protected async Task RemoveTagAll(AreaTag tag, int areaId) {
+            foreach (var profile in Employee?.JobProfiles.Where(jp => jp.Office.AreaId == areaId) ?? Enumerable.Empty<JobProfile>()) {
+                await RemoveTag(tag, profile);
+            }
         }
 
         protected void SetDirty() => _isDirty = true;

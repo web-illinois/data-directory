@@ -19,6 +19,7 @@ Internal Information controls how your unit works in the directory: notes, publi
 
 - **Internal Notes** - notes to keep track of information about the unit. These are **not** shown to end users.
 - **Allow Beta Access** - select to get access to beta features of the directory.
+- **Allow Tags Per Office** - select to allow tags to be added to each office instead of just the unit. This is useful for units with multiple offices that have different needs, but it complicates the user interface.
 - **Profile Information** - controls who can edit profile information:
   - Do not allow profile information
   - Allow people to edit profile information
