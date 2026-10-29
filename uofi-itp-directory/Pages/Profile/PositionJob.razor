@@ -93,18 +93,17 @@
                     Profiles are normally listed in alphabetical order. This allows an administrator to manually change the order of the profile.
                 </div>
             </div>
-            @if (AreaTags.ContainsKey(profile.Office.AreaId) && AreaTags[profile.Office.AreaId].Any(t => t.IsShown(profile.Category)))
-            {
+            @if (UseIndividualOfficeForTags.ContainsKey(profile.Office.AreaId) && UseIndividualOfficeForTags[profile.Office.AreaId] && AreaTags.ContainsKey(profile.Office.AreaId) && AreaTags[profile.Office.AreaId].Any(t => t.IsShown(profile.Category))) {
                 <div class="iled-input-box-parent iled-input-box-buttons">
-                    <h5>Tags</h5>
+                    <h3>Tags</h3>
                     @foreach (var tag in AreaTags[profile.Office.AreaId].Where(t => t.IsShown(profile.Category)))
                     {
                         @if (profile.Tags.Select(t => t.Title).Contains(tag.Title))
                         {
-                            <button disabled="@(profile.IsEntryDisabled && !tag.AllowEmployeeToEdit)" class="ilw-button ilw-theme-orange-1" @onclick="() => RemoveTag(tag, profile)">Remove @tag.Title (this is added)</button>
+                            <button disabled="@(Employee.IsEntryDisabled && !tag.AllowEmployeeToEdit)" class="ilw-button ilw-theme-blue-solid" @onclick="() => RemoveTag(tag, profile)">@tag.Title: <ilw-icon icon="check"></ilw-icon> Enabled</button>
                         } else
                         {
-                            <button disabled="@(profile.IsEntryDisabled && !tag.AllowEmployeeToEdit)" class="ilw-button" @onclick="() => AddTag(tag, profile)">@tag.Title</button>
+                            <button disabled="@(Employee.IsEntryDisabled && !tag.AllowEmployeeToEdit)" class="ilw-button" @onclick="() => AddTag(tag, profile)">@tag.Title: <ilw-icon icon="cancel"></ilw-icon> Disabled</button>
                         }
                     }
                     <div class="iled-instructions">
@@ -113,7 +112,27 @@
                 </div>
             }
         }
-    <div class="iled-buttons-left">
+        @foreach (var areaId in Employee.JobProfiles.Select(jp => jp.Office.AreaId).Distinct()) {
+            @if (UseIndividualOfficeForTags.ContainsKey(areaId) && !UseIndividualOfficeForTags[areaId]) {
+                @if (AreaTags.ContainsKey(areaId) && AreaTags[areaId].Any(t => t.IsShown(Employee.JobProfiles.Select(c => c.Category).ToArray()))) {
+                    <hr />
+                    <div class="iled-input-box-parent iled-input-box-buttons">
+                        <h2>Employee Tags</h2>
+                        @foreach (var tag in AreaTags[areaId].Where(t => t.IsShown(Employee.JobProfiles.Select(c => c.Category).ToArray()))) {
+                            @if (Employee.JobProfiles.SelectMany(jp => jp.Tags).Select(t => t.Title).Contains(tag.Title)) {
+                                <button disabled="@(Employee.IsEntryDisabled && !tag.AllowEmployeeToEdit)" class="ilw-button ilw-theme-blue-solid" @onclick="() => RemoveTagAll(tag, areaId)">@tag.Title: <ilw-icon icon="check"></ilw-icon> Enabled</button>
+                            } else {
+                                <button disabled="@(Employee.IsEntryDisabled && !tag.AllowEmployeeToEdit)" class="ilw-button" @onclick="() => AddTagAll(tag, areaId)">@tag.Title: <ilw-icon icon="cancel"></ilw-icon> Disabled</button>
+                            }
+                        }
+                        <div class="iled-instructions">
+                            These are a list of tags that <strong>can be</strong> chosen for this employee. You may click on a tag to add or remove it to this employee. This will be added to all profiles. If you do not have access to add or remove a tag, contact your office administrator.
+                        </div>
+                    </div>
+                }
+            }
+        }
+        <div class="iled-buttons-left">
         <button class="ilw-button ilw-theme-orange-1" @onclick="Send" disabled="@Employee.IsEntryDisabled" @onblur="RemoveMessage">Save</button>
         <ViewProfile NetId="@Employee.NetId"></ViewProfile>
     </div>

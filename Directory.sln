@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uofi-itp-directory-search",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uofi-itp-directory-external", "uofi-itp-directory-external\uofi-itp-directory-external.csproj", "{AA3FBBF5-D0B6-4158-8517-881DEF34EB89}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{30D84266-5696-4333-ADEF-EA7FD6B9075E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{79E689CB-1E4A-4ABC-B0D8-D4CD212CF0E8}"
 	ProjectSection(SolutionItems) = preProject
 		documentation\01-getting-started.md = documentation\01-getting-started.md
 		documentation\02-understanding-units-offices-profiles.md = documentation\02-understanding-units-offices-profiles.md

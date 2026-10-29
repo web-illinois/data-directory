@@ -18,5 +18,7 @@ namespace uofi_itp_directory_data.DataModels {
         public string Title { get; set; } = "";
 
         public bool IsShown(ProfileCategoryTypeEnum filterCheck) => Filter == filterCheck || Filter == ProfileCategoryTypeEnum.None;
+
+        public bool IsShown(ProfileCategoryTypeEnum[] filterCheck) => filterCheck.Any(fc => Filter == fc || Filter == ProfileCategoryTypeEnum.None);
     }
 }

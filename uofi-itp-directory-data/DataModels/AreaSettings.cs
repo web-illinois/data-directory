@@ -51,6 +51,7 @@ namespace uofi_itp_directory_data.DataModels {
 
         public PeopleRefreshTypeEnum UrlPeopleRefreshType { get; set; }
         public string UrlProfile { get; set; } = "";
+        public bool UseTagsPerOffice { get; set; } = false;
 
         public void InvalidateApi() {
             ApiSecretPrevious = "";

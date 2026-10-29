@@ -52,7 +52,6 @@ The solution contains **five projects** targeting .NET 8:
   - Office and unit management
   - Search functionality
   - Admin controls
-  - User secrets support (UserSecretsId: `aspnet-uofi_itp_directory-8fe4dac8-ad41-45e6-b93b-5b6743fefc45`)
 
 #### 2. **uofi-itp-directory-function** (Azure Functions)
 - **Type**: Azure Functions v4 application
@@ -69,7 +68,6 @@ The solution contains **five projects** targeting .NET 8:
   - DirectoryFunction: Directory search and queries
   - LoadFunction: Data loading from external sources
   - EdwRefreshFunction: Enterprise Data Warehouse refresh
-- **User Secrets**: UserSecretsId `67f6ead6-d3fd-4d00-ad40-f70d85b4b7e9`
 
 #### 3. **uofi-itp-directory-data** (Data Layer)
 - **Type**: Class library
