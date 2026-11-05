@@ -318,6 +318,10 @@ namespace uofi_itp_directory_data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("AudioUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Biography")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

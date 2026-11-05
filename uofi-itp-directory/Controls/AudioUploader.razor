@@ -1,0 +1,23 @@
+<div class="iled-section-vertical">
+    @if (!IsDisabled && string.IsNullOrWhiteSpace(FileUrl))
+    {
+        <div class="iled-input-box-parent">
+            <div class="iled-input-box">
+                <label for="@UploaderId">Upload Audio Recording</label>
+                <InputFile OnChange="@SaveFileToTemp" id="@UploaderId" accept="audio/*" class="iled-cv" @onblur="RemoveMessage" />
+            </div>
+        </div>
+    }
+    <div class="iled-input-box-parent">
+        <div class="iled-photocv">
+            <p class="iled-inline-alert">@AudioResultsText</p>
+            @if (!string.IsNullOrWhiteSpace(FileUrl))
+            {
+                <audio controls preload="metadata" @key="FileUrl" src="@FileUrl">
+                    <p>Your browser does not support audio playback. <a href="@FileUrl" target="_blank">Download the recording</a>.</p>
+                </audio>
+                <button @onclick="@DeleteFile" disabled="@IsDisabled" class="ilw-button" @onblur="RemoveMessage">Delete</button>
+            }
+        </div>
+    </div>
+</div>
