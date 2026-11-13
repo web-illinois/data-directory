@@ -28,6 +28,7 @@ namespace uofi_itp_directory_search.LoadHelper {
                 "\"profileurl\" : { \"type\" : \"keyword\" }, " +
                 "\"imageurl\" : { \"type\" : \"keyword\" }, " +
                 "\"cvurl\" : { \"type\" : \"keyword\" }, " +
+                "\"audiourl\" : { \"type\" : \"keyword\" }, " +
                 "\"quote\" : { \"type\" : \"keyword\" }, " +
                 "\"building\" : { \"type\" : \"keyword\" }, " +
                 "\"roomnumber\" : { \"type\" : \"keyword\" }, " +

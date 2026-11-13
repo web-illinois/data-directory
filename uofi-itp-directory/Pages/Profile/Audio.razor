@@ -1,0 +1,18 @@
+@page "/profile/audio/{refresh?}"
+
+<PageTitle>Profile Name Pronunciation | Illinois</PageTitle>
+<NavigationLock OnBeforeInternalNavigation=this.LocationChangingHandler ConfirmExternalNavigation=_isDirty />
+@if (Employee != null)
+{
+    <div class="iled-section">
+        <h1>@Employee.ProfileName Name Pronunciation</h1>
+        <p>Add an audio recording of how to pronounce this person's name by uploading a file below. If you have a recording already loaded, delete it before uploading a new one. Make sure you save any changes.</p>
+        <AudioUploader IsDisabled=@Employee.IsEntryDisabled @ref="@AudioUploader" FileUrl="@Employee.AudioUrl" ItemId="@Employee.NetIdTruncated" Delete="DeleteAudio" Save="SaveAudio"></AudioUploader>
+
+        <div class="iled-buttons-left">
+            <button class="ilw-button ilw-theme-orange-1" disabled="@Employee.IsEntryDisabled" @onclick="Send" @onblur="RemoveMessage">Save Recording</button>
+            <ViewProfile NetId="@Employee.NetId"></ViewProfile>
+        </div>
+    </div>
+    <ToastPopup></ToastPopup>
+}

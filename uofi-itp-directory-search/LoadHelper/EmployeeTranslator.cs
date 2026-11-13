@@ -14,6 +14,7 @@ namespace uofi_itp_directory_search.LoadHelper {
             AlternatePhone = directoryEmployee.AlternateContactPhone,
             AddressLine1 = directoryEmployee.IsAddressHidden ? "" : ChooseFirstNonBlank(directoryEmployee.AddressLine1, dataWarehouseItem.AddressLine1),
             AddressLine2 = directoryEmployee.IsAddressHidden ? "" : ChooseFirstNonBlank(directoryEmployee.AddressLine2, dataWarehouseItem.AddressLine2),
+            AudioUrl = directoryEmployee.AudioUrl,
             Biography = ChooseFirstNonBlank(expertsProfile.Biography, directoryEmployee.Biography),
             Building = ChooseFirstNonBlank(directoryEmployee.Building, dataWarehouseItem.Building),
             City = directoryEmployee.IsAddressHidden ? "" : ChooseFirstNonBlank(directoryEmployee.City, dataWarehouseItem.City),
