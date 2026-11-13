@@ -10,6 +10,7 @@ namespace uofi_itp_directory_data.DataModels {
         public string AlternateContactPhone { get; set; } = "";
         public string AddressLine1 { get; set; } = "";
         public string AddressLine2 { get; set; } = "";
+        public string AudioUrl { get; set; } = "";
         public string Biography { get; set; } = "";
         public string Building { get; set; } = "";
         public string City { get; set; } = "";
