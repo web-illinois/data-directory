@@ -6,11 +6,35 @@
 {
     <div class="iled-section">
         <h1>@Employee.ProfileName Name Pronunciation</h1>
+        <h2>Upload Audio File</h2>
         <p>Add an audio recording of how to pronounce this person's name by uploading a file below. If you have a recording already loaded, delete it before uploading a new one. Make sure you save any changes.</p>
         <AudioUploader IsDisabled=@Employee.IsEntryDisabled @ref="@AudioUploader" FileUrl="@Employee.AudioUrl" ItemId="@Employee.NetIdTruncated" Delete="DeleteAudio" Save="SaveAudio"></AudioUploader>
 
+        <h2>Manual Pronounciation</h2>
+        <div class="iled-section-split">
+            <div class="iled-input-box-parent">
+                <div class="iled-input-box">
+                    <label for="ed-firstname">First Name Pronounciation</label>
+                    <input autocomplete="given-name" id="ed-firstname" type="text" disabled="@Employee.IsEntryDisabled" @bind="Employee.AudioFirstName" @bind:after="SetDirty">
+                </div>
+                <div class="iled-instructions">
+                    Use a phonetic spelling of the first name to help others pronounce it correctly. 
+                </div>
+            </div>
+            <div class="iled-input-box-parent">
+                <div class="iled-input-box">
+                    <label for="ed-lastname">Last Name Pronounciation</label>
+                    <input autocomplete="family-name" id="ed-lastname" type="text" disabled="@Employee.IsEntryDisabled" @bind="Employee.AudioLastName" @bind:after="SetDirty">
+                </div>
+                <div class="iled-instructions">
+                    Use a phonetic spelling of the last name to help others pronounce it correctly. 
+                </div>
+            </div>
+        </div>
+
+
         <div class="iled-buttons-left">
-            <button class="ilw-button ilw-theme-orange-1" disabled="@Employee.IsEntryDisabled" @onclick="Send" @onblur="RemoveMessage">Save Recording</button>
+            <button class="ilw-button ilw-theme-orange-1" disabled="@Employee.IsEntryDisabled" @onclick="Send" @onblur="RemoveMessage">Save</button>
             <ViewProfile NetId="@Employee.NetId"></ViewProfile>
         </div>
     </div>

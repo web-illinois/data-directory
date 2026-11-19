@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>WebTools Integration | WIGG Directory Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="stylesheet" href="https://cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script src="https://cdn.toolkit.illinois.edu/3/toolkit.js"></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'popup', colorTheme: 'illinois' } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Directory Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+	<main>
+		<ilw-content width="page" class="iled-section iled-section-full">
+            <p><a href="index.html">&larr; Back to Documentation Index</a></p>
+<h1 id="webtools-integration">WebTools Integration</h1>
+<p>This page documents the Office WebTools page and the WebTools log (search).</p>
+<h2 id="office-webtools-integration">Office WebTools Integration</h2>
+<p><strong>Route:</strong> <code>/office/webtools</code></p>
+<p>Links an office to WebTools so office information (and optionally employees) can be imported into the directory. If no office is selected, a picker is shown first.</p>
+<blockquote>
+<p><strong>Warning:</strong> Saving overwrites existing information, including job profiles associated with the office.</p>
+</blockquote>
+<h3 id="fields">Fields</h3>
+<div style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Department Code</td>
+<td>Identifies the office within the organization. Not shown to end users.</td>
+</tr>
+<tr>
+<td>Department Code Lookup</td>
+<td>Dropdown of known department codes. Selecting one fills in the Department Code.</td>
+</tr>
+<tr>
+<td>Service ID</td>
+<td>Identifies the office's service. Not shown to end users.</td>
+</tr>
+<tr>
+<td>Service Code Lookup</td>
+<td>Dropdown of known service codes. Selecting one fills in the Service ID.</td>
+</tr>
+<tr>
+<td>WebTools Automatic Import</td>
+<td><code>No automatic import</code>, <code>Import just the office</code>, or <code>Import the office and employees</code>.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="buttons">Buttons</h3>
+<ul>
+<li><strong>Save</strong> – saves the settings. Leaving the page with unsaved changes prompts for confirmation.</li>
+<li><strong>Clear Cache</strong> – clears the cached directory data.</li>
+</ul>
+<h2 id="webtools-log-search">WebTools Log (Search)</h2>
+<p><strong>Route:</strong> <code>/search/webtoolslogs</code></p>
+<p>Shows the history of WebTools imports.</p>
+<ul>
+<li><strong>Search Text</strong> – filters the log entries.</li>
+<li><strong>Refresh Information</strong> – reloads the log.</li>
+<li>Each entry shows the toolkit type, success status, and date/time. Expand an entry to see the full log text.</li>
+</ul>
+
+		</ilw-content>
+	</main>
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Directory Application</a>
+		<div slot="actions"><a href="https://go.illinois.edu/directory-toolkit-help">Report a Problem</a></div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

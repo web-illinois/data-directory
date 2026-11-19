@@ -26,6 +26,7 @@ The WIGG Directory is where faculty and staff enter directory information for **
 - [14 - Add, Edit, and Remove People in Your Office](14-office-people.md)
 - [15 - Batch Load People to Your Office](15-office-batch-load.md)
 - [16 - Manage Office Administrators](16-office-administrators.md)
+- [26 - WebTools Integration and Log](26-webtools.md)
 
 ## Unit Administration
 
@@ -35,6 +36,7 @@ The WIGG Directory is where faculty and staff enter directory information for **
 - [23 - Edit Unit Internal Information](23-unit-internal-information.md)
 - [24 - Manage Unit Administrators](24-unit-administrators.md)
 - [25 - How Do I Create a Directory?](25-create-a-directory.md)
+- [27 - People Management](27-people-management.md)
 
 ## Finding Information and Integrations
 

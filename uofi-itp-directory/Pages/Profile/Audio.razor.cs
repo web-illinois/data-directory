@@ -7,7 +7,6 @@ using uofi_itp_directory.Controls;
 using uofi_itp_directory_data.Cache;
 using uofi_itp_directory_data.DataAccess;
 using uofi_itp_directory_data.DataModels;
-using uofi_itp_directory_data.Helpers;
 
 namespace uofi_itp_directory.Pages.Profile {
 
@@ -53,16 +52,18 @@ namespace uofi_itp_directory.Pages.Profile {
         }
 
         public async Task Send() {
-            if (Employee != null && AudioUploader != null) {
-                if (await AudioUploader.SaveFile()) {
-                    _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "Information starting to update");
+            if (Employee != null) {
+                _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "Information starting to update");
+                if (AudioUploader != null && await AudioUploader.SaveFile()) {
                     Employee.AudioUrl = AudioUploader.FileUrl;
-                    _ = await EmployeeSecurityHelper.SaveEmployee(Employee, await AuthenticationStateProvider.GetUser(), "Audio Updated");
-                    _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "Information updated");
-                    _isDirty = false;
                 }
+                _ = await EmployeeSecurityHelper.SaveEmployee(Employee, await AuthenticationStateProvider.GetUser(), "Audio Updated");
+                _ = await JsRuntime.InvokeAsync<bool>("alertOnScreen", "Information updated");
+                _isDirty = false;
             }
         }
+
+        protected void SetDirty() => _isDirty = true;
 
         protected override async Task OnInitializedAsync() {
             Layout.Rebuild();

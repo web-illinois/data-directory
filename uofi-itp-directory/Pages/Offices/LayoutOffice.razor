@@ -12,6 +12,7 @@
             <a title="Office Administrators" aria-current="@(BaseUrl == "/office/users" ? "page" : null)" href="/office/users">Office Administrators</a>
             @if (FullSecurityItem?.IsUnitAdmin ?? false)
             {
+                <a title="Webtools Integration" aria-current="@(BaseUrl == "/office/webtools" ? "page" : null)" href="/office/webtools">Webtools Integration</a>
                 <a title="Internal Information" aria-current="@(BaseUrl == "/office/internal" ? "page" : null)" href="/office/internal">Internal Information</a>
                 <a title="Links to Pull Information" aria-current="@(BaseUrl == "/office/directory" ? "page" : null)" href="/office/directory">Links to Pull Information</a>
             }
