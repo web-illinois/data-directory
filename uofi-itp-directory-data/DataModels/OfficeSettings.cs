@@ -11,6 +11,8 @@ namespace uofi_itp_directory_data.DataModels {
 
         public string InternalCode { get; set; } = "";
         public string InternalNotes { get; set; } = "";
+        public bool WebToolsAutomaticImport { get; set; } = false;
+        public bool WebToolsAutomaticEmployeeImport { get; set; } = false;
 
         public virtual Office Office { get; set; } = default!;
 

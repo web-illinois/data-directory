@@ -27,6 +27,12 @@ namespace uofi_itp_directory_search.ViewModel {
         [JsonProperty("awards")]
         public List<DatedItem> Awards { get; set; } = default!;
 
+        [JsonProperty("audiofirstname")]
+        public string AudioFirstName { get; set; } = "";
+
+        [JsonProperty("audiolastname")]
+        public string AudioLastName { get; set; } = "";
+
         [JsonProperty("audiourl")]
         public string AudioUrl { get; set; } = "";
 

@@ -84,15 +84,19 @@ namespace uofi_itp_directory_data.DirectoryHook {
                 var areaSettings = await _directoryRepository.ReadAsync(d => d.AreaSettings.SingleOrDefault(a => a.AreaId == profile.Office.AreaId));
                 if (areaSettings?.UrlPeopleRefreshType == PeopleRefreshTypeEnum.Custom) {
                     var url = areaSettings?.UrlPeopleRefreshFullUrl.Replace(_netIdPlaceholder, netId).Replace(_sourcePlaceholder, areaSettings?.InternalCode) ?? "";
-                    using var client = new HttpClient();
-                    using var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
-                    if (ignoreResults) {
-                        _ = await client.SendAsync(requestMessage);
-                        results += $"{profile.Office.Title}: sent. ";
+                    if (!string.IsNullOrWhiteSpace(url)) {
+                        using var client = new HttpClient();
+                        using var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
+                        if (ignoreResults) {
+                            _ = await client.SendAsync(requestMessage);
+                            results += $"{profile.Office.Title}: sent. ";
+                        } else {
+                            using var res = await client.SendAsync(requestMessage);
+                            areAllSuccessful = areAllSuccessful || res.IsSuccessStatusCode;
+                            results += $"{profile.Office.Title}: {await res.Content.ReadAsStringAsync().ConfigureAwait(false) ?? ""}. ";
+                        }
                     } else {
-                        using var res = await client.SendAsync(requestMessage);
-                        areAllSuccessful = areAllSuccessful || res.IsSuccessStatusCode;
-                        results += $"{profile.Office.Title}: {await res.Content.ReadAsStringAsync().ConfigureAwait(false) ?? ""}. ";
+                        results += $"{profile.Office.Title}: URL is empty. ";
                     }
                 } else if (areaSettings?.UrlPeopleRefreshType == PeopleRefreshTypeEnum.Default && codesUsed.Contains(areaSettings?.InternalCode ?? "")) {
                     results += $"{profile.Office.Title}: {areaSettings?.InternalCode} already sent. ";

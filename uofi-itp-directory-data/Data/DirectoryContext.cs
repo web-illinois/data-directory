@@ -8,35 +8,29 @@ namespace uofi_itp_directory_data.Data {
         public DirectoryContext() : base() {
             Debug.WriteLine($"Context created.");
         }
-
         public DirectoryContext(DbContextOptions<DirectoryContext> options) : base(options) {
             Debug.WriteLine($"Context created.");
         }
-
         public DbSet<AreaJobType> AreaJobTypes { get; set; }
         public DbSet<Area> Areas { get; set; }
         public DbSet<AreaSettings> AreaSettings { get; set; }
-
         public DbSet<AreaTag> AreaTags { get; set; }
-
         public DbSet<DirectoryEntry> DirectoryEntries { get; set; }
-
         public DbSet<EmployeeActivity> EmployeeActivities { get; set; }
         public DbSet<EmployeeCourse> EmployeeCourses { get; set; }
         public DbSet<EmployeeHour> EmployeeHours { get; set; }
         public DbSet<Employee> Employees { get; set; }
-
         public DbSet<JobProfile> JobProfiles { get; set; }
-
         public DbSet<JobProfileTag> JobProfileTags { get; set; }
-
         public DbSet<Log> Logs { get; set; }
-
         public DbSet<OfficeHour> OfficeHours { get; set; }
         public DbSet<Office> Offices { get; set; }
         public DbSet<OfficeSettings> OfficeSettings { get; set; }
-
         public DbSet<SecurityEntry> SecurityEntries { get; set; }
+        public DbSet<ToolkitPerson> ToolkitPeople { get; set; }
+        public DbSet<ToolkitDepartment> ToolkitDepartments { get; set; }
+        public DbSet<ToolkitService> ToolkitServices { get; set; }
+        public DbSet<ToolkitLog> ToolkitLogs { get; set; }
 
         public override void Dispose() {
             Debug.WriteLine($"Context disposed.");

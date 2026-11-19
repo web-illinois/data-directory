@@ -1,0 +1,31 @@
+@page "/unit/peoplemanagement"
+
+<PageTitle>People Management | Illinois</PageTitle>
+<div class="iled-section">
+    <h1>@UnitTitle</h1>
+    <p>Enter the NetID of a unit administrator below. It will be sent to the directory along with your unit name. Use this if you see your directory not syncing with the information you provided here.</p>
+</div>
+@if (!UnitId.HasValue)
+{
+    <MultiChoice @ref="_multiChoice" Type="MultiChoiceTypeEnum.Area" AreaOfficeThinObjects="_areaThinObjects" OnClickCallback="AssignId"></MultiChoice>
+}
+else
+{
+    <div class="iled-input-box-parent">
+        <div class="iled-input-box">
+            <label for="ed-netid" class="iled-label-required">NetID</label>
+            <input id="ed-netid" type="text" required @bind="NetId">
+        </div>
+        <div class="iled-instructions">
+            Enter the NetID only, without @@illinois.edu.
+        </div>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Message))
+    {
+        <p>@Message</p>
+    }
+    <div class="iled-buttons-left">
+        <button class="ilw-button ilw-theme-orange-1" @onclick="Send" disabled="@string.IsNullOrWhiteSpace(NetId)">Send</button>
+    </div>
+    <ToastPopup></ToastPopup>
+}
