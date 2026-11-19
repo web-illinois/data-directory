@@ -23,7 +23,7 @@ namespace uofi_itp_directory_data.DataModels {
 
         public bool CanAddPeople { get; set; }
         public string City { get; set; } = "";
-
+        public string DepartmentId { get; set; } = "";
         public string Description { get; set; } = "";
         public string Email { get; set; } = "";
 
@@ -52,10 +52,13 @@ namespace uofi_itp_directory_data.DataModels {
         public OfficeTypeEnum OfficeType { get; set; }
         public string Phone { get; set; } = "";
         public string Room { get; set; } = "";
+        public string ServiceId { get; set; } = "";
         public string State { get; set; } = "";
         public IEnumerable<AreaTag> Tags { get; set; } = default!;
         public string TicketUrl { get; set; } = "";
         public string Title { get; set; } = "";
+        public string WebToolsListing { get; set; } = "";
+        public string WebToolsLinks { get; set; } = "";
         public string ZipCode { get; set; } = "";
     }
 }
