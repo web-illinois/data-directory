@@ -52,7 +52,7 @@ var host = new HostBuilder()
         _ = services.AddScoped(c => new LoadManager(c.GetService<DataWarehouseManager>(), c.GetService<EmployeeHelper>(), c.GetService<ProgramCourseInformation>(), c.GetService<IllinoisExpertsManager>(), c.GetService<AreaHelper>(), hostContext.Configuration["Values:SearchUrl"], c.GetService<OpenSearchLowLevelClient>(), c.GetService<SearchStaxLoader>()));
         _ = services.AddScoped<DirectoryManager>();
         _ = services.AddScoped(c => new EmailHandler(hostContext.Configuration["Values:SocketApiKey"]));
-        _ = services.AddScoped(c => new JsonReader(hostContext.Configuration["Values:WebtoolsKey"] ?? ""));
+        _ = services.AddScoped(c => new JsonReader(hostContext.Configuration["Values:WebtoolsDirectoryKey"] ?? ""));
         _ = services.AddScoped<WebtoolsManager>();
         _ = services.AddScoped<WebtoolsImporter>();
         _ = services.AddScoped<JobProfileHelper>();
