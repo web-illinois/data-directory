@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Nodes;
 using uofi_itp_directory_data.Data;
+using uofi_itp_directory_data.DataModels;
 
 namespace uofi_itp_directory_data.WebTools {
     public class WebtoolsLookup(DirectoryRepository? directoryRepository) {
@@ -25,5 +26,8 @@ namespace uofi_itp_directory_data.WebTools {
             }
             return [.. returnValue.OrderBy(pair => pair.Value)];
         }
+
+        public async Task<List<ToolkitLog>> GetLogs(string searchText) =>
+            [.. await _directoryRepository.ReadAsync(d => d.ToolkitLogs.Where(l => l.Log.Contains(searchText)).OrderByDescending(l => l.LastUpdated).Take(100))];
     }
 }

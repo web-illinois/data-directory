@@ -15,7 +15,6 @@ namespace uofi_itp_directory_data.WebTools {
 
         public async Task<string> UpdateToolkitData(ToolkitTypeEnum toolkitTypeEnum) {
             var toolkitLog = await _directoryRepository.ReadAsync(x => x.ToolkitLogs.OrderByDescending(x => x.LastUpdated).FirstOrDefault(t => t.ToolkitType == toolkitTypeEnum && t.IsActive));
-
             var toolkitLogNew = toolkitLog != null ? toolkitLog.Advance() : ToolkitLog.Start(toolkitTypeEnum);
             if (toolkitLogNew.Page == 0) {
                 var schema = await jsonReader.GetSchema(toolkitTypeEnum);
@@ -49,7 +48,7 @@ namespace uofi_itp_directory_data.WebTools {
                             };
                             _ = await _directoryRepository.CreateAsync(toolkitPerson);
                         }
-                        toolkitLogNew.Log += $";{key}";
+                        toolkitLogNew.Log += $"{key}; ";
                         break;
                     case ToolkitTypeEnum.Department:
                         var existingToolkitDepartment = await _directoryRepository.ReadAsync<ToolkitDepartment>(x => x.ToolkitDepartments.FirstOrDefault(t => t.Key == key));
@@ -66,7 +65,7 @@ namespace uofi_itp_directory_data.WebTools {
                             };
                             _ = await _directoryRepository.CreateAsync(toolkitDepartment);
                         }
-                        toolkitLogNew.Log += $";{key}";
+                        toolkitLogNew.Log += $"{key}; ";
                         break;
                     case ToolkitTypeEnum.Service:
                         var existingToolkitService = await _directoryRepository.ReadAsync<ToolkitService>(x => x.ToolkitServices.FirstOrDefault(t => t.Key == key));
@@ -83,10 +82,11 @@ namespace uofi_itp_directory_data.WebTools {
                             };
                             _ = await _directoryRepository.CreateAsync(toolkitService);
                         }
+                        toolkitLogNew.Log += $"{key}; ";
                         break;
                 }
             }
-            toolkitLogNew.Log = $"{keys.Count} items: {toolkitLogNew.Log.TrimStart(';')}";
+            toolkitLogNew.Log = $"{keys.Count} items: {toolkitLogNew.Log.Trim([';', ' '])}";
             toolkitLogNew.Success = true;
             toolkitLogNew.IsLast = !toolkitData.Item1;
             var result = await _directoryRepository.CreateAsync(toolkitLogNew);
