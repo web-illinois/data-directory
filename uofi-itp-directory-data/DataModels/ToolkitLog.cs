@@ -9,6 +9,8 @@ namespace uofi_itp_directory_data.DataModels {
 
         public bool Success { get; set; }
 
+        public string SuccessMessage => Success ? "Success" : "Failure";
+
         public bool IsLast { get; set; }
 
         public ToolkitTypeEnum ToolkitType { get; set; }
