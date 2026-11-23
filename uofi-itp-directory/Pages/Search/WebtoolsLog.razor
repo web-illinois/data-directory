@@ -15,15 +15,18 @@
     </div>
     <div class="iled-buttons-left">
         <button class="ilw-button" @onclick="RefreshInformation">Refresh Information</button>
+        @if (this.IsFullAdmin) {
+            <button class="ilw-button ilw-theme-orange" @onclick="DeleteLogs">Delete Logs</button>
+        }
     </div>
 
 
     @if (this.LogItems != null) {
-        <h2>Changes</h2>
+        <h2>Log Results</h2>
         @if (this.LogItems.Count > 0) {
             <ul>
                 @foreach (var log in this.LogItems) {
-                    <li style="list-style: none; margin: 0;"><details><summary style="padding: 5px;">@log.ToolkitType: @log.Success - @log.LastUpdated.ToShortDateString() @log.LastUpdated.ToShortTimeString() </summary>@log.Log</details></li>
+                    <li style="list-style: none; margin: 0;"><details><summary style="padding: 5px;">@log.ToolkitType Import: @log.SuccessMessage - @log.LastUpdated.ToString("f")</summary>@log.Log</details></li>
                 }
             </ul>
         } else {

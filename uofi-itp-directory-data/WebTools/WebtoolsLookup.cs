@@ -29,5 +29,12 @@ namespace uofi_itp_directory_data.WebTools {
 
         public async Task<List<ToolkitLog>> GetLogs(string searchText) =>
             [.. await _directoryRepository.ReadAsync(d => d.ToolkitLogs.Where(l => l.Log.Contains(searchText)).OrderByDescending(l => l.LastUpdated).Take(100))];
+
+        public async Task<bool> DeleteLogs() {
+            _ = await _directoryRepository.DeleteAllToolkitLogEntries();
+            return true;
+        }
+
+
     }
 }
