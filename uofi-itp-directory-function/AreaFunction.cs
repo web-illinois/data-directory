@@ -9,6 +9,7 @@ using System.Net;
 using uofi_itp_directory_data.Data;
 using uofi_itp_directory_data.DataModels;
 using uofi_itp_directory_data.Helpers;
+using uofi_itp_directory_data.Orgchart;
 using uofi_itp_directory_function.Helpers;
 using uofi_itp_directory_function.ViewModels;
 using uofi_itp_directory_search.ViewModel;
@@ -86,6 +87,15 @@ namespace uofi_itp_directory_function {
                 .Include(a => a.Offices).ThenInclude(o => o.OfficeSettings)
                 .Where(a => a.IsActive && a.AreaSettings.InternalCode == code)
                 .Select(a => new AreaInformation(a, false, officeTypes)).ToList().FirstOrDefault(a => a.Offices.Any())));
+        }
+
+        [Function("AreaOrgChart")]
+        [OpenApiOperation(operationId: "AreaOrgChart", tags: "Areas", Description = "Get a JSON version of the organization chart used for the ilw-org-chart web component. Note that all items in the office org chart need to be filled out for this to work properly.")]
+        [OpenApiParameter(name: "id", In = ParameterLocation.Path, Required = false, Type = typeof(string), Description = "The area ID")]
+        [OpenApiParameter(name: "includeAllEmployees", In = ParameterLocation.Query, Required = false, Type = typeof(bool), Description = "Whether to include all employees in the org chart")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(OrgchartItem), Description = "JSON of the org chart used for the ilw-org-chart web component.")]
+        public async Task<IActionResult> GetAreaOrgChart([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Area/OrgChart/{id}")] HttpRequest req, int id) {
+            return new OkObjectResult(new OrgchartItem());
         }
 
         [Function("JobTypes")]
