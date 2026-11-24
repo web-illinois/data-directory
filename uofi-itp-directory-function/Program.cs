@@ -8,6 +8,7 @@ using uofi_itp_directory_data.Data;
 using uofi_itp_directory_data.DataAccess;
 using uofi_itp_directory_data.DirectoryHook;
 using uofi_itp_directory_data.Helpers;
+using uofi_itp_directory_data.Orgchart;
 using uofi_itp_directory_data.Security;
 using uofi_itp_directory_data.WebTools;
 using uofi_itp_directory_external.DataWarehouse;
@@ -58,6 +59,7 @@ var host = new HostBuilder()
         _ = services.AddScoped<JobProfileHelper>();
         _ = services.AddScoped<OfficeHelper>();
         _ = services.AddScoped<OfficeWebtoolHelper>();
+        _ = services.AddScoped<OrgchartHelper>();
     })
     .Build();
 

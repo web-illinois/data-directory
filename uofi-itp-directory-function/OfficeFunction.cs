@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using System.Net;
 using uofi_itp_directory_data.Data;
 using uofi_itp_directory_data.Orgchart;
+using uofi_itp_directory_function.Helpers;
 using uofi_itp_directory_function.ViewModels;
 
 namespace uofi_itp_directory_function {
@@ -15,10 +16,11 @@ namespace uofi_itp_directory_function {
     public class OfficeFunction {
         private readonly DirectoryRepository _directoryRepository;
         private readonly ILogger<OfficeFunction> _logger;
-
-        public OfficeFunction(ILogger<OfficeFunction> logger, DirectoryRepository directoryRepository) {
+        private readonly OrgchartHelper _orgchartHelper;
+        public OfficeFunction(ILogger<OfficeFunction> logger, DirectoryRepository directoryRepository, OrgchartHelper orgchartHelper) {
             _logger = logger;
             _directoryRepository = directoryRepository;
+            _orgchartHelper = orgchartHelper;
         }
 
         [Function("Office")]
@@ -47,6 +49,6 @@ namespace uofi_itp_directory_function {
         [OpenApiParameter(name: "includeAllEmployees", In = ParameterLocation.Query, Required = false, Type = typeof(bool), Description = "Whether to include all employees in the org chart")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(OrgchartItem), Description = "JSON of the org chart used for the ilw-org-chart web component.")]
         public async Task<IActionResult> GetOfficeOrgChart([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Office/OrgChart/{id}")] HttpRequest req, int id)
-    => new OkObjectResult(new OrgchartItem());
+            => new OkObjectResult(await _orgchartHelper.GetOrgchartForOffice(id, req.GetIncludeAllEmployees()));
     }
 }
