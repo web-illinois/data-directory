@@ -26,7 +26,9 @@ namespace uofi_itp_directory.Pages.Offices {
 
         public string OfficeTitle { get; set; } = "Office";
 
-        public List<JobProfileThinObject> JobProfileThinObjects { get; set; } = new();
+        public List<JobProfileThinObject> JobProfileThinObjects { get; set; } = default!;
+
+        public List<Office> OfficeThinObjects { get; set; } = default!;
 
         [SupplyParameterFromQuery(Name = "back")]
         public string? ShowBackButton { get; set; }
@@ -98,6 +100,7 @@ namespace uofi_itp_directory.Pages.Offices {
             if (OfficeId.HasValue) {
                 Office = await OfficeHelper.GetOfficeById(OfficeId.Value, await AuthenticationStateProvider.GetUser());
                 JobProfileThinObjects = await JobProfileHelper.GetJobProfileThinObjects(OfficeId.Value);
+                OfficeThinObjects = await OfficeHelper.GetOffices(Office.AreaId);
             }
         }
 

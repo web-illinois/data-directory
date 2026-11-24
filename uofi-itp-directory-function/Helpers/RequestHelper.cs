@@ -4,6 +4,7 @@ using uofi_itp_directory_data.DataModels;
 namespace uofi_itp_directory_function.Helpers {
 
     public static class RequestHelper {
+        private const string _includeAllEmployees = "includeAllEmployees";
         private const string _jobTypes = "jobTypes";
         private const string _offices = "offices";
         private const string _officeTypes = "officeTypes";
@@ -17,6 +18,8 @@ namespace uofi_itp_directory_function.Helpers {
         public static IEnumerable<string> GetJobTypes(this HttpRequest req) => req.GetArray(_jobTypes);
 
         public static string GetCodeFromHeader(this HttpRequest req) => req.Headers.FirstOrDefault(h => h.Key == "ilw-key").Value.FirstOrDefault() ?? string.Empty;
+
+        public static bool GetIncludeAllEmployees(this HttpRequest req) => bool.Parse(req.Query[_includeAllEmployees].FirstOrDefault() ?? "false");
 
         public static IEnumerable<string> GetOffices(this HttpRequest req) => req.GetArray(_offices);
 
