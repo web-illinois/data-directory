@@ -1,0 +1,34 @@
+﻿@page "/unit/orgchart"
+
+<PageTitle>Unit Organization Chart | Illinois</PageTitle>
+
+<div class="iled-section">
+    <h1>@UnitTitle Organization Chart</h1>
+    <p>Manage the organization chart for this unit. Note that if this is not filled out, you will not be able to see the organizational structure.</p>
+</div>
+@if (!UnitId.HasValue)
+{
+    <MultiChoice @ref="_multiChoice" Type="MultiChoiceTypeEnum.Area" AreaOfficeThinObjects="_areaThinObjects" OnClickCallback="AssignId"></MultiChoice>
+}
+else if (Area != null && OfficeThinObjects != null)
+{
+    <div class="iled-input-box-parent">
+        <div class="iled-input-box">
+            <label for="ed-root">Manager</label>
+            <select id="ed-root" @bind="Area.ManagerRootOfficeId">
+                <option value="">None</option>
+                @foreach (var office in OfficeThinObjects) {
+                    <option value="@office.Id">@office.Title</option>
+                }
+            </select>
+        </div>
+        <div class="iled-instructions">
+            If you want to set up an organization chart, set one of your offices as the root office. This will be the top of the chart.
+        </div>
+    </div>
+    <div class="iled-buttons-left">
+        <button class="ilw-button ilw-theme-orange-1" @onclick="Send" @onblur="RemoveMessage">Save</button>
+    <ClearCacheButton></ClearCacheButton>
+    </div>
+    <ToastPopup></ToastPopup>
+}

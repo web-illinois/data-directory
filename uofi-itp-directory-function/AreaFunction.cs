@@ -20,9 +20,12 @@ namespace uofi_itp_directory_function {
         private readonly DirectoryRepository _directoryRepository;
         private readonly ILogger<AreaFunction> _logger;
 
-        public AreaFunction(ILogger<AreaFunction> logger, DirectoryRepository directoryRepository) {
+        private readonly OrgchartHelper _orgchartHelper;
+
+        public AreaFunction(ILogger<AreaFunction> logger, DirectoryRepository directoryRepository, OrgchartHelper orgchartHelper) {
             _logger = logger;
             _directoryRepository = directoryRepository;
+            _orgchartHelper = orgchartHelper;
         }
 
         [Function("AllAreas")]
@@ -95,7 +98,7 @@ namespace uofi_itp_directory_function {
         [OpenApiParameter(name: "includeAllEmployees", In = ParameterLocation.Query, Required = false, Type = typeof(bool), Description = "Whether to include all employees in the org chart")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(OrgchartItem), Description = "JSON of the org chart used for the ilw-org-chart web component.")]
         public async Task<IActionResult> GetAreaOrgChart([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Area/OrgChart/{id}")] HttpRequest req, int id) {
-            return new OkObjectResult(new OrgchartItem());
+            return new OkObjectResult(await _orgchartHelper.GetOrgchartForArea(id, req.GetIncludeAllEmployees()));
         }
 
         [Function("JobTypes")]

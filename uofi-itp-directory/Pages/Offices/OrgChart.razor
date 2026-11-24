@@ -11,11 +11,36 @@
 </div>
 @if (!OfficeId.HasValue) {
     <MultiChoice @ref="_multiChoice" Type="MultiChoiceTypeEnum.Office" AreaOfficeThinObjects="_officeThinObjects" AreaOfficeParentThinObjects="_areaThinObjects" OnClickCallback="AssignId"></MultiChoice>
-} else if (Office != null && JobProfileThinObjects != null) {
+} else if (Office != null && JobProfileThinObjects != null && OfficeThinObjects != null) {
     <div class="iled-section-split">
         <div class="iled-input-box-parent">
             <div class="iled-input-box">
-                <label for="ed-jobprofile1">Secondary Job Profile</label>
+                <label for="ed-parentoffice">Parent Office</label>
+                <select id="ed-parentoffice" @bind="Office.ManagerOfficeId" @bind:after="SetDirty">
+                    <option value="">None</option>
+                    @foreach (var office in OfficeThinObjects) {
+                        <option value="@office.Id">@office.Title</option>
+                    }
+                </select>
+            </div>
+            <div class="iled-instructions">
+                The title of the parent office.
+            </div>
+        </div>
+        <div class="iled-input-box-parent">
+            <div class="iled-input-box">
+                <label for="ed-includeoffice">Include Office Name in Organization Chart?</label>
+                <input id="ed-includeoffice" type="checkbox" @bind="Office.ManagerIncludeOffice" @bind:after="SetDirty">
+            </div>
+            <div class="iled-instructions">
+                Choose this if you want to include the office name in the organization chart. If you do not choose this, only the manager's name and title will be displayed.
+            </div>
+        </div>
+    </div>
+    <div class="iled-section-split">
+        <div class="iled-input-box-parent">
+            <div class="iled-input-box">
+                <label for="ed-jobprofile1">Manager</label>
                 <select id="ed-jobprofile1" @bind="Office.ManagerJobProfileId1" @bind:after="SetDirty">
                     <option value="">None</option>
                     @foreach (var job in JobProfileThinObjects) {
@@ -42,6 +67,7 @@
             </div>
         </div>
     </div>
+    <h2>Overrides</h2>
     <div class="iled-input-box-parent">
         <div class="iled-input-box">
             <label for="ed-line1">Override for Line 1:</label>
@@ -58,15 +84,6 @@
         </div>
         <div class="iled-instructions">
             If you would like to override the name and title of the manager for this office, please use this field. Otherwise, the name and title will be pulled from the Job Profile selected above.
-        </div>
-    </div>
-    <div class="iled-input-box-parent">
-        <div class="iled-input-box">
-            <label for="ed-includeoffice">Include Office Name in Organization Chart?</label>
-            <input id="ed-includeoffice" type="checkbox" @bind="Office.ManagerIncludeOffice" @bind:after="SetDirty">
-        </div>
-        <div class="iled-instructions">
-            Choose this if you want to include the office name in the organization chart. If you do not choose this, only the manager's name and title will be displayed.
         </div>
     </div>
     <div class="iled-buttons-left">

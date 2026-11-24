@@ -27,6 +27,7 @@ namespace uofi_itp_directory_data.DataModels {
         public bool IsFullAdmin { get; set; } // used by the code to determine if the user can edit order information
 
         public bool IsInternalOnly { get; set; }
+        public int? ManagerRootOfficeId { get; set; } = null;
         public string Notes { get; set; } = "";
         public virtual ICollection<Office> Offices { get; set; } = default!;
         public string Title { get; set; } = "";
