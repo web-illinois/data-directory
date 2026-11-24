@@ -754,6 +754,26 @@ namespace uofi_itp_directory_data.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("ManagerIncludeOffice")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("ManagerJobProfileId1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ManagerJobProfileId2")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ManagerOfficeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ManagerOverride1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ManagerOverride2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Notes")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
