@@ -44,7 +44,9 @@ namespace uofi_itp_directory_data.DataModels {
 
         public bool IsInternalOnly { get; set; }
         public virtual IEnumerable<JobProfile> JobProfiles { get; set; } = default!;
-
+        public int? ManagerOfficeId { get; set; } = null;
+        public int? ManagerJobProfileId1 { get; set; } = null;
+        public int? ManagerJobProfileId2 { get; set; } = null;
         public string Notes { get; set; } = "";
         public virtual IEnumerable<OfficeHour> OfficeHours { get; set; } = default!;
         public string OfficeHourText { get; set; } = "";
